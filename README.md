@@ -4,18 +4,14 @@
 
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.
 
-## How to Build
+## Getting Started
 - Install
 ```
-wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
-unzip libtorch-shared-with-deps-latest.zip
+./scripts.sh install
 ```
 - Build
 ```
-mkdir build
-cd build
-cmake -DCMAKE_PREFIX_PATH=/absolute/path/to/libtorch ..
-make
+./scripts.sh build
 ```
 
 ## Table of Contents
