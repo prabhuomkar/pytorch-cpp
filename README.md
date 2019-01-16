@@ -21,7 +21,7 @@ make
 ## Table of Contents
 
 #### 1. Basics
-* [PyTorch Basics](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/pytorch_basics.cpp)
-* [Linear Regression](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/linear_regression.cpp)
-* [Logistic Regression](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/logistic_regression.cpp)
-* [Feedforward Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/feedforward_neural_network.cpp)
+* [PyTorch Basics](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/pytorch_basics/main.cpp)
+* [Linear Regression](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/linear_regression/main.cpp)
+* [Logistic Regression](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/logistic_regression/main.cpp)
+* [Feedforward Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/feedforward_neural_network/main.cpp)
