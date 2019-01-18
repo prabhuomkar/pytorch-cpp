@@ -7,9 +7,11 @@
 int main() {
   std::cout << "PyTorch Basics" << std::endl;
 
-  ///////////////////////////////////////////////////////////
-  //                BASIC AUTOGRAD EXAMPLE 1               //
-  ///////////////////////////////////////////////////////////
+  // ================================================================ //
+  //                     BASIC AUTOGRAD EXAMPLE 1                     //
+  // ================================================================ //
+
+  std::cout << std::endl << "BASIC AUTOGRAD EXAMPLE 1: " << std::endl;
 
   // Create Tensors
   torch::Tensor x = torch::tensor(1.0, torch::requires_grad());
@@ -27,9 +29,11 @@ int main() {
   std::cout << w.grad() << std::endl;  // w.grad() = 1
   std::cout << b.grad() << std::endl;  // b.grad() = 1
 
-  ///////////////////////////////////////////////////////////
-  //                BASIC AUTOGRAD EXAMPLE 2               //
-  ///////////////////////////////////////////////////////////
+  // ================================================================ //
+  //                     BASIC AUTOGRAD EXAMPLE 2                     //
+  // ================================================================ //
+
+  std::cout << std::endl << "BASIC AUTOGRAD EXAMPLE 2: " << std::endl;
 
   // Create Tensors of shapes
   x = torch::randn({10, 3});
@@ -37,13 +41,13 @@ int main() {
 
 
   // Build a fully connected layer
-  auto linear = torch::nn::Linear(3,2);
+  auto linear = torch::nn::Linear(3, 2);
   std::cout << "w: " << linear->weight << std::endl;
   std::cout << "b: " << linear->bias << std::endl;
 
   // Build loss function and optimizer
   auto criterion = torch::nn::MSELoss();
-  auto optimizer = torch::optim::SGD(linear->parameters, torch::optim::SGDOptions(0.01));
+  auto optimizer = torch::optim::SGD(linear->parameters(), torch::optim::SGDOptions(0.01));
 
   // Forward pass
   auto pred = linear(x);
@@ -66,4 +70,20 @@ int main() {
   pred = linear(x);
   loss = criterion(pred, y);
   std::cout << "loss after 1 step optimization: " << loss.item().toFloat() << std::endl;
+
+  // =============================================================== //
+  //                          INPUT PIPELINE                         //
+  // =============================================================== //
+
+  // =============================================================== //
+  //                 INPUT PIPELINE FOR CUSTOM DATASET               //
+  // =============================================================== //
+
+  // =============================================================== //
+  //                        PRETRAINED MODEL                         //
+  // =============================================================== //
+
+  // =============================================================== //
+  //                      SAVE AND LOAD THE MODEL                    //
+  // =============================================================== //
 }
