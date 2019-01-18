@@ -14,9 +14,17 @@ function build() {
 	make
 }
 
+function lint() {
+	cpplint --linelength=120 main.cpp tutorials/*/*/**
+}
+
 if [ $1 = "install" ]
 then
 	install
-else
+elif [ $1 = "build" ]
+then
 	build
+elif [ $1 = "lint" ]
+then
+	lint
 fi
