@@ -41,6 +41,5 @@ int main() {
     if ((epoch+1) % 5 == 0) {
       std::cout << "Epoch [" << (epoch+1) << "/" << num_epochs << "], Loss: " << loss.item().toFloat() << std::endl;
     }
-  } 
-
+  }
 }
