@@ -46,7 +46,7 @@ int main() {
   std::cout << "b: " << linear->bias << std::endl;
 
   // Build loss function and optimizer
-  auto criterion = torch::nn::MSELoss();
+  auto criterion = torch::nn::L1Loss();
   auto optimizer = torch::optim::SGD(linear->parameters(), torch::optim::SGDOptions(0.01));
 
   // Forward pass
@@ -72,18 +72,20 @@ int main() {
   std::cout << "loss after 1 step optimization: " << loss.item().toFloat() << std::endl;
 
   // =============================================================== //
-  //                          INPUT PIPELINE                         //
-  // =============================================================== //
-
-  // =============================================================== //
-  //                 INPUT PIPELINE FOR CUSTOM DATASET               //
-  // =============================================================== //
-
-  // =============================================================== //
   //                        PRETRAINED MODEL                         //
   // =============================================================== //
+
+  std::cout << std::endl << "PRETRAINED MODEL: " << std::endl;
+
+  std::cout << "Waiting for torchvision to provide support for c++ and skip JIT" << std::endl;
+
 
   // =============================================================== //
   //                      SAVE AND LOAD THE MODEL                    //
   // =============================================================== //
+
+
+  std::cout << std::endl << "SAVE AND LOAD THE MODEL: " << std::endl;
+
+  std::cout << "Will be done after above process finishes" << std::endl;
 }
