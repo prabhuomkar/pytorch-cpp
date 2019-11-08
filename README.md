@@ -2,7 +2,7 @@
 
 --------------------------------------------------------------------------------
 
-This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.
+This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
 
 ## Getting Started
@@ -44,3 +44,4 @@ $ ./scripts.sh build
 
 ## Authors
 - Omkar Prabhu - [prabhuomkar](https://github.com/prabhuomkar)
+ 
