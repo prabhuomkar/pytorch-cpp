@@ -24,6 +24,7 @@ int main() {
   auto criterion = torch::nn::L1Loss();
   auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
 
+  // Train the model
   for (int epoch = 0; epoch < num_epochs; epoch++) {
     // Array to tensors
     auto inputs = x_train;
