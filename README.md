@@ -3,6 +3,7 @@
 --------------------------------------------------------------------------------
 
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.
+**Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
 
 ## Getting Started
 - Fork/Clone and Install
