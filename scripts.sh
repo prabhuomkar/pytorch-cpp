@@ -18,6 +18,10 @@ function lint() {
 	cpplint --linelength=120 main.cpp tutorials/*/*/**
 }
 
+function lintci() {
+	python cpplint.py --linelength=120 main.cpp tutorials/*/*/**
+}
+
 if [ $1 = "install" ]
 then
 	install
@@ -27,4 +31,7 @@ then
 elif [ $1 = "lint" ]
 then
 	lint
+elif [ $1 = "lintci" ]
+then
+	lintci
 fi
