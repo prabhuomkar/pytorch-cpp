@@ -1,6 +1,9 @@
 <p align="center"><img width="50%" src="images/pytorch_logo.svg" /></p>
 
 --------------------------------------------------------------------------------
+[![Build Status](https://travis-ci.org/prabhuomkar/pytorch-cpp.svg?branch=master)](https://travis-ci.org/prabhuomkar/pytorch-cpp)
+![MIT License](https://img.shields.io/github/license/prabhuomkar/pytorch-cpp)
+![C++ PyTorch](https://img.shields.io/badge/c%2B%2B-pytorch-orange) 
 
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
