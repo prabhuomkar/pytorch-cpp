@@ -13,7 +13,9 @@ addons:
     - clang-3.8
     - cmake-data
     - cmake
+before_install:
+  - wget https://raw.githubusercontent.com/cpplint/cpplint/master/cpplint.py
 script:
-  - ./scripts.sh lint
+  - ./scripts.sh lintci
   - ./scripts.sh install
   - ./scripts.sh build
