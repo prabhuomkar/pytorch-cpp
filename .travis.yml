@@ -2,7 +2,6 @@ sudo: false
 language: cpp
 compiler:
   - gcc
-  - clang
 addons:
   apt:
     sources:
@@ -15,5 +14,6 @@ addons:
     - cmake-data
     - cmake
 script:
+  - ./scripts.sh lint
   - ./scripts.sh install
   - ./scripts.sh build
