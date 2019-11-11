@@ -1,0 +1,19 @@
+sudo: false
+language: cpp
+compiler:
+  - gcc
+  - clang
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.8
+    - george-edison55-precise-backports
+    packages:
+    - g++-6
+    - clang-3.8
+    - cmake-data
+    - cmake
+script:
+  - ./scripts.sh install
+  - ./scripts.sh build
