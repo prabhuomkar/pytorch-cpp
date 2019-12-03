@@ -47,4 +47,5 @@ $ ./scripts.sh build
 
 ## Authors
 - Omkar Prabhu - [prabhuomkar](https://github.com/prabhuomkar)
+- Markus Fleischhacker - [mfl28](https://github.com/mfl28)
  
