@@ -1,24 +1,27 @@
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
-project(pytorch-cpp VERSION 1.0.0 LANGUAGES CXX)
+project(convolutional-neural-network VERSION 1.0.0 LANGUAGES CXX)
 
-find_package(Torch REQUIRED)
+# Files
+set(SOURCES src/main.cpp
+            src/convnet.cpp
+)
 
-set(EXECUTABLE_NAME pytorch-cpp)
-add_executable(${EXECUTABLE_NAME} main.cpp)
+set(HEADERS include/convnet.h
+)
+
+set(EXECUTABLE_NAME convolutional-neural-network)
+
+
+add_executable(${EXECUTABLE_NAME} ${SOURCES} ${HEADERS})
+target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
+
+target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
+
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD 11
   CXX_STANDARD_REQUIRED YES
 )
-
-target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
-
-# Add tutorial projects:
-add_subdirectory("tutorials/basics/feedforward_neural_network")
-add_subdirectory("tutorials/basics/linear_regression")
-add_subdirectory("tutorials/basics/logistic_regression")
-add_subdirectory("tutorials/basics/pytorch_basics")
-add_subdirectory("tutorials/intermediate/convolutional_neural_network")
 
 # The following code block is suggested to be used on Windows.
 # According to https://github.com/pytorch/pytorch/issues/25457,

@@ -29,7 +29,7 @@ $ ./scripts.sh build
 * [Feedforward Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/feedforward_neural_network/main.cpp)
 
 #### 2. Intermediate
-* [Convolutional Neural Network]()
+* [Convolutional Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/convolutional_neural_network/src/main.cpp)
 * [Deep Residual Network]()
 * [Recurrent Neural Network]()
 * [Bidirectional Recurrent Neural Network]()
@@ -47,4 +47,5 @@ $ ./scripts.sh build
 
 ## Authors
 - Omkar Prabhu - [prabhuomkar](https://github.com/prabhuomkar)
+- Markus Fleischhacker - [mfl28](https://github.com/mfl28)
  
