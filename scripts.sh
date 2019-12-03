@@ -3,7 +3,7 @@
 function install() {
 	wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
 	unzip libtorch-shared-with-deps-latest.zip
-  rm -rf libtorch-shared-with-deps-latest.zip
+	rm -rf libtorch-shared-with-deps-latest.zip
 }
 
 function build() {
@@ -15,11 +15,13 @@ function build() {
 }
 
 function lint() {
-	cpplint --linelength=120 main.cpp tutorials/*/*/**
+	cpplint --linelength=120 --recursive \
+		--filter=-build/include_subdir,-build/include_what_you_use main.cpp tutorials/*/*/**
 }
 
 function lintci() {
-	python cpplint.py --linelength=120 main.cpp tutorials/*/*/**
+	python cpplint.py --linelength=120 --recursive \
+		--filter=-build/include_subdir,-build/include_what_you_use main.cpp tutorials/*/*/**
 }
 
 if [ $1 = "install" ]
