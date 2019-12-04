@@ -63,7 +63,7 @@ torch::nn::Sequential ResNetImpl<Block>::make_layer(int64_t out_channels, int64_
     torch::nn::Sequential downsample{nullptr};
 
     if (stride != 1 || in_channels != out_channels) {
-        downsample = {
+        downsample = torch::nn::Sequential{
             conv3x3(in_channels, out_channels, stride),
             torch::nn::BatchNorm(out_channels)
         };
