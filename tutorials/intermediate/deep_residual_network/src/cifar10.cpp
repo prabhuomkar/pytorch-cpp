@@ -2,7 +2,7 @@
 #include "cifar10.h"
 
 namespace {
-// Cifar10 dataset description can be found at https://www.cs.toronto.edu/~kriz/cifar.html.
+// CIFAR10 dataset description can be found at https://www.cs.toronto.edu/~kriz/cifar.html.
 constexpr uint32_t kTrainSize = 50000;
 constexpr uint32_t kTestSize = 10000;
 constexpr uint32_t kSizePerBatch = 10000;
@@ -70,29 +70,29 @@ std::pair<torch::Tensor, torch::Tensor> read_data(const std::string& root, bool 
 }
 }  // namespace
 
-Cifar10::Cifar10(const std::string& root, Mode mode) : mode_(mode) {
+CIFAR10::CIFAR10(const std::string& root, Mode mode) : mode_(mode) {
     auto data = read_data(root, mode == Mode::kTrain);
 
     images_ = std::move(data.first);
     targets_ = std::move(data.second);
 }
 
-torch::data::Example<> Cifar10::get(size_t index) {
+torch::data::Example<> CIFAR10::get(size_t index) {
     return {images_[index], targets_[index]};
 }
 
-torch::optional<size_t> Cifar10::size() const {
+torch::optional<size_t> CIFAR10::size() const {
     return images_.size(0);
 }
 
-bool Cifar10::is_train() const noexcept {
+bool CIFAR10::is_train() const noexcept {
     return mode_ == Mode::kTrain;
 }
 
-const torch::Tensor& Cifar10::images() const {
+const torch::Tensor& CIFAR10::images() const {
     return images_;
 }
 
-const torch::Tensor& Cifar10::targets() const {
+const torch::Tensor& CIFAR10::targets() const {
     return targets_;
 }

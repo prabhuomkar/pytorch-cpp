@@ -28,8 +28,8 @@ int main() {
 
     const std::string CIFAR_data_path = "../../../../tutorials/intermediate/deep_residual_network/data/";
 
-    // Cifar10 custom dataset
-    auto train_dataset = Cifar10(CIFAR_data_path)
+    // CIFAR10 custom dataset
+    auto train_dataset = CIFAR10(CIFAR_data_path)
         .map(ConstantPad(4))
         .map(RandomHorizontalFlip())
         .map(RandomCrop({32, 32}))
@@ -38,7 +38,7 @@ int main() {
     // Number of samples in the training set
     auto num_train_samples = train_dataset.size().value();
 
-    auto test_dataset = Cifar10(CIFAR_data_path, Cifar10::Mode::kTest)
+    auto test_dataset = CIFAR10(CIFAR_data_path, CIFAR10::Mode::kTest)
         .map(torch::data::transforms::Stack<>());
 
     // Number of samples in the testset
