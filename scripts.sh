@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function install() {
-	wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
-	unzip libtorch-shared-with-deps-latest.zip
-	rm -rf libtorch-shared-with-deps-latest.zip
+	wget https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-1.3.1%2Bcpu.zip
+	unzip libtorch-shared-with-deps-1.3.1+cpu.zip
+	rm -rf libtorch-shared-with-deps-1.3.1+cpu.zip
 }
 
 function build() {
