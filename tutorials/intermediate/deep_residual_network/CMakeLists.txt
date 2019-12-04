@@ -1,25 +1,32 @@
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
-project(pytorch-cpp VERSION 1.0.0 LANGUAGES CXX)
+project(deep-residual-network VERSION 1.0.0 LANGUAGES CXX)
 
-find_package(Torch REQUIRED)
+# Files
+set(SOURCES src/main.cpp
+            src/cifar10.cpp
+            src/residual_block.cpp
+            src/transform.cpp
+)
 
-set(EXECUTABLE_NAME pytorch-cpp)
-add_executable(${EXECUTABLE_NAME} main.cpp)
+set(HEADERS include/residual_block.h
+            include/resnet.h
+            include/cifar10.h
+            include/transform.h
+)
+
+set(EXECUTABLE_NAME deep-residual-network)
+
+
+add_executable(${EXECUTABLE_NAME} ${SOURCES} ${HEADERS})
+target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
+
+target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
+
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD 11
   CXX_STANDARD_REQUIRED YES
 )
-
-target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
-
-# Add tutorial projects:
-add_subdirectory("tutorials/basics/feedforward_neural_network")
-add_subdirectory("tutorials/basics/linear_regression")
-add_subdirectory("tutorials/basics/logistic_regression")
-add_subdirectory("tutorials/basics/pytorch_basics")
-add_subdirectory("tutorials/intermediate/convolutional_neural_network")
-add_subdirectory("tutorials/intermediate/deep_residual_network")
 
 # The following code block is suggested to be used on Windows.
 # According to https://github.com/pytorch/pytorch/issues/25457,
