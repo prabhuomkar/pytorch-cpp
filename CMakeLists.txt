@@ -21,6 +21,7 @@ add_subdirectory("tutorials/basics/pytorch_basics")
 add_subdirectory("tutorials/intermediate/convolutional_neural_network")
 add_subdirectory("tutorials/intermediate/deep_residual_network")
 add_subdirectory("tutorials/intermediate/recurrent_neural_network")
+add_subdirectory("tutorials/intermediate/bidirectional_recurrent_neural_network")
 
 # The following code block is suggested to be used on Windows.
 # According to https://github.com/pytorch/pytorch/issues/25457,

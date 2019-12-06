@@ -32,7 +32,7 @@ $ ./scripts.sh build
 * [Convolutional Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/convolutional_neural_network/src/main.cpp)
 * [Deep Residual Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/deep_residual_network/src/main.cpp)
 * [Recurrent Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/recurrent_neural_network/src/main.cpp)
-* [Bidirectional Recurrent Neural Network]()
+* [Bidirectional Recurrent Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/bidirectional_recurrent_neural_network/src/main.cpp)
 * [Language Model (RNN-LM)]()
 
 #### 3. Advanced
