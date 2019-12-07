@@ -33,7 +33,7 @@ $ ./scripts.sh build
 * [Deep Residual Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/deep_residual_network/src/main.cpp)
 * [Recurrent Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/recurrent_neural_network/src/main.cpp)
 * [Bidirectional Recurrent Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/bidirectional_recurrent_neural_network/src/main.cpp)
-* [Language Model (RNN-LM)]()
+* [Language Model (RNN-LM)](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/language_model/src/main.cpp)
 
 #### 3. Advanced
 * [Generative Adversarial Networks]()
