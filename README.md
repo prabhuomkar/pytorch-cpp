@@ -36,7 +36,7 @@ $ ./scripts.sh build
 * [Language Model (RNN-LM)](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/language_model/src/main.cpp)
 
 #### 3. Advanced
-* [Generative Adversarial Networks]()
+* [Generative Adversarial Networks](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/advanced/generative_adversarial_network/main.cpp)
 * [Variational Auto-Encoder]()
 * [Neural Style Transfer]()
 * [Image Captioning (CNN-RNN)]()
