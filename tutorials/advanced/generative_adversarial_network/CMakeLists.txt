@@ -8,14 +8,15 @@ set(SOURCES main.cpp
 )
 
 set(HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/save_image.h
-            ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/stb_image_write.h
+            ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external/stb_image_write.h
 )
 
 set(EXECUTABLE_NAME generative-adversarial-network)
 
 
 add_executable(${EXECUTABLE_NAME} ${SOURCES} ${HEADERS})
-target_include_directories(${EXECUTABLE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include)
+target_include_directories(${EXECUTABLE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include
+                                                      ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external)
 
 target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
 
