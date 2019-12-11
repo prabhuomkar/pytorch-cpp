@@ -17,13 +17,13 @@ function build() {
 function lint() {
 	cpplint --linelength=120 --recursive \
 		--filter=-build/include_subdir,-build/include_what_you_use \
-		--exclude=tutorials/advanced/utils/include/stb_*.h main.cpp tutorials/*/*/**
+		--exclude=tutorials/advanced/utils/include/external/* main.cpp tutorials/*/*/**
 }
 
 function lintci() {
 	python cpplint.py --linelength=120 --recursive \
 		--filter=-build/include_subdir,-build/include_what_you_use \
-		--exclude=tutorials/advanced/utils/include/stb_*.h main.cpp tutorials/*/*/**
+		--exclude=tutorials/advanced/utils/include/external/* main.cpp tutorials/*/*/**
 }
 
 if [ $1 = "install" ]
