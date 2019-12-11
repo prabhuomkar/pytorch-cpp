@@ -14,15 +14,22 @@ set_target_properties(${EXECUTABLE_NAME} PROPERTIES
 target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
 
 # Add tutorial projects:
+
+# Basic
 add_subdirectory("tutorials/basics/feedforward_neural_network")
 add_subdirectory("tutorials/basics/linear_regression")
 add_subdirectory("tutorials/basics/logistic_regression")
 add_subdirectory("tutorials/basics/pytorch_basics")
+
+# Intermediate
 add_subdirectory("tutorials/intermediate/convolutional_neural_network")
 add_subdirectory("tutorials/intermediate/deep_residual_network")
 add_subdirectory("tutorials/intermediate/recurrent_neural_network")
 add_subdirectory("tutorials/intermediate/bidirectional_recurrent_neural_network")
 add_subdirectory("tutorials/intermediate/language_model")
+
+# Advanced
+add_subdirectory("tutorials/advanced/generative_adversarial_network")
 
 # The following code block is suggested to be used on Windows.
 # According to https://github.com/pytorch/pytorch/issues/25457,
