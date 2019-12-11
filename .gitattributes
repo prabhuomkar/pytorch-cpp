@@ -1,0 +1,2 @@
+# Ignore external C-headers in linguist repository-language determination.
+tutorials/advanced/utils/include/external/* linguist-vendored
