@@ -20,9 +20,9 @@ int main() {
     const int64_t batch_size = 100;
     const double learning_rate = 0.0002;
 
-    const std::string MNIST_data_path = "../../../../tutorials/advanced/generative_adversarial_network/data/";
+    const std::string MNIST_data_path = "../../../../data/mnist/";
 
-    // Path were the generates samples will be saved to
+    // Path of the directory where the generated samples will be saved to
     const std::string sample_path = "../../../../tutorials/advanced/generative_adversarial_network/samples/";
 
     // MNIST dataset

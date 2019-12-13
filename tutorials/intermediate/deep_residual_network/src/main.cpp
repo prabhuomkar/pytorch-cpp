@@ -26,7 +26,7 @@ int main() {
     const int64_t learning_rate_decay_frequency = 8;  // number of epochs after which to decay the learning rate
     const double learning_rate_decay_factor = 1.0 / 3.0;
 
-    const std::string CIFAR_data_path = "../../../../tutorials/intermediate/deep_residual_network/data/";
+    const std::string CIFAR_data_path = "../../../../data/cifar10/";
 
     // CIFAR10 custom dataset
     auto train_dataset = CIFAR10(CIFAR_data_path)
