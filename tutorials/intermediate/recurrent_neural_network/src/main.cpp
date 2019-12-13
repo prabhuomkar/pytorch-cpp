@@ -20,7 +20,7 @@ int main() {
     const int64_t num_epochs = 2;
     const double learning_rate = 0.01;
 
-    const std::string MNIST_data_path = "../../../../tutorials/intermediate/recurrent_neural_network/data/";
+    const std::string MNIST_data_path = "../../../../data/mnist/";
 
     // MNIST dataset
     auto train_dataset = torch::data::datasets::MNIST(MNIST_data_path)

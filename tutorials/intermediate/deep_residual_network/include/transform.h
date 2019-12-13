@@ -3,6 +3,7 @@
 
 #include <torch/torch.h>
 #include <random>
+#include <vector>
 
 namespace transform {
 class RandomHorizontalFlip : public torch::data::transforms::TensorTransform<torch::Tensor> {

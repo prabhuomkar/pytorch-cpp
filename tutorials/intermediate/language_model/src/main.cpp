@@ -27,12 +27,16 @@ int main() {
 
     // Load "Penn Treebank" dataset
     // See https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/02-intermediate/language_model/data/
-    const std::string penn_treebank_data_path = "../../../../tutorials/intermediate/language_model/data/train.txt";
+    // and https://github.com/wojzaremba/lstm/tree/master/data
+    const std::string penn_treebank_data_path = "../../../../data/penntreebank/train.txt";
 
     Corpus corpus(penn_treebank_data_path);
 
     auto ids = corpus.get_data(batch_size);
     int64_t vocab_size = corpus.get_dictionary().size();
+
+    // Path to the output file
+    const std::string sample_output_path = "../../../../tutorials/intermediate/language_model/data/sample.txt";
 
     // Model
     RNNLM model(vocab_size, embed_size, hidden_size, num_layers);
@@ -90,8 +94,6 @@ int main() {
 
     std::cout << "Training finished!\n\n";
     std::cout << "Generating samples...\n";
-
-    const std::string sample_output_path = "../../../../tutorials/intermediate/language_model/data/sample.txt";
 
     // Generate samples
     model->eval();

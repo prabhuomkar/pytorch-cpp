@@ -10,13 +10,17 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 ## Getting Started
 - Fork/Clone and Install
-```
+```bash
 $ git clone https://github.com/prabhuomkar/pytorch-cpp.git
 $ chmod +x scripts.sh
-$ ./scripts.sh install
+$ ./scripts.sh install #optional: --cuda=(9.2 or 10.1) to install libtorch cuda versions (by default cpu version is installed) 
+```
+- Download all datasets used in the tutorials
+```bash
+$ ./scripts.sh download_datasets
 ```
 - Build
-```
+```bash
 $ ./scripts.sh build
 ```
 
