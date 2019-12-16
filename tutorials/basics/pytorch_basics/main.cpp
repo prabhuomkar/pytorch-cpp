@@ -128,7 +128,7 @@ int main() {
 
     // Construct data loader
     auto dataloader = torch::data::make_data_loader<torch::data::samplers::RandomSampler>(
-        dataset, /*batch size=*/ 64);
+        dataset, 64);
 
     // Fetch a mini-batch
     auto example_batch = *dataloader->begin();
@@ -219,7 +219,7 @@ int main() {
 
     // Simple example model
     torch::nn::Sequential model{
-        torch::nn::Conv2d(torch::nn::Conv2dOptions(1, 16, /*kernel_size=*/3).stride(2).padding(1)),
+        torch::nn::Conv2d(torch::nn::Conv2dOptions(1, 16, 3).stride(2).padding(1)),
         torch::nn::Functional(torch::relu)
     };
 

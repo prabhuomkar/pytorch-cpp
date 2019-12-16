@@ -45,7 +45,7 @@ int main() {
     // Logistic regression model
     auto model = torch::nn::Sequential{
         torch::nn::Linear(input_size, num_classes),
-        torch::nn::Functional([] (const torch::Tensor& x) { return torch::log_softmax(x, /*dim=*/1); })
+        torch::nn::Functional([] (const torch::Tensor& x) { return torch::log_softmax(x, 1); })
     };
 
     model->to(device);
