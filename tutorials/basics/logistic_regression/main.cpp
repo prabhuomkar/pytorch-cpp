@@ -1,93 +1,130 @@
 // Copyright 2019 Omkar Prabhu
 #include <torch/torch.h>
 #include <iostream>
+#include <iomanip>
 
 int main() {
-  std::cout << "Logistic Regression" << std::endl;
+    std::cout << "Logistic Regression\n\n";
 
-  // Device
-  torch::DeviceType device_type;
-  if (torch::cuda::is_available()) {
-    std::cout << "CUDA available. Training on GPU." << std::endl;
-    device_type = torch::kCUDA;
-  } else {
-    std::cout << "Training on CPU." << std::endl;
-    device_type = torch::kCPU;
-  }
-  torch::Device device(device_type);
+    // Device
+    auto cuda_available = torch::cuda::is_available();
+    torch::Device device(cuda_available ? torch::kCUDA : torch::kCPU);
+    std::cout << (cuda_available ? "CUDA available. Training on GPU." : "Training on CPU.") << '\n';
 
-  // Hyper parameters
-  int input_size = 784;
-  int num_classes = 10;
-  int num_epochs = 5;
-  int batch_size = 100;
-  double learning_rate = 0.001;
+    // Hyper parameters
+    const int64_t input_size = 784;
+    const int64_t num_classes = 10;
+    const int64_t batch_size = 100;
+    const size_t num_epochs = 5;
+    const double learning_rate = 0.001;
 
-  const std::string MNIST_data_path = "../../../../data/mnist/";
+    const std::string MNIST_data_path = "../../../../data/mnist/";
 
-  // MNIST Dataset (images and labels)
-  auto train_dataset = torch::data::datasets::MNIST(MNIST_data_path)
-                           .map(torch::data::transforms::Normalize<>(0.1307, 0.3081))
-                           .map(torch::data::transforms::Stack<>());
-  auto test_dataset = torch::data::datasets::MNIST(MNIST_data_path, torch::data::datasets::MNIST::Mode::kTest)
-                           .map(torch::data::transforms::Normalize<>(0.1307, 0.3081))
-                           .map(torch::data::transforms::Stack<>());
+    // MNIST Dataset (images and labels)
+    auto train_dataset = torch::data::datasets::MNIST(MNIST_data_path)
+        .map(torch::data::transforms::Normalize<>(0.1307, 0.3081))
+        .map(torch::data::transforms::Stack<>());
 
-  // Data loader (input pipeline)
-  auto train_loader = torch::data::make_data_loader<torch::data::samplers::SequentialSampler>(
-          std::move(train_dataset), batch_size);
-  auto test_loader = torch::data::make_data_loader<torch::data::samplers::SequentialSampler>(
-          std::move(test_dataset), batch_size);
+    // Number of samples in the training set
+    auto num_train_samples = train_dataset.size().value();
 
-  // Logistic regression model
-  auto model = torch::nn::Sequential(
-      torch::nn::Linear(input_size, num_classes),
-      torch::nn::Functional([] (const torch::Tensor& x) { return torch::log_softmax(x, 1); }));
+    auto test_dataset = torch::data::datasets::MNIST(MNIST_data_path, torch::data::datasets::MNIST::Mode::kTest)
+        .map(torch::data::transforms::Normalize<>(0.1307, 0.3081))
+        .map(torch::data::transforms::Stack<>());
 
-  model->to(device);
+    // Number of samples in the testset
+    auto num_test_samples = test_dataset.size().value();
 
-  // Loss and optimizer
-  auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
+    // Data loaders
+    auto train_loader = torch::data::make_data_loader<torch::data::samplers::RandomSampler>(
+        std::move(train_dataset), batch_size);
 
-  // Train the model
-  for (int epoch = 0; epoch < num_epochs; epoch++) {
-    int i = 0;
-    for (auto& batch : *train_loader) {
-      auto data = batch.data.reshape({batch_size, -1}).to(device);
-      auto labels = batch.target.to(device);
+    auto test_loader = torch::data::make_data_loader<torch::data::samplers::SequentialSampler>(
+        std::move(test_dataset), batch_size);
 
-      // Forward pass
-      auto outputs = model->forward(data);
-      auto loss = torch::nll_loss(outputs, labels);
+    // Logistic regression model
+    auto model = torch::nn::Sequential{
+        torch::nn::Linear(input_size, num_classes),
+        torch::nn::Functional([] (const torch::Tensor& x) { return torch::log_softmax(x, 1); })
+    };
 
-      // Backward and optimize
-      optimizer.zero_grad();
-      loss.backward();
-      optimizer.step();
+    model->to(device);
 
-      if ((i+1) % 100 == 0) {
-        std::cout << "Epoch [" << (epoch+1) << "/" << num_epochs << "], Batch: "
-          << (i+1) << ", Loss: " << loss.item().toFloat() << std::endl;
-      }
-      ++i;
+    // Loss and optimizer
+    auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
+
+    // Set floating point output precision
+    std::cout << std::fixed << std::setprecision(4);
+
+    std::cout << "Training...\n";
+
+    // Train the model
+    for (size_t epoch = 0; epoch != num_epochs; ++epoch) {
+        // Initialize running metrics
+        double running_loss = 0.0;
+        size_t num_correct = 0;
+
+        for (auto& batch : *train_loader) {
+            auto data = batch.data.reshape({batch_size, -1}).to(device);
+            auto target = batch.target.to(device);
+
+            // Forward pass
+            auto output = model->forward(data);
+
+            // Calculate loss
+            auto loss = torch::nll_loss(output, target);
+
+            // Update running loss
+            running_loss += loss.item<double>() * data.size(0);
+
+            // Calculate prediction
+            auto prediction = output.argmax(1);
+
+            // Update number of correctly classified samples
+            num_correct += prediction.eq(target).sum().item<int64_t>();
+
+            // Backward pass and optimize
+            optimizer.zero_grad();
+            loss.backward();
+            optimizer.step();
+        }
+
+        auto sample_mean_loss = running_loss / num_train_samples;
+        auto accuracy = static_cast<double>(num_correct) / num_train_samples;
+
+        std::cout << "Epoch [" << (epoch + 1) << "/" << num_epochs << "], Trainset - Loss: "
+            << sample_mean_loss << ", Accuracy: " << accuracy << '\n';
     }
-  }
 
-  // Test the model
-  model->eval();
-  torch::NoGradGuard no_grad;
+    std::cout << "Training finished!\n\n";
+    std::cout << "Testing...\n";
 
-  int correct = 0;
-  int total = 0;
-  for (const auto& batch : *test_loader) {
-    auto data = batch.data.reshape({batch_size, -1}).to(device);
-    auto labels = batch.target.to(device);
-    auto outputs = model->forward(data);
-    auto predicted = outputs.argmax(1);
-    total += labels.size(0);
-    correct += predicted.eq(labels).sum().item<int>();
-  }
+    // Test the model
+    model->eval();
+    torch::NoGradGuard no_grad;
 
-  std::cout << "Accuracy of the model on the 10000 test images: " <<
-    static_cast<double>(100 * correct / total) << std::endl;
+    double running_loss = 0.0;
+    size_t num_correct = 0;
+
+    for (const auto& batch : *test_loader) {
+        auto data = batch.data.reshape({batch_size, -1}).to(device);
+        auto target = batch.target.to(device);
+
+        auto output = model->forward(data);
+
+        auto loss = torch::nll_loss(output, target);
+
+        running_loss += loss.item<double>() * data.size(0);
+
+        auto prediction = output.argmax(1);
+
+        num_correct += prediction.eq(target).sum().item<int64_t>();
+    }
+
+    std::cout << "Testing finished!\n";
+
+    auto test_accuracy = static_cast<double>(num_correct) / num_test_samples;
+    auto test_sample_mean_loss = running_loss / num_test_samples;
+
+    std::cout << "Testset - Loss: " << test_sample_mean_loss << ", Accuracy: " << test_accuracy << '\n';
 }
