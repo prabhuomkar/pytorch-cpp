@@ -4,11 +4,17 @@ project(feedforward-neural-network VERSION 1.0.0 LANGUAGES CXX)
 
 #find_package(Torch REQUIRED)
 
-set(SOURCES main.cpp)
+set(SOURCES src/main.cpp
+            src/neural_net.cpp
+)
+
+set(HEADERS include/neural_net.h
+)
 
 set(EXECUTABLE_NAME feedforward-neural-network)
 
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
+add_executable(${EXECUTABLE_NAME} ${SOURCES} ${HEADERS})
+target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES

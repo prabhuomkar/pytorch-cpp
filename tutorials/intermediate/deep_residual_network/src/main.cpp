@@ -16,14 +16,16 @@ int main() {
     std::cout << "Deep Residual Network\n\n";
 
     // Device
-    torch::Device device(torch::cuda::is_available() ? torch::kCUDA : torch::kCPU);
+    auto cuda_available = torch::cuda::is_available();
+    torch::Device device(cuda_available ? torch::kCUDA : torch::kCPU);
+    std::cout << (cuda_available ? "CUDA available. Training on GPU." : "Training on CPU.") << '\n';
 
     // Hyper parameters
-    const int64_t num_epochs = 20;
     const int64_t num_classes = 10;
     const int64_t batch_size = 100;
+    const size_t num_epochs = 20;
     const double learning_rate = 0.001;
-    const int64_t learning_rate_decay_frequency = 8;  // number of epochs after which to decay the learning rate
+    const size_t learning_rate_decay_frequency = 8;  // number of epochs after which to decay the learning rate
     const double learning_rate_decay_factor = 1.0 / 3.0;
 
     const std::string CIFAR_data_path = "../../../../data/cifar10/";
@@ -47,6 +49,7 @@ int main() {
     // Data loader
     auto train_loader = torch::data::make_data_loader<torch::data::samplers::RandomSampler>(
         std::move(train_dataset), batch_size);
+
     auto test_loader = torch::data::make_data_loader<torch::data::samplers::SequentialSampler>(
         std::move(test_dataset), batch_size);
 
@@ -68,7 +71,7 @@ int main() {
     // Train the model
     for (size_t epoch = 0; epoch != num_epochs; ++epoch) {
         // Initialize running metrics
-        float running_loss = 0.0;
+        double running_loss = 0.0;
         size_t num_correct = 0;
 
         for (auto& batch : *train_loader) {
@@ -83,13 +86,13 @@ int main() {
             auto loss = torch::nll_loss(output, target);
 
             // Update running loss
-            running_loss += loss.item().toFloat() * data.size(0);
+            running_loss += loss.item<double>() * data.size(0);
 
             // Calculate prediction
             auto prediction = output.argmax(1);
 
             // Update number of correctly classified samples
-            num_correct += prediction.eq(target).sum().item().toLong();
+            num_correct += prediction.eq(target).sum().item<int64_t>();
 
             // Backward pass and optimize
             optimizer.zero_grad();
@@ -104,7 +107,7 @@ int main() {
         }
 
         auto sample_mean_loss = running_loss / num_train_samples;
-        auto accuracy = static_cast<float>(num_correct) / num_train_samples;
+        auto accuracy = static_cast<double>(num_correct) / num_train_samples;
 
         std::cout << "Epoch [" << (epoch + 1) << "/" << num_epochs << "], Trainset - Loss: "
             << sample_mean_loss << ", Accuracy: " << accuracy << '\n';
@@ -117,7 +120,7 @@ int main() {
     model->eval();
     torch::NoGradGuard no_grad;
 
-    float running_loss = 0.0;
+    double running_loss = 0.0;
     size_t num_correct = 0;
 
     for (const auto& batch : *test_loader) {
@@ -127,15 +130,15 @@ int main() {
         auto output = model->forward(data);
 
         auto loss = torch::nll_loss(output, target);
-        running_loss += loss.item().toFloat() * data.size(0);
+        running_loss += loss.item<double>() * data.size(0);
 
         auto prediction = output.argmax(1);
-        num_correct += prediction.eq(target).sum().item().toLong();
+        num_correct += prediction.eq(target).sum().item<int64_t>();
     }
 
     std::cout << "Testing finished!\n";
 
-    auto test_accuracy = static_cast<float>(num_correct) / num_test_samples;
+    auto test_accuracy = static_cast<double>(num_correct) / num_test_samples;
     auto test_sample_mean_loss = running_loss / num_test_samples;
 
     std::cout << "Testset - Loss: " << test_sample_mean_loss << ", Accuracy: " << test_accuracy << '\n';

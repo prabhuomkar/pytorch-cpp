@@ -1,46 +1,49 @@
 // Copyright 2019 Omkar Prabhu
 #include <torch/torch.h>
-#include <ATen/ATen.h>
 #include <iostream>
-#include <vector>
+#include <iomanip>
 
 int main() {
-  std::cout << "Linear Regression" << std::endl;
+    std::cout << "Linear Regression\n\n";
+    std::cout << "Training on CPU.\n";
 
-  // Hyper parameters
-  int input_size = 1;
-  int output_size = 1;
-  int num_epochs = 60;
-  double learning_rate = 0.001;
+    // Hyper parameters
+    const int64_t input_size = 1;
+    const int64_t output_size = 1;
+    const size_t num_epochs = 60;
+    const double learning_rate = 0.001;
 
-  // Sample dataset
-  auto x_train = torch::randint(0, 10, {15, 1});
-  auto y_train = torch::randint(0, 10, {15, 1});
+    // Sample dataset
+    auto x_train = torch::randint(0, 10, {15, 1});
+    auto y_train = torch::randint(0, 10, {15, 1});
 
-  // Linear regression model
-  auto model = torch::nn::Linear(input_size, output_size);
+    // Linear regression model
+    auto model = torch::nn::Linear(input_size, output_size);
 
-  // Loss and optimizer
-  auto criterion = torch::nn::L1Loss();
-  auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
+    // Optimizer
+    auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
 
-  // Train the model
-  for (int epoch = 0; epoch < num_epochs; epoch++) {
-    // Array to tensors
-    auto inputs = x_train;
-    auto targets = y_train;
+    // Set floating point output precision
+    std::cout << std::fixed << std::setprecision(4);
 
-    // Forward pass
-    auto outputs = model(inputs);
-    auto loss = criterion(outputs, targets);
+    std::cout << "Training...\n";
 
-    // Backward and optimize
-    optimizer.zero_grad();
-    loss.backward();
-    optimizer.step();
+    // Train the model
+    for (size_t epoch = 0; epoch != num_epochs; ++epoch) {
+        // Forward pass
+        auto output = model(x_train);
+        auto loss = torch::mse_loss(output, y_train);
 
-    if ((epoch+1) % 5 == 0) {
-      std::cout << "Epoch [" << (epoch+1) << "/" << num_epochs << "], Loss: " << loss.item().toFloat() << std::endl;
+        // Backward pass and optimize
+        optimizer.zero_grad();
+        loss.backward();
+        optimizer.step();
+
+        if ((epoch + 1) % 5 == 0) {
+            std::cout << "Epoch [" << (epoch + 1) << "/" << num_epochs <<
+                "], Loss: " << loss.item<double>() << "\n";
+        }
     }
-  }
+
+    std::cout << "Training finished!\n";
 }
