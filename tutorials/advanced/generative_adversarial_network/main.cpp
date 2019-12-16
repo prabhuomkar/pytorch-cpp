@@ -10,20 +10,22 @@ int main() {
     std::cout << "Generative Adversarial Network\n\n";
 
     // Device
-    torch::Device device(torch::cuda::is_available() ? torch::kCUDA : torch::kCPU);
+    auto cuda_available = torch::cuda::is_available();
+    torch::Device device(cuda_available ? torch::kCUDA : torch::kCPU);
+    std::cout << (cuda_available ? "CUDA available. Training on GPU." : "Training on CPU.") << '\n';
 
     // Hyper parameters
     const int64_t latent_size = 64;
     const int64_t hidden_size = 256;
     const int64_t image_size = 28 * 28;
-    const int64_t num_epochs = 200;
     const int64_t batch_size = 100;
+    const size_t num_epochs = 200;
     const double learning_rate = 0.0002;
 
     const std::string MNIST_data_path = "../../../../data/mnist/";
 
-    // Path of the directory where the generated samples will be saved to
-    const std::string sample_path = "../../../../tutorials/advanced/generative_adversarial_network/samples/";
+    // Path of the directory where the generated samples will be saved to (This folder must exist!)
+    const std::string sample_output_dir_path = "../../../../tutorials/advanced/generative_adversarial_network/output/";
 
     // MNIST dataset
     auto dataset = torch::data::datasets::MNIST(MNIST_data_path)
@@ -34,16 +36,16 @@ int main() {
     auto num_samples = dataset.size().value();
 
     // Data loader
-    auto train_loader = torch::data::make_data_loader<torch::data::samplers::RandomSampler>(
+    auto dataloader = torch::data::make_data_loader<torch::data::samplers::RandomSampler>(
         std::move(dataset), batch_size);
 
     // Model
     // - Discriminator
     torch::nn::Sequential D{
         torch::nn::Linear(image_size, hidden_size),
-        torch::nn::Functional([] (const torch::Tensor& x) { return torch::leaky_relu(x, 0.2); }),
+        torch::nn::Functional(torch::leaky_relu, 0.2),
         torch::nn::Linear(hidden_size, hidden_size),
-        torch::nn::Functional([] (const torch::Tensor& x) { return torch::leaky_relu(x, 0.2); }),
+        torch::nn::Functional(torch::leaky_relu, 0.2),
         torch::nn::Linear(hidden_size, 1),
         torch::nn::Functional(torch::sigmoid)
     };
@@ -76,9 +78,9 @@ int main() {
     for (size_t epoch = 0; epoch != num_epochs; ++epoch) {
         torch::Tensor images;
         torch::Tensor fake_images;
-        int64_t batch_index = 0;
+        size_t batch_index = 0;
 
-        for (auto& batch : *train_loader) {
+        for (auto& batch : *dataloader) {
             // Transfer images to device
             images = batch.data.reshape({batch_size, -1}).to(device);
 
@@ -140,14 +142,16 @@ int main() {
             ++batch_index;
         }
 
-        // Save real images
+        // Save real images once
         if (epoch == 0) {
             images = denorm(images.reshape({images.size(0), 1, 28, 28}));
-            save_image(images, sample_path + "real_images.png");
+            save_image(images, sample_output_dir_path + "real_images.png");
         }
 
         // Save generated fake images
         fake_images = denorm(fake_images.reshape({fake_images.size(0), 1, 28, 28}));
-        save_image(fake_images, sample_path + "fake_images-" + std::to_string(epoch + 1) + ".png");
+        save_image(fake_images, sample_output_dir_path + "fake_images-" + std::to_string(epoch + 1) + ".png");
     }
+
+    std::cout << "Training finished!\n";
 }

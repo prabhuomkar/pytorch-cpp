@@ -1,11 +1,11 @@
-// Copyright 2019 Markus Fleischhacker
+// Copyright 2019 Omkar Prabhu
 #include <torch/torch.h>
 #include <iostream>
 #include <iomanip>
-#include "rnn.h"
+#include "neural_net.h"
 
 int main() {
-    std::cout << "Recurrent Neural Network\n\n";
+    std::cout << "FeedForward Neural Network\n\n";
 
     // Device
     auto cuda_available = torch::cuda::is_available();
@@ -13,18 +13,16 @@ int main() {
     std::cout << (cuda_available ? "CUDA available. Training on GPU." : "Training on CPU.") << '\n';
 
     // Hyper parameters
-    const int64_t sequence_length = 28;
-    const int64_t input_size = 28;
-    const int64_t hidden_size = 128;
-    const int64_t num_layers = 2;
+    const int64_t input_size = 784;
+    const int64_t hidden_size = 500;
     const int64_t num_classes = 10;
     const int64_t batch_size = 100;
-    const size_t num_epochs = 2;
-    const double learning_rate = 0.01;
+    const size_t num_epochs = 5;
+    const double learning_rate = 0.001;
 
     const std::string MNIST_data_path = "../../../../data/mnist/";
 
-    // MNIST dataset
+    // MNIST Dataset
     auto train_dataset = torch::data::datasets::MNIST(MNIST_data_path)
         .map(torch::data::transforms::Normalize<>(0.1307, 0.3081))
         .map(torch::data::transforms::Stack<>());
@@ -46,12 +44,12 @@ int main() {
     auto test_loader = torch::data::make_data_loader<torch::data::samplers::SequentialSampler>(
         std::move(test_dataset), batch_size);
 
-    // Model
-    RNN model(input_size, hidden_size, num_layers, num_classes);
+    // Neural Network model
+    NeuralNet model(input_size, hidden_size, num_classes);
     model->to(device);
 
     // Optimizer
-    auto optimizer = torch::optim::Adam(model->parameters(), torch::optim::AdamOptions(learning_rate));
+    auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
@@ -65,15 +63,13 @@ int main() {
         size_t num_correct = 0;
 
         for (auto& batch : *train_loader) {
-            // Transfer images and target labels to device
-            auto data = batch.data.view({-1, sequence_length, input_size}).to(device);
+            auto data = batch.data.reshape({batch_size, -1}).to(device);
             auto target = batch.target.to(device);
 
             // Forward pass
             auto output = model->forward(data);
-
-            // Calculate loss
             auto loss = torch::nll_loss(output, target);
+
             // Update running loss
             running_loss += loss.item<double>() * data.size(0);
 
@@ -83,14 +79,14 @@ int main() {
             // Update number of correctly classified samples
             num_correct += prediction.eq(target).sum().item<int64_t>();
 
-            // Backward pass and optimize
+            // Backward and optimize
             optimizer.zero_grad();
             loss.backward();
             optimizer.step();
         }
 
         auto sample_mean_loss = running_loss / num_train_samples;
-        auto accuracy = static_cast<float>(num_correct) / num_train_samples;
+        auto accuracy = static_cast<double>(num_correct) / num_train_samples;
 
         std::cout << "Epoch [" << (epoch + 1) << "/" << num_epochs << "], Trainset - Loss: "
             << sample_mean_loss << ", Accuracy: " << accuracy << '\n';
@@ -107,15 +103,17 @@ int main() {
     size_t num_correct = 0;
 
     for (const auto& batch : *test_loader) {
-        auto data = batch.data.view({-1, sequence_length, input_size}).to(device);
+        auto data = batch.data.reshape({batch_size, -1}).to(device);
         auto target = batch.target.to(device);
 
         auto output = model->forward(data);
 
         auto loss = torch::nll_loss(output, target);
+
         running_loss += loss.item<double>() * data.size(0);
 
         auto prediction = output.argmax(1);
+
         num_correct += prediction.eq(target).sum().item<int64_t>();
     }
 

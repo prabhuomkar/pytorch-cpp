@@ -27,20 +27,20 @@ $ ./scripts.sh build
 ## Table of Contents
 
 #### 1. Basics
-* [PyTorch Basics](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/pytorch_basics/main.cpp)
-* [Linear Regression](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/linear_regression/main.cpp)
-* [Logistic Regression](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/logistic_regression/main.cpp)
-* [Feedforward Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/basics/feedforward_neural_network/main.cpp)
+* [PyTorch Basics](tutorials/basics/pytorch_basics/main.cpp)
+* [Linear Regression](tutorials/basics/linear_regression/main.cpp)
+* [Logistic Regression](tutorials/basics/logistic_regression/main.cpp)
+* [Feedforward Neural Network](tutorials/basics/feedforward_neural_network/src/main.cpp)
 
 #### 2. Intermediate
-* [Convolutional Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/convolutional_neural_network/src/main.cpp)
-* [Deep Residual Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/deep_residual_network/src/main.cpp)
-* [Recurrent Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/recurrent_neural_network/src/main.cpp)
-* [Bidirectional Recurrent Neural Network](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/bidirectional_recurrent_neural_network/src/main.cpp)
-* [Language Model (RNN-LM)](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/intermediate/language_model/src/main.cpp)
+* [Convolutional Neural Network](tutorials/intermediate/convolutional_neural_network/src/main.cpp)
+* [Deep Residual Network](tutorials/intermediate/deep_residual_network/src/main.cpp)
+* [Recurrent Neural Network](tutorials/intermediate/recurrent_neural_network/src/main.cpp)
+* [Bidirectional Recurrent Neural Network](tutorials/intermediate/bidirectional_recurrent_neural_network/src/main.cpp)
+* [Language Model (RNN-LM)](tutorials/intermediate/language_model/src/main.cpp)
 
 #### 3. Advanced
-* [Generative Adversarial Networks](https://github.com/prabhuomkar/pytorch-cpp/tree/master/tutorials/advanced/generative_adversarial_network/main.cpp)
+* [Generative Adversarial Networks](tutorials/advanced/generative_adversarial_network/main.cpp)
 * [Variational Auto-Encoder]()
 * [Neural Style Transfer]()
 * [Image Captioning (CNN-RNN)]()

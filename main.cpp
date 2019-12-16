@@ -3,5 +3,5 @@
 #include <iostream>
 
 int main() {
-  std::cout << "Welcome to PyTorch Tutorial in C++ for Deep Learning Researchers" << std::endl;
+    std::cout << "Welcome to PyTorch Tutorial in C++ for Deep Learning Researchers" << std::endl;
 }
