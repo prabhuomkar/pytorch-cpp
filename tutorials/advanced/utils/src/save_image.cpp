@@ -51,6 +51,6 @@ void save_image(torch::Tensor tensor, const std::string& file_path, int64_t nrow
         .permute({1, 2, 0})
         .to(torch::kCPU, torch::kUInt8);
 
-    stbi_write_png(file_path.c_str(), grid.size(0), grid.size(1), grid.size(2), grid.data_ptr(), grid.stride(0));
+    stbi_write_png(file_path.c_str(), grid.size(1), grid.size(0), grid.size(2), grid.data_ptr(), grid.stride(0));
 }
 }  // namespace image_utils

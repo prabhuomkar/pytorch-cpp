@@ -30,6 +30,7 @@ add_subdirectory("tutorials/intermediate/language_model")
 
 # Advanced
 add_subdirectory("tutorials/advanced/generative_adversarial_network")
+add_subdirectory("tutorials/advanced/variational_autoencoder")
 
 # The following code block is suggested to be used on Windows.
 # According to https://github.com/pytorch/pytorch/issues/25457,
