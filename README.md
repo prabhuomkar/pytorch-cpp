@@ -41,7 +41,7 @@ $ ./scripts.sh build
 
 #### 3. Advanced
 * [Generative Adversarial Networks](tutorials/advanced/generative_adversarial_network/main.cpp)
-* [Variational Auto-Encoder]()
+* [Variational Auto-Encoder](tutorials/advanced/variational_autoencoder/src/main.cpp)
 * [Neural Style Transfer]()
 * [Image Captioning (CNN-RNN)]()
 
