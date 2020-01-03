@@ -35,6 +35,12 @@
 libtorch/
 build/
 
+# Datasets
+data/
+
+# Tools
+tools/
+
 # Other
 .DS_Store
 .idea/

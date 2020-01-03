@@ -26,7 +26,7 @@ int main() {
     const std::string MNIST_data_path = "../../../../data/mnist/";
 
     // Path of the directory where the sampled and reconstructed images will be saved to (This folder must exist!)
-    const std::string sample_output_dir_path = "../../../../tutorials/advanced/variational_autoencoder/output/";
+    const std::string sample_output_dir_path = "output/";
 
     // MNIST dataset
     auto dataset = torch::data::datasets::MNIST(MNIST_data_path)

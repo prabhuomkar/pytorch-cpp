@@ -1,19 +1,20 @@
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(recurrent-neural-network VERSION 1.0.0 LANGUAGES CXX)
 
-# Files
-set(SOURCES src/main.cpp
-            src/rnn.cpp
-)
-
-set(HEADERS include/rnn.h
-)
+if(NOT Torch_FOUND)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake")
+    find_package(Torch REQUIRED PATHS "${CMAKE_CURRENT_SOURCE_DIR}/../../../libtorch")
+endif()
 
 set(EXECUTABLE_NAME recurrent-neural-network)
 
+add_executable(${EXECUTABLE_NAME})
+target_sources(${EXECUTABLE_NAME} PRIVATE src/main.cpp
+                                          src/rnn.cpp
+                                          include/rnn.h
+)
 
-add_executable(${EXECUTABLE_NAME} ${SOURCES} ${HEADERS})
 target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 
 target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
@@ -23,15 +24,9 @@ set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD_REQUIRED YES
 )
 
-# The following code block is suggested to be used on Windows.
-# According to https://github.com/pytorch/pytorch/issues/25457,
-# the DLLs need to be copied to avoid memory errors.
-# See https://pytorch.org/cppdocs/installing.html.
-if (MSVC)
-  file(GLOB TORCH_DLLS "${TORCH_INSTALL_PREFIX}/lib/*.dll")
-  add_custom_command(TARGET ${EXECUTABLE_NAME}
-                     POST_BUILD
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                     ${TORCH_DLLS}
-                     $<TARGET_FILE_DIR:${EXECUTABLE_NAME}>)
-endif (MSVC)
+if(MSVC)
+    set_target_properties(${EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+    set_target_properties(${EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR})
+    include(copy_torch_dlls)
+    copy_torch_dlls(${EXECUTABLE_NAME})
+endif(MSVC)

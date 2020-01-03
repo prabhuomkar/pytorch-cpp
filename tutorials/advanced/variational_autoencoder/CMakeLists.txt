@@ -1,22 +1,22 @@
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(variational-autoencoder VERSION 1.0.0 LANGUAGES CXX)
 
-# Files
-set(SOURCES src/main.cpp
-			src/variational_autoencoder.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/../utils/src/save_image.cpp
-)
-
-set(HEADERS include/variational_autoencoder.h
-            ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/save_image.h
-            ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external/stb_image_write.h
-)
+if(NOT Torch_FOUND)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake")
+    find_package(Torch REQUIRED PATHS "${CMAKE_CURRENT_SOURCE_DIR}/../../../libtorch")
+endif()
 
 set(EXECUTABLE_NAME variational-autoencoder)
 
-
-add_executable(${EXECUTABLE_NAME} ${SOURCES} ${HEADERS})
+add_executable(${EXECUTABLE_NAME})
+target_sources(${EXECUTABLE_NAME} PRIVATE src/main.cpp
+                                          src/variational_autoencoder.cpp
+                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/src/save_image.cpp
+                                          include/variational_autoencoder.h
+                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/save_image.h
+                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external/stb_image_write.h
+)
 target_include_directories(${EXECUTABLE_NAME} PRIVATE include
                                                       ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include
                                                       ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external)
@@ -28,15 +28,13 @@ set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD_REQUIRED YES
 )
 
-# The following code block is suggested to be used on Windows.
-# According to https://github.com/pytorch/pytorch/issues/25457,
-# the DLLs need to be copied to avoid memory errors.
-# See https://pytorch.org/cppdocs/installing.html.
-if (MSVC)
-  file(GLOB TORCH_DLLS "${TORCH_INSTALL_PREFIX}/lib/*.dll")
-  add_custom_command(TARGET ${EXECUTABLE_NAME}
-                     POST_BUILD
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                     ${TORCH_DLLS}
-                     $<TARGET_FILE_DIR:${EXECUTABLE_NAME}>)
-endif (MSVC)
+add_custom_command(TARGET ${EXECUTABLE_NAME}
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E make_directory output)
+
+if(MSVC)
+    set_target_properties(${EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+    set_target_properties(${EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR})
+    include(copy_torch_dlls)
+    copy_torch_dlls(${EXECUTABLE_NAME})
+endif(MSVC)
