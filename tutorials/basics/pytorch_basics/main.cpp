@@ -226,7 +226,7 @@ int main() {
     std::cout << "Model:\n" << model << "\n";
 
     // Path to the model output file (all folders must exist!).
-    const std::string model_save_path = "../../../../tutorials/basics/pytorch_basics/models/model.pt";
+    const std::string model_save_path = "output/model.pt";
 
     // Save the model
     torch::save(model, model_save_path);

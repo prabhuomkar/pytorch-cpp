@@ -38,7 +38,7 @@ int main() {
     auto vocab_size = corpus.get_dictionary().size();
 
     // Path to the output file (All folders must exist!)
-    const std::string sample_output_path = "../../../../tutorials/intermediate/language_model/output/sample.txt";
+    const std::string sample_output_path = "output/sample.txt";
 
     // Model
     RNNLM model(vocab_size, embed_size, hidden_size, num_layers);

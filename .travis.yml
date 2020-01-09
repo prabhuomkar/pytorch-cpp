@@ -1,4 +1,3 @@
-sudo: false
 language: cpp
 compiler:
   - gcc
@@ -11,11 +10,29 @@ addons:
     packages:
     - g++-6
     - clang-3.8
-    - cmake-data
-    - cmake
-before_install:
-  - wget https://raw.githubusercontent.com/cpplint/cpplint/master/cpplint.py
+    
+install:
+  # Download and install a more recent CMake version 
+  # Source: https://riptutorial.com/cmake/example/4723/configure-travis-ci-with-newest-cmake  
+  # Create directory for the CMake binaries
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
+  # Fetch cmake binaries
+  - travis_retry wget --no-check-certificate https://www.cmake.org/files/v3.14/cmake-3.14.0-Linux-x86_64.tar.gz
+  # Extract and move binaries
+  - tar -xvf cmake-3.14.0-Linux-x86_64.tar.gz > /dev/null
+  - mv cmake-3.14.0-Linux-x86_64 cmake-install
+  # Add to PATH
+  - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
+  # Switch back to build directory
+  - cd ${TRAVIS_BUILD_DIR}
+  
 script:
-  - ./scripts.sh lintci
-  - ./scripts.sh install
-  - ./scripts.sh build
+  # Show CMake version
+  - cmake --version
+  # Run linter
+  - cmake -P cmake/cpplint.cmake
+  # Generate build system
+  - cmake -B build
+  # Build
+  - cmake --build build

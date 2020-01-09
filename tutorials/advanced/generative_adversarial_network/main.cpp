@@ -25,7 +25,7 @@ int main() {
     const std::string MNIST_data_path = "../../../../data/mnist/";
 
     // Path of the directory where the generated samples will be saved to (This folder must exist!)
-    const std::string sample_output_dir_path = "../../../../tutorials/advanced/generative_adversarial_network/output/";
+    const std::string sample_output_dir_path = "output/";
 
     // MNIST dataset
     auto dataset = torch::data::datasets::MNIST(MNIST_data_path)

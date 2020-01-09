@@ -1,11 +1,28 @@
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(pytorch-cpp VERSION 1.0.0 LANGUAGES CXX)
 
-find_package(Torch REQUIRED)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+
+option(DOWNLOAD_DATASETS "Download datasets used in the tutorials." ON)
+
+find_package(Torch QUIET PATHS "${CMAKE_SOURCE_DIR}/libtorch")
+
+if(NOT Torch_FOUND)
+    unset(Torch_FOUND)
+    include(download_libtorch)
+endif()
+
+if(DOWNLOAD_DATASETS)
+    include(download_datasets)
+endif()
 
 set(EXECUTABLE_NAME pytorch-cpp)
-add_executable(${EXECUTABLE_NAME} main.cpp)
+
+add_executable(${EXECUTABLE_NAME})
+
+target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp)
+
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD 11
   CXX_STANDARD_REQUIRED YES
@@ -13,7 +30,7 @@ set_target_properties(${EXECUTABLE_NAME} PROPERTIES
 
 target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
 
-# Add tutorial projects:
+# Add tutorial sub-projects:
 
 # Basic
 add_subdirectory("tutorials/basics/feedforward_neural_network")
@@ -32,15 +49,7 @@ add_subdirectory("tutorials/intermediate/language_model")
 add_subdirectory("tutorials/advanced/generative_adversarial_network")
 add_subdirectory("tutorials/advanced/variational_autoencoder")
 
-# The following code block is suggested to be used on Windows.
-# According to https://github.com/pytorch/pytorch/issues/25457,
-# the DLLs need to be copied to avoid memory errors.
-# See https://pytorch.org/cppdocs/installing.html.
-if (MSVC)
-  file(GLOB TORCH_DLLS "${TORCH_INSTALL_PREFIX}/lib/*.dll")
-  add_custom_command(TARGET ${EXECUTABLE_NAME}
-                     POST_BUILD
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                     ${TORCH_DLLS}
-                     $<TARGET_FILE_DIR:${EXECUTABLE_NAME}>)
-endif (MSVC)
+if(MSVC)
+    include(copy_torch_dlls)
+    copy_torch_dlls(${EXECUTABLE_NAME})
+endif(MSVC)
