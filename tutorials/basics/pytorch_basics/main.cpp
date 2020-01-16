@@ -5,6 +5,7 @@
 #include <iomanip>
 
 void print_tensor_size(const torch::Tensor&);
+void print_script_module(const torch::jit::script::Module& module, size_t spaces = 0);
 
 int main() {
     std::cout << "PyTorch Basics\n\n";
@@ -45,15 +46,13 @@ int main() {
     y = torch::randn({10, 2});
 
     // Build a fully connected layer
-    auto linear = torch::nn::Linear(3, 2);
+    torch::nn::Linear linear(3, 2);
     std::cout << "w:\n" << linear->weight << '\n';
     std::cout << "b:\n" << linear->bias << '\n';
 
-    // Build loss function and optimizer
-    auto criterion = [] (const torch::Tensor& pred, const torch::Tensor& target) {
-        return torch::mse_loss(pred, target);
-    };
-    auto optimizer = torch::optim::SGD(linear->parameters(), torch::optim::SGDOptions(0.01));
+    // Create loss function and optimizer
+    torch::nn::MSELoss criterion;
+    torch::optim::SGD optimizer(linear->parameters(), torch::optim::SGDOptions(0.01));
 
     // Forward pass
     auto pred = linear(x);
@@ -185,16 +184,14 @@ int main() {
 
     std::cout << "Resnet18 model:\n";
 
-    for (const auto& module : resnet.get_modules()) {
-        std::cout << "  " << module.name().name() << "\n";
+    print_script_module(resnet, 2);
 
-        for (const auto& sub_module : module.get_modules()) {
-            std::cout << "    " << sub_module.name().name() << "\n";
-        }
-    }
+    std::cout << "\n";
 
-    auto in_features = resnet.find_module("fc")->get_parameter("weight").size(1);
-    auto out_features = resnet.find_module("fc")->get_parameter("weight").size(0);
+    const auto fc_weight = resnet.attr("fc").toModule().attr("weight").toTensor();
+
+    auto in_features = fc_weight.size(1);
+    auto out_features = fc_weight.size(0);
 
     std::cout << "Fully connected layer: in_features=" << in_features << ", out_features=" << out_features << "\n";
 
@@ -242,3 +239,15 @@ void print_tensor_size(const torch::Tensor& x) {
     }
     std::cout << x.size(-1) << "]";
 }
+
+void print_script_module(const torch::jit::script::Module& module, size_t spaces) {
+    for (const auto& sub_module : module.named_children()) {
+        if (!sub_module.name.empty()) {
+            std::cout << std::string(spaces, ' ') << sub_module.value.type()->name().value().name()
+                << " " << sub_module.name << "\n";
+        }
+
+        print_script_module(sub_module.value, spaces + 2);
+    }
+}
+

@@ -4,10 +4,10 @@
 
 VAEImpl::VAEImpl(int64_t image_size, int64_t h_dim, int64_t z_dim)
     : fc1(image_size, h_dim),
-    fc2(h_dim, z_dim),
-    fc3(h_dim, z_dim),
-    fc4(z_dim, h_dim),
-    fc5(h_dim, image_size) {
+      fc2(h_dim, z_dim),
+      fc3(h_dim, z_dim),
+      fc4(z_dim, h_dim),
+      fc5(h_dim, image_size) {
     register_module("fc1", fc1);
     register_module("fc2", fc2);
     register_module("fc3", fc3);

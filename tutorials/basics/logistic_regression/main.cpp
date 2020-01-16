@@ -43,15 +43,12 @@ int main() {
         std::move(test_dataset), batch_size);
 
     // Logistic regression model
-    auto model = torch::nn::Sequential{
-        torch::nn::Linear(input_size, num_classes),
-        torch::nn::Functional([] (const torch::Tensor& x) { return torch::log_softmax(x, 1); })
-    };
+    torch::nn::Linear model(input_size, num_classes);
 
     model->to(device);
 
     // Loss and optimizer
-    auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
+    torch::optim::SGD optimizer(model->parameters(), torch::optim::SGDOptions(learning_rate));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
@@ -72,7 +69,7 @@ int main() {
             auto output = model->forward(data);
 
             // Calculate loss
-            auto loss = torch::nll_loss(output, target);
+            auto loss = torch::nn::functional::cross_entropy(output, target);
 
             // Update running loss
             running_loss += loss.item<double>() * data.size(0);
@@ -112,7 +109,7 @@ int main() {
 
         auto output = model->forward(data);
 
-        auto loss = torch::nll_loss(output, target);
+        auto loss = torch::nn::functional::cross_entropy(output, target);
 
         running_loss += loss.item<double>() * data.size(0);
 

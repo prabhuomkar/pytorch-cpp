@@ -13,6 +13,5 @@ torch::Tensor ConvNetImpl::forward(torch::Tensor x) {
     x = layer1->forward(x);
     x = layer2->forward(x);
     x = x.view({-1, 7 * 7 * 32});
-    x = fc->forward(x);
-    return torch::log_softmax(x, 1);
+    return fc->forward(x);
 }

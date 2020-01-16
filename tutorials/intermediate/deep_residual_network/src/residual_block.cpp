@@ -7,7 +7,6 @@ ResidualBlockImpl::ResidualBlockImpl(int64_t in_channels, int64_t out_channels, 
     torch::nn::Sequential downsample) :
     conv1(conv3x3(in_channels, out_channels, stride)),
     bn1(out_channels),
-    relu(torch::relu),
     conv2(conv3x3(out_channels, out_channels)),
     bn2(out_channels),
     downsampler(downsample) {
@@ -40,6 +39,6 @@ torch::nn::Conv2d conv3x3(int64_t in_channels, int64_t out_channels, int64_t str
     return torch::nn::Conv2d(torch::nn::Conv2dOptions(in_channels, out_channels, 3)
         .stride(stride)
         .padding(1)
-        .with_bias(false));
+        .bias(false));
 }
 }  // namespace resnet

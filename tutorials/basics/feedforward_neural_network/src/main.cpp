@@ -49,7 +49,7 @@ int main() {
     model->to(device);
 
     // Optimizer
-    auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
+    torch::optim::SGD optimizer(model->parameters(), torch::optim::SGDOptions(learning_rate));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
@@ -68,7 +68,7 @@ int main() {
 
             // Forward pass
             auto output = model->forward(data);
-            auto loss = torch::nll_loss(output, target);
+            auto loss = torch::nn::functional::cross_entropy(output, target);
 
             // Update running loss
             running_loss += loss.item<double>() * data.size(0);
@@ -108,7 +108,7 @@ int main() {
 
         auto output = model->forward(data);
 
-        auto loss = torch::nll_loss(output, target);
+        auto loss = torch::nn::functional::cross_entropy(output, target);
 
         running_loss += loss.item<double>() * data.size(0);
 

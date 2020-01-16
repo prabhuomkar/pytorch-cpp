@@ -15,8 +15,8 @@ class ResNetImpl : public torch::nn::Module {
  private:
     int64_t in_channels = 16;
     torch::nn::Conv2d conv{conv3x3(3, 16)};
-    torch::nn::BatchNorm bn{16};
-    torch::nn::Functional relu{torch::relu};
+    torch::nn::BatchNorm2d bn{16};
+    torch::nn::ReLU relu;
     torch::nn::Sequential layer1;
     torch::nn::Sequential layer2;
     torch::nn::Sequential layer3;
@@ -52,9 +52,8 @@ torch::Tensor ResNetImpl<Block>::forward(torch::Tensor x) {
     out = layer3->forward(out);
     out = avg_pool->forward(out);
     out = out.view({out.size(0), -1});
-    out = fc->forward(out);
 
-    return torch::log_softmax(out, 1);
+    return fc->forward(out);
 }
 
 template<typename Block>
@@ -65,7 +64,7 @@ torch::nn::Sequential ResNetImpl<Block>::make_layer(int64_t out_channels, int64_
     if (stride != 1 || in_channels != out_channels) {
         downsample = torch::nn::Sequential{
             conv3x3(in_channels, out_channels, stride),
-            torch::nn::BatchNorm(out_channels)
+            torch::nn::BatchNorm2d(out_channels)
         };
     }
 

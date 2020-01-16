@@ -14,11 +14,9 @@ target_sources(${EXECUTABLE_NAME} PRIVATE src/main.cpp
                                           src/rnn_lm.cpp
                                           src/corpus.cpp
                                           src/dictionary.cpp
-                                          src/clip_grad_norm.cpp
                                           include/rnn_lm.h
                                           include/corpus.h
                                           include/dictionary.h
-                                          include/clip_grad_norm.h
 )
 
 target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
@@ -26,7 +24,7 @@ target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
-  CXX_STANDARD 11
+  CXX_STANDARD 14
   CXX_STANDARD_REQUIRED YES
 )
 
