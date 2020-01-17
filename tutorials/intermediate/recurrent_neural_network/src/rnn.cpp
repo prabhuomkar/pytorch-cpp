@@ -14,6 +14,5 @@ torch::Tensor RNNImpl::forward(torch::Tensor x) {
         .output
         .slice(1, -1)
         .squeeze(1);
-    out = fc->forward(out);
-    return torch::log_softmax(out, 1);
+    return fc->forward(out);
 }

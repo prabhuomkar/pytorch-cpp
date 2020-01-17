@@ -43,29 +43,29 @@ int main() {
     // - Discriminator
     torch::nn::Sequential D{
         torch::nn::Linear(image_size, hidden_size),
-        torch::nn::Functional(torch::leaky_relu, 0.2),
+        torch::nn::LeakyReLU(torch::nn::LeakyReLUOptions().negative_slope(0.2)),
         torch::nn::Linear(hidden_size, hidden_size),
-        torch::nn::Functional(torch::leaky_relu, 0.2),
+        torch::nn::LeakyReLU(torch::nn::LeakyReLUOptions().negative_slope(0.2)),
         torch::nn::Linear(hidden_size, 1),
-        torch::nn::Functional(torch::sigmoid)
+        torch::nn::Sigmoid()
     };
 
     // - Generator
     torch::nn::Sequential G{
         torch::nn::Linear(latent_size, hidden_size),
-        torch::nn::Functional(torch::relu),
+        torch::nn::ReLU(),
         torch::nn::Linear(hidden_size, hidden_size),
-        torch::nn::Functional(torch::relu),
+        torch::nn::ReLU(),
         torch::nn::Linear(hidden_size, image_size),
-        torch::nn::Functional(torch::tanh)
+        torch::nn::Tanh()
     };
 
     D->to(device);
     G->to(device);
 
     // Optimizers
-    auto d_optimizer = torch::optim::Adam(D->parameters(), torch::optim::AdamOptions(learning_rate));
-    auto g_optimizer = torch::optim::Adam(G->parameters(), torch::optim::AdamOptions(learning_rate));
+    torch::optim::Adam d_optimizer(D->parameters(), torch::optim::AdamOptions(learning_rate));
+    torch::optim::Adam g_optimizer(G->parameters(), torch::optim::AdamOptions(learning_rate));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);

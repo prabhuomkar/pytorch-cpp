@@ -18,10 +18,10 @@ int main() {
     auto y_train = torch::randint(0, 10, {15, 1});
 
     // Linear regression model
-    auto model = torch::nn::Linear(input_size, output_size);
+    torch::nn::Linear model(input_size, output_size);
 
     // Optimizer
-    auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate));
+    torch::optim::SGD optimizer(model->parameters(), torch::optim::SGDOptions(learning_rate));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
@@ -32,7 +32,7 @@ int main() {
     for (size_t epoch = 0; epoch != num_epochs; ++epoch) {
         // Forward pass
         auto output = model(x_train);
-        auto loss = torch::mse_loss(output, y_train);
+        auto loss = torch::nn::functional::mse_loss(output, y_train);
 
         // Backward pass and optimize
         optimizer.zero_grad();

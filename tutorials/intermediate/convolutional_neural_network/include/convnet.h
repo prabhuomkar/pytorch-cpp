@@ -11,15 +11,15 @@ class ConvNetImpl : public torch::nn::Module {
  private:
     torch::nn::Sequential layer1{
         torch::nn::Conv2d(torch::nn::Conv2dOptions(1, 16, 5).stride(1).padding(2)),
-        torch::nn::BatchNorm(16),
-        torch::nn::Functional(torch::relu),
+        torch::nn::BatchNorm2d(16),
+        torch::nn::ReLU(),
         torch::nn::MaxPool2d(torch::nn::MaxPool2dOptions(2).stride(2))
     };
 
     torch::nn::Sequential layer2{
         torch::nn::Conv2d(torch::nn::Conv2dOptions(16, 32, 5).stride(1).padding(2)),
-        torch::nn::BatchNorm(32),
-        torch::nn::Functional(torch::relu),
+        torch::nn::BatchNorm2d(32),
+        torch::nn::ReLU(),
         torch::nn::MaxPool2d(torch::nn::MaxPool2dOptions(2).stride(2))
     };
 

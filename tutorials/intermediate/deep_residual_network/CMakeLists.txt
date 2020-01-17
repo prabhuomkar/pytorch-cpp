@@ -25,7 +25,7 @@ target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
-  CXX_STANDARD 11
+  CXX_STANDARD 14
   CXX_STANDARD_REQUIRED YES
 )
 

@@ -4,10 +4,8 @@
 #include <iomanip>
 #include "rnn_lm.h"
 #include "corpus.h"
-#include "clip_grad_norm.h"
 
 using data_utils::Corpus;
-using nn_utils::clip_grad_l2_norm;
 
 int main() {
     std::cout << "Language Model\n\n";
@@ -45,7 +43,7 @@ int main() {
     model->to(device);
 
     // Optimizer
-    auto optimizer = torch::optim::Adam(model->parameters(), torch::optim::AdamOptions(learning_rate));
+    torch::optim::Adam optimizer(model->parameters(), torch::optim::AdamOptions(learning_rate));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
@@ -73,7 +71,7 @@ int main() {
             state = rnn_output.state.detach();
 
             // Calculate loss
-            auto loss = torch::nll_loss(output, target);
+            auto loss = torch::nn::functional::nll_loss(output, target);
 
             // Update running metrics
             running_loss += loss.item<double>() * data.size(0);
@@ -83,7 +81,7 @@ int main() {
             // Backward pass and optimize
             optimizer.zero_grad();
             loss.backward();
-            clip_grad_l2_norm(model->parameters(), 0.5);
+            torch::nn::utils::clip_grad_norm_(model->parameters(), 0.5);
             optimizer.step();
         }
 

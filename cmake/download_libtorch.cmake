@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 include(FetchContent)
 
 set(CUDA_V "none" CACHE STRING "Determines cuda version to download (9.2 or 10.1).")
-set(PYTORCH_VERSION "1.3.1")
+set(PYTORCH_VERSION "1.4.0")
 
 if(${CUDA_V} STREQUAL "none")
     set(LIBTORCH_DEVICE "cpu")

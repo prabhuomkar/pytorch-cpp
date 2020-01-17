@@ -23,7 +23,6 @@ torch::Tensor BiRNNImpl::forward(torch::Tensor x) {
     auto out_2 = out_directions[1].slice(1, 0, 1).squeeze(1);  // out_2: tensor of shape (batch_size, hidden_size)
     auto out_cat = torch::cat({out_1, out_2}, 1);  // out_cat: tensor of shape (batch_size, 2 * hidden_size)
 
-    out = fc->forward(out_cat);
-    return torch::log_softmax(out, 1);
+    return fc->forward(out_cat);
 }
 

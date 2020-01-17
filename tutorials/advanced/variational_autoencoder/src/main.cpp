@@ -44,7 +44,7 @@ int main() {
     model->to(device);
 
     // Optimizer
-    auto optimizer = torch::optim::Adam(model->parameters(), torch::optim::AdamOptions(learning_rate));
+    torch::optim::Adam optimizer(model->parameters(), torch::optim::AdamOptions(learning_rate));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
@@ -67,7 +67,8 @@ int main() {
 
             // Compute reconstruction loss and kl divergence
             // For KL divergence, see Appendix B in VAE paper https://arxiv.org/pdf/1312.6114.pdf
-            auto reconstruction_loss = torch::binary_cross_entropy(output.reconstruction, images, {}, Reduction::Sum);
+            auto reconstruction_loss = torch::nn::functional::binary_cross_entropy(output.reconstruction, images,
+                torch::nn::functional::BinaryCrossEntropyFuncOptions().reduction(torch::kSum));
             auto kl_divergence = -0.5 * torch::sum(1 + output.log_var - output.mu.pow(2) - output.log_var.exp());
 
             // Backward pass and optimize
