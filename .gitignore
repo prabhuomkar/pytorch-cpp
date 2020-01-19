@@ -41,6 +41,9 @@ data/
 # Tools
 tools/
 
+# Model files
+tutorials/**/*.pt
+
 # Other
 .DS_Store
 .idea/

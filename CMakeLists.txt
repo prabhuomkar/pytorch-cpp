@@ -48,6 +48,7 @@ add_subdirectory("tutorials/intermediate/language_model")
 # Advanced
 add_subdirectory("tutorials/advanced/generative_adversarial_network")
 add_subdirectory("tutorials/advanced/variational_autoencoder")
+add_subdirectory("tutorials/advanced/neural_style_transfer")
 
 if(MSVC)
     include(copy_torch_dlls)
