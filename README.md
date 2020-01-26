@@ -58,7 +58,7 @@ cmake --build build
 ### 3. Advanced
 * [Generative Adversarial Networks](tutorials/advanced/generative_adversarial_network/main.cpp)
 * [Variational Auto-Encoder](tutorials/advanced/variational_autoencoder/src/main.cpp)
-* [Neural Style Transfer]()
+* [Neural Style Transfer](tutorials/advanced/neural_style_transfer/src/main.cpp)
 * [Image Captioning (CNN-RNN)]()
 
 ## Dependencies
