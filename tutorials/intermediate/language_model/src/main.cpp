@@ -2,6 +2,7 @@
 #include <torch/torch.h>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include "rnn_lm.h"
 #include "corpus.h"
 
