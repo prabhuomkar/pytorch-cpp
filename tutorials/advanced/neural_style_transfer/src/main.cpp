@@ -2,6 +2,7 @@
 #include <torch/torch.h>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include "vggnet.h"
 #include "load_image.h"
 #include "save_image.h"
