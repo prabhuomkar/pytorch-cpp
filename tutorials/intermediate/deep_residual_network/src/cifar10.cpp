@@ -9,7 +9,7 @@ constexpr uint32_t kSizePerBatch = 10000;
 constexpr uint32_t kImageRows = 32;
 constexpr uint32_t kImageColumns = 32;
 constexpr uint32_t kBytesPerRow = 3073;
-constexpr uint32_t kBytesPerChannelPerRow = (kBytesPerRow - 1) / 3;
+constexpr uint32_t kBytesPerChannelPerRow = 1024;
 constexpr uint32_t kBytesPerBatchFile = kBytesPerRow * kSizePerBatch;
 
 const std::vector<std::string> kTrainDataBatchFiles = {
@@ -62,7 +62,7 @@ std::pair<torch::Tensor, torch::Tensor> read_data(const std::string& root, bool 
         // red (32 *32 = 1024 bytes) | green (1024 bytes) | blue (1024 bytes)
         uint32_t image_start = start_index + 1;
         uint32_t image_end = image_start + 3 * kBytesPerChannelPerRow;
-        std::copy(&data_buffer[image_start], &data_buffer[image_end],
+        std::copy(data_buffer.begin() + image_start, data_buffer.begin() + image_end,
             reinterpret_cast<char*>(images[i].data_ptr()));
     }
 
