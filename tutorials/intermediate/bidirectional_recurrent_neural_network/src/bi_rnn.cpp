@@ -1,4 +1,4 @@
-// Copyright 2019 Markus Fleischhacker
+// Copyright 2020-present pytorch-cpp Authors
 #include "bi_rnn.h"
 #include <torch/torch.h>
 
