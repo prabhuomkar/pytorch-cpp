@@ -90,13 +90,14 @@ int main() {
         model->eval();
         torch::NoGradGuard no_grad;
 
-        // Save the sampled images from the last batch in this epoch
+        // Sample a batch of codings from the unit Gaussian Distribution, then decode them using the Decoder
+        // and save the resulting images.
         auto z = torch::randn({batch_size, z_dim}).to(device);
         auto images_decoded = model->decode(z).view({-1, 1, 28, 28});
         save_image(images_decoded, sample_output_dir_path + "sampled-" + std::to_string(epoch + 1) + ".png");
 
-        // Save the actual and reconstructed images from the last batch in this epoch
-        // The saved png image contains (actual | reconstruction)-pairs of columns of digits
+        // Save the target and reconstructed images from the last batch in this epoch.
+        // The saved png image contains (target | reconstruction)-pairs of columns of digits
         auto output = model->forward(images);
         auto images_concatenated = torch::cat({images.view({-1, 1, 28, 28}),
             output.reconstruction.view({-1, 1, 28, 28})}, 3);

@@ -155,12 +155,14 @@ int main() {
     // =============================================================== //
 
     std::cout << "---- PRETRAINED MODEL ----\n";
-    // Currently, loading a pretrained model using the C++ API must be done
+    // Loading a pretrained model using the C++ API is done
     // in the following way:
-    // (1) In Python: Create the (pretrained) pytorch model.
-    // (2) In Python: Convert the pytorch model to a torch.jit.ScriptModule (via tracing or by using annotations)
-    // (3) In Python: Serialize the scriptmodule to a file.
-    // (4) In C++: Load the scriptmodule form the file using torch::jit::load()
+    // In Python:
+    // (1) Create the (pretrained) pytorch model.
+    // (2) Convert the pytorch model to a torch.jit.ScriptModule (via tracing or by using annotations)
+    // (3) Serialize the scriptmodule to a file.
+    // In C++:
+    // (4) Load the scriptmodule form the file using torch::jit::load()
     // See https://pytorch.org/tutorials/advanced/cpp_export.html for more infos.
 
     // Path to serialized ScriptModule of pretrained resnet18 model,
