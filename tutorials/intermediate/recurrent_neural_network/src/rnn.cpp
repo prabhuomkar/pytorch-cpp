@@ -10,9 +10,6 @@ RNNImpl::RNNImpl(int64_t input_size, int64_t hidden_size, int64_t num_layers, in
 }
 
 torch::Tensor RNNImpl::forward(torch::Tensor x) {
-    auto out = lstm->forward(x)
-        .output
-        .slice(1, -1)
-        .squeeze(1);
+    auto out = lstm->forward(x).output.select(1, -1);
     return fc->forward(out);
 }
