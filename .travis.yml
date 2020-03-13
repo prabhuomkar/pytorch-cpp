@@ -1,38 +1,66 @@
 language: cpp
-compiler:
-  - gcc
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.8
-    - george-edison55-precise-backports
-    packages:
-    - g++-6
-    - clang-3.8
-    
+sudo: false
+notifications:
+  email: false
+os: linux
+dist: trusty
+matrix:
+  include:
+    - name: "macOS Clang 9.1"
+      os: osx
+      osx_image: xcode9.4
+    - name: "macOS Clang 10.0"
+      os: osx
+      osx_image: xcode10.1
+    - name: "macOS Clang 11.0"
+      os: osx
+      osx_image: xcode11.2
+    # TODO: Add support for Linux Clang Compilers
+    - name: "Linux GCC 5 C++14"
+      env:
+        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+      addons:
+        apt:
+          packages: g++-5
+          sources:
+            - ubuntu-toolchain-r-test
+    - name: "Linux GCC 6 C++14"
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+      addons:
+        apt:
+          packages: g++-6
+          sources:
+            - ubuntu-toolchain-r-test
+    - name: "Linux GCC 7 C++14"
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      addons:
+        apt:
+          packages: g++-7
+          sources:
+            - ubuntu-toolchain-r-test
+    - name: "Linux GCC 8 C++14"
+      env:
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+      addons:
+        apt:
+          packages: g++-8
+          sources:
+            - ubuntu-toolchain-r-test
+before_install:
+  - eval "${MATRIX_EVAL}"
 install:
-  # Download and install a more recent CMake version 
-  # Source: https://riptutorial.com/cmake/example/4723/configure-travis-ci-with-newest-cmake  
-  # Create directory for the CMake binaries
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then OS_NAME="Darwin"; else OS_NAME="Linux"; fi
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
   - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
-  # Fetch cmake binaries
-  - travis_retry wget --no-check-certificate https://www.cmake.org/files/v3.14/cmake-3.14.0-Linux-x86_64.tar.gz
-  # Extract and move binaries
-  - tar -xvf cmake-3.14.0-Linux-x86_64.tar.gz > /dev/null
-  - mv cmake-3.14.0-Linux-x86_64 cmake-install
-  # Add to PATH
+  - travis_retry wget --no-check-certificate https://www.cmake.org/files/v3.14/cmake-3.14.0-${OS_NAME}-x86_64.tar.gz
+  - tar -xvf cmake-3.14.0-${OS_NAME}-x86_64.tar.gz > /dev/null
+  - mv cmake-3.14.0-${OS_NAME}-x86_64 cmake-install
   - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
-  # Switch back to build directory
   - cd ${TRAVIS_BUILD_DIR}
-  
 script:
-  # Show CMake version
   - cmake --version
-  # Run linter
   - cmake -P cmake/cpplint.cmake
-  # Generate build system
   - cmake -B build
-  # Build
   - cmake --build build
