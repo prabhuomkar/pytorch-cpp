@@ -4,15 +4,15 @@
 ![MIT License](https://img.shields.io/github/license/prabhuomkar/pytorch-cpp)
 ![C++ PyTorch](https://img.shields.io/badge/c%2B%2B-pytorch-orange) 
 
-| OS (Compiler)\libtorch | 1.3 |                                                  1.4                                                  | 1.5 | nightly |
-|:----------------------:|:---:|:-----------------------------------------------------------------------------------------------------:|:---:|:-------:|
-|     OS (clang 9.1)     |     | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |     |         |
-|     OS (clang 10.0)    |     | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |     |         |
-|     OS (clang 11.0)    |     | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/3) |     |         |
-|      Linux (gcc 5)     |     | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/4) |     |         |
-|      Linux (gcc 6)     |     | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/5) |     |         |
-|      Linux (gcc 7)     |     | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/6) |     |         |
-|      Linux (gcc 8)     |     | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |     |         |
+| OS (Compiler)\\libtorch |                                                  1.4                                                  | 1.5 | nightly |
+| :---------------------: | :---------------------------------------------------------------------------------------------------: | :-: | :-----: |
+|    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |     |         |
+|    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |     |         |
+|    macOS (clang 11.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/3) |     |         |
+|      Linux (gcc 5)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/4) |     |         |
+|      Linux (gcc 6)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/5) |     |         |
+|      Linux (gcc 7)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/6) |     |         |
+|      Linux (gcc 8)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |     |         |
 
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
