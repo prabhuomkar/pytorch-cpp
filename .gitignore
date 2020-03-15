@@ -60,3 +60,6 @@ _deps
 # Other
 .DS_Store
 .idea/
+
+# Notebooks
+.ipynb_checkpoints

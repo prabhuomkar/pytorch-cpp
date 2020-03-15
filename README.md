@@ -31,6 +31,16 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
 2. [CMake](https://cmake.org/download/)
 3. [LibTorch v1.4.0](https://pytorch.org/cppdocs/installing.html)
+4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
+
+
+### For Interactive Tutorials
+
+```bash
+conda create --name pytorch-cpp
+conda activate pytorch-cpp
+conda install xeus-cling notebook -c conda-forge
+```
 
 ### Fork/Clone and Build
 
@@ -61,6 +71,15 @@ Some useful options:
 cmake --build build
 ```
 
+### Running Tutorials
+
+```bash
+./build/tutorials/basics/pytorch_basics/pytorch_basics
+
+# In general
+./build/tutorials/{category}/{topic}/{topic}
+```
+
 >**_Note for Windows users:_** <br>
 >The CMake script downloads the *Release* version of libtorch, so `--config Release` has to be appended to the build command.
 >
@@ -87,3 +106,6 @@ cmake --build build
 * [Variational Auto-Encoder](tutorials/advanced/variational_autoencoder/src/main.cpp)
 * [Neural Style Transfer](tutorials/advanced/neural_style_transfer/src/main.cpp)
 * [Image Captioning (CNN-RNN)]()
+
+### 4. Interactive Tutorials
+* [Tensor Slicing](notebooks/tensor_slicing.ipynb)
