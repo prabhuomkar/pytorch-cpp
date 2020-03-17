@@ -1,4 +1,4 @@
-// Copyright 2020 Markus Fleischhacker
+// Copyright 2020-present pytorch-cpp Authors
 #pragma once
 
 #include <torch/torch.h>
