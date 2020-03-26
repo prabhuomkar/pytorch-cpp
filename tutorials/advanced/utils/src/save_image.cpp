@@ -1,4 +1,4 @@
-// Copyright 2019 Markus Fleischhacker
+// Copyright 2020-present pytorch-cpp Authors
 #include "save_image.h"
 #include <torch/torch.h>
 

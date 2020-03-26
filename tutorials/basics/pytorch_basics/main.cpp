@@ -1,4 +1,4 @@
-// Copyright 2019 Omkar Prabhu
+// Copyright 2020-present pytorch-cpp Authors
 #include <torch/torch.h>
 #include <torch/script.h>
 #include <iostream>
@@ -106,6 +106,64 @@ int main() {
     TORCH_CHECK(data_vector.data() == t2.data_ptr<float>());
 
     // =============================================================== //
+    //             SLICING AND EXTRACTING PARTS FROM TENSORS           //
+    // =============================================================== //
+
+    std::cout << "---- SLICING AND EXTRACTING PARTS FROM TENSORS ----\n";
+
+    std::vector<int64_t> test_data = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    torch::Tensor s = torch::from_blob(test_data.data(), {3, 3}, torch::kInt64);
+    std::cout << "s:\n" << s << '\n';
+    // Output:
+    // 1 2 3
+    // 4 5 6
+    // 7 8 9
+
+    // Extract a single element tensor:
+    std::cout << "\"s[0,2]\" as tensor:\n" << s[0][2] << '\n';
+    std::cout << "\"s[0,2]\" as value:\n" << s[0][2].item<int64_t>() << '\n';
+    // Output:
+    // 3
+
+    // select(dim, index):
+    // - Slice a tensor along a dimension at a given index.
+    //
+    // Function definition can be found at:
+    // https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorShape.cpp#L736
+    std::cout << "\"s[:,2]\":\n" << s.select(1, 2) << '\n';
+    // Output:
+    // 3
+    // 6
+    // 9
+
+    // slice(dim, start=0, end=<maximum int64_t value>, step=1):
+    // - Slice a tensor along a dimension at given indices from
+    //   "start" up to - but not including - "end" using step size "step".
+    //
+    // Function definition can be found at:
+    // https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorShape.cpp#L856
+    std::cout << "\"s[:2,:]\":\n" << s.slice(0, 0, 2) << '\n';
+    // Output:
+    // 1 2 3
+    // 4 5 6
+    std::cout << "\"s[:,1:]\":\n" << s.slice(1, 1) << '\n';
+    // Output:
+    // 2 3
+    // 5 6
+    // 8 9
+    std::cout << "\"s[:,::2]\":\n" << s.slice(1, 0, s.size(1), 2) << '\n';
+    // Output:
+    // 1 3
+    // 4 6
+    // 7 9
+
+    // Combining select() and slice():
+    std::cout << "\"s[:2,1]\":\n" << s.slice(0, 0, 2).select(1, 1) << "\n\n";
+    // Output:
+    // 2
+    // 5
+
+    // =============================================================== //
     //                         INPUT PIPELINE                          //
     // =============================================================== //
 
@@ -155,12 +213,14 @@ int main() {
     // =============================================================== //
 
     std::cout << "---- PRETRAINED MODEL ----\n";
-    // Currently, loading a pretrained model using the C++ API must be done
+    // Loading a pretrained model using the C++ API is done
     // in the following way:
-    // (1) In Python: Create the (pretrained) pytorch model.
-    // (2) In Python: Convert the pytorch model to a torch.jit.ScriptModule (via tracing or by using annotations)
-    // (3) In Python: Serialize the scriptmodule to a file.
-    // (4) In C++: Load the scriptmodule form the file using torch::jit::load()
+    // In Python:
+    // (1) Create the (pretrained) pytorch model.
+    // (2) Convert the pytorch model to a torch.jit.ScriptModule (via tracing or by using annotations)
+    // (3) Serialize the scriptmodule to a file.
+    // In C++:
+    // (4) Load the scriptmodule form the file using torch::jit::load()
     // See https://pytorch.org/tutorials/advanced/cpp_export.html for more infos.
 
     // Path to serialized ScriptModule of pretrained resnet18 model,

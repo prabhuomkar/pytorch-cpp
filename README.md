@@ -1,26 +1,51 @@
-<p align="center"><img width="50%" src="images/pytorch_logo.svg" /></p>
+<h1 align="center">
+    <img src="images/pytorch_cpp.png" width="50%">
+</h1>
+<p align="center">
+    C++ Implementation of PyTorch Tutorials for Deep Learning Researchers
+    <br />
+<img src="https://img.shields.io/travis/prabhuomkar/pytorch-cpp">
+<img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
+<img src="https://img.shields.io/badge/libtorch-1.4-ee4c2c">
+<img src="https://img.shields.io/badge/cmake-3.14-064f8d">
+</p>
 
---------------------------------------------------------------------------------
-[![Build Status](https://travis-ci.org/prabhuomkar/pytorch-cpp.svg?branch=master)](https://travis-ci.org/prabhuomkar/pytorch-cpp)
-![MIT License](https://img.shields.io/github/license/prabhuomkar/pytorch-cpp)
-![C++ PyTorch](https://img.shields.io/badge/c%2B%2B-pytorch-orange) 
+
+| OS (Compiler)\\libtorch |                                                  1.4                                                  | 1.5 | nightly |
+| :---------------------: | :---------------------------------------------------------------------------------------------------: | :-: | :-----: |
+|    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |     |         |
+|    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |     |         |
+|    macOS (clang 11.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/3) |     |         |
+|      Linux (gcc 5)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/4) |     |         |
+|      Linux (gcc 6)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/5) |     |         |
+|      Linux (gcc 7)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/6) |     |         |
+|      Linux (gcc 8)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |     |         |
 
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
 
 ## Getting Started
+
+### Requirements
+
+1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
+2. [CMake](https://cmake.org/download/)
+3. [LibTorch v1.4.0](https://pytorch.org/cppdocs/installing.html)
+
 ### Fork/Clone and Build
 
 ```bash
 git clone https://github.com/prabhuomkar/pytorch-cpp.git
 cd pytorch-cpp
 ```
+
 #### Generate build system
+
 ```cmake
 cmake -B build #<options>
 ```
 > **_Note for Windows users:_**<br> 
->Libtorch only supports 64bit Windows and an x64 generator needs to be specified. For Visual Studio this can be done by appending `-A x64` to the above command.
+> Libtorch only supports 64bit Windows and an x64 generator needs to be specified. For Visual Studio this can be done by appending `-A x64` to the above command.
 
 Some useful options:
 
@@ -31,9 +56,11 @@ Some useful options:
 | `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |       |    Skip the downloading of libtorch and use your own local version instead. |
 
 #### Build
+
 ```cmake
 cmake --build build
 ```
+
 >**_Note for Windows users:_** <br>
 >The CMake script downloads the *Release* version of libtorch, so `--config Release` has to be appended to the build command.
 >
@@ -60,11 +87,3 @@ cmake --build build
 * [Variational Auto-Encoder](tutorials/advanced/variational_autoencoder/src/main.cpp)
 * [Neural Style Transfer](tutorials/advanced/neural_style_transfer/src/main.cpp)
 * [Image Captioning (CNN-RNN)]()
-
-## Dependencies
-- C++
-- PyTorch C++ API
-
-## Authors
-- Omkar Prabhu - [prabhuomkar](https://github.com/prabhuomkar)
-- Markus Fleischhacker - [mfl28](https://github.com/mfl28)
