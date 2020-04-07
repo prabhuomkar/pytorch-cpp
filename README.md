@@ -36,6 +36,9 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 ### For Interactive Tutorials
 
+**Note**: Interactive Tutorials are currently running on **LibTorch Nightly Version**.  
+So there are some tutorials which can break when working with _nightly version_.
+
 ```bash
 conda create --name pytorch-cpp
 conda activate pytorch-cpp
@@ -73,6 +76,8 @@ cmake --build build
 
 ### Running Tutorials
 
+**Note**: _category_ can be basics, intermediate, advanced and _topic_ would be name of tutorial in snake case. 
+
 ```bash
 ./build/tutorials/basics/pytorch_basics/pytorch_basics
 
@@ -109,3 +114,6 @@ cmake --build build
 
 ### 4. Interactive Tutorials
 * [Tensor Slicing](notebooks/tensor_slicing.ipynb)
+
+## License
+This repository is licensed under MIT as given in [LICENSE](LICENSE).
