@@ -77,6 +77,7 @@ cmake --build build
 ### Running Tutorials
 
 **Note**: _category_ can be basics, intermediate, advanced and _topic_ would be name of tutorial in snake case. 
+
 ```bash
 ./build/tutorials/basics/pytorch_basics/pytorch_basics
 
