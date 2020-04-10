@@ -73,24 +73,29 @@ Some useful options:
 ```cmake
 cmake --build build
 ```
-
-### Running Tutorials
-
-**Note**: _category_ can be basics, intermediate, advanced and _topic_ would be name of tutorial in snake case. 
-
-```bash
-./build/tutorials/basics/pytorch_basics/pytorch_basics
-
-# In general
-./build/tutorials/{category}/{topic}/{topic}
-```
-
 >**_Note for Windows users:_** <br>
 >The CMake script downloads the *Release* version of libtorch, so `--config Release` has to be appended to the build command.
 >
 >**_General Note:_** <br>
 >By default all tutorials will be built. If you only want to build  one specific tutorial, specify the `target` parameter for the build command. For example to only build the language model tutorial, append `--target language-model` (target name = tutorial foldername with all underscores replaced with hyphens).
 
+### Running Tutorials
+1. (**IMPORTANT!**) First change into the tutorial's directory within `build/tutorials`. For example, assuming you are in the `pytorch-cpp` directory and want to change to the pytorch basics tutorial folder:
+     ```bash
+     cd build/tutorials/basics/pytorch_basics
+     # In general: cd build/tutorials/{basics|intermediate|advanced}/{tutorial_name}
+     ```
+2. Run the executable. Note that the executable's name is the tutorial's foldername with all underscores replaced with hyphens (e.g. for tutorial folder: `pytorch_basics` -> executable name: `pytorch-basics` (or `pytorch-basics.exe` on Windows)). For example, to run the pytorch basics tutorial:<br><br>
+     **Linux/Mac**
+     ```bash
+     ./pytorch-basics
+     # In general: ./{tutorial-name}
+     ```
+     **Windows**
+     ```powershell
+     .\pytorch-basics.exe
+     # In general: .\{tutorial-name}.exe
+     ```
 ## Table of Contents
 
 ### 1. Basics
