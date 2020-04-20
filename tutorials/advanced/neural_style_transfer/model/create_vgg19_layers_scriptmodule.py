@@ -9,9 +9,13 @@ def main():
     for param in vgg_19_layers.parameters():
         param.requires_grad = False
 
+    example = torch.rand(1, 3, 224, 224)
+
+    traced_script_module = torch.jit.trace(vgg_19_layers, example)
+
     # Serialize scriptmodule to a file.
     filename = "vgg19_layers.pt"
-    vgg_19_layers.save(filename)
+    traced_script_module.save(filename)
     print(f"Successfully created scriptmodule file {filename}.")
 
 
