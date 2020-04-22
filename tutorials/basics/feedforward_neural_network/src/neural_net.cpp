@@ -9,6 +9,6 @@ NeuralNetImpl::NeuralNetImpl(int64_t input_size, int64_t hidden_size, int64_t nu
 }
 
 torch::Tensor NeuralNetImpl::forward(torch::Tensor x) {
-    x = torch::relu(fc1->forward(x));
+    x = torch::nn::functional::relu(fc1->forward(x));
     return fc2->forward(x);
 }

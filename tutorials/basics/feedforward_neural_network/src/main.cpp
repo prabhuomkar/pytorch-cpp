@@ -63,7 +63,7 @@ int main() {
         size_t num_correct = 0;
 
         for (auto& batch : *train_loader) {
-            auto data = batch.data.reshape({batch_size, -1}).to(device);
+            auto data = batch.data.view({batch_size, -1}).to(device);
             auto target = batch.target.to(device);
 
             // Forward pass
@@ -103,7 +103,7 @@ int main() {
     size_t num_correct = 0;
 
     for (const auto& batch : *test_loader) {
-        auto data = batch.data.reshape({batch_size, -1}).to(device);
+        auto data = batch.data.view({batch_size, -1}).to(device);
         auto target = batch.target.to(device);
 
         auto output = model->forward(data);

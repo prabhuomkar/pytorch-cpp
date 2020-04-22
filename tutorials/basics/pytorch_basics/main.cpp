@@ -55,7 +55,7 @@ int main() {
     torch::optim::SGD optimizer(linear->parameters(), torch::optim::SGDOptions(0.01));
 
     // Forward pass
-    auto pred = linear(x);
+    auto pred = linear->forward(x);
 
     // Compute loss
     auto loss = criterion(pred, y);
@@ -72,7 +72,7 @@ int main() {
     optimizer.step();
 
     // Print out the loss after 1-step gradient descent
-    pred = linear(x);
+    pred = linear->forward(x);
     loss = criterion(pred, y);
     std::cout << "Loss after 1 optimization step: " << loss.item<double>() << "\n\n";
 
@@ -119,49 +119,58 @@ int main() {
     // 4 5 6
     // 7 8 9
 
+    using torch::indexing::Slice;
+    using torch::indexing::None;
+    using torch::indexing::Ellipsis;
+
+    // Indexing and slicing tensors is done very similarly to how
+    // it is done in Python.
+    //
+    // For a complete side-by-side translation of all indexing types, see:
+    // https://pytorch.org/cppdocs/notes/tensor_indexing.html
+
     // Extract a single element tensor:
-    std::cout << "\"s[0,2]\" as tensor:\n" << s[0][2] << '\n';
-    std::cout << "\"s[0,2]\" as value:\n" << s[0][2].item<int64_t>() << '\n';
+    std::cout << "\"s[0,2]\" as tensor:\n" << s.index({0, 2}) << '\n';
+    std::cout << "\"s[0,2]\" as value:\n" << s.index({0, 2}).item<int64_t>() << '\n';
     // Output:
     // 3
 
-    // select(dim, index):
-    // - Slice a tensor along a dimension at a given index.
-    //
-    // Function definition can be found at:
-    // https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorShape.cpp#L736
-    std::cout << "\"s[:,2]\":\n" << s.select(1, 2) << '\n';
+    // Slice a tensor along a dimension at a given index.
+    std::cout << "\"s[:,2]\":\n" << s.index({Slice(), 2}) << '\n';
     // Output:
     // 3
     // 6
     // 9
 
-    // slice(dim, start=0, end=<maximum int64_t value>, step=1):
-    // - Slice a tensor along a dimension at given indices from
-    //   "start" up to - but not including - "end" using step size "step".
-    //
-    // Function definition can be found at:
-    // https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorShape.cpp#L856
-    std::cout << "\"s[:2,:]\":\n" << s.slice(0, 0, 2) << '\n';
+    // Slice a tensor along a dimension at given indices from
+    // a start-index up to - but not including - an end-index using a given step size.
+    std::cout << "\"s[:2,:]\":\n" << s.index({Slice(None, 2), Slice()}) << '\n';
     // Output:
     // 1 2 3
     // 4 5 6
-    std::cout << "\"s[:,1:]\":\n" << s.slice(1, 1) << '\n';
+    std::cout << "\"s[:,1:]\":\n" << s.index({Slice(), Slice(1, None)}) << '\n';
     // Output:
     // 2 3
     // 5 6
     // 8 9
-    std::cout << "\"s[:,::2]\":\n" << s.slice(1, 0, s.size(1), 2) << '\n';
+    std::cout << "\"s[:,::2]\":\n" << s.index({Slice(), Slice(None, None, 2)}) << '\n';
     // Output:
     // 1 3
     // 4 6
     // 7 9
 
-    // Combining select() and slice():
-    std::cout << "\"s[:2,1]\":\n" << s.slice(0, 0, 2).select(1, 1) << "\n\n";
+    // Combination.
+    std::cout << "\"s[:2,1]\":\n" << s.index({Slice(None, 2), 1}) << '\n';
     // Output:
     // 2
     // 5
+
+    // Ellipsis (...).
+    std::cout << "\"s[..., :2]\":\n" << s.index({Ellipsis, Slice(None, 2)}) << "\n\n";
+    // Output:
+    // 1 2
+    // 4 5
+    // 7 8
 
     // =============================================================== //
     //                         INPUT PIPELINE                          //
@@ -179,8 +188,7 @@ int main() {
     // Fetch one data pair
     auto example = dataset.get_batch(0);
     std::cout << "Sample data size: ";
-    print_tensor_size(example.data);
-    std::cout << "\n";
+    std::cout << example.data.sizes() << "\n";
     std::cout << "Sample target: " << example.target.item<int>() << "\n";
 
     // Construct data loader
@@ -190,16 +198,14 @@ int main() {
     // Fetch a mini-batch
     auto example_batch = *dataloader->begin();
     std::cout << "Sample batch - data size: ";
-    print_tensor_size(example_batch.data);
-    std::cout << "\n";
+    std::cout << example_batch.data.sizes() << "\n";
     std::cout << "Sample batch - target size: ";
-    print_tensor_size(example_batch.target);
-    std::cout << "\n\n";
+    std::cout << example_batch.target.sizes() << "\n\n";
 
     // Actual usage of the dataloader:
-    for (auto& batch : *dataloader) {
+    // for (auto& batch : *dataloader) {
         // Training code here
-    }
+    // }
 
     // =============================================================== //
     //               INPUT PIPELINE FOR CUSTOM DATASET                 //
@@ -261,12 +267,10 @@ int main() {
 
     // Forward pass
     std::cout << "Input size: ";
-    print_tensor_size(sample_input);
-    std::cout << "\n";
+    std::cout << sample_input.sizes() << "\n";
     auto output = resnet.forward(inputs).toTensor();
     std::cout << "Output size: ";
-    print_tensor_size(output);
-    std::cout << "\n\n";
+    std::cout << output.sizes() << "\n\n";
 
     // =============================================================== //
     //                      SAVE AND LOAD A MODEL                      //
@@ -277,10 +281,8 @@ int main() {
     // Simple example model
     torch::nn::Sequential model{
         torch::nn::Conv2d(torch::nn::Conv2dOptions(1, 16, 3).stride(2).padding(1)),
-        torch::nn::Functional(torch::relu)
+        torch::nn::ReLU()
     };
-
-    std::cout << "Model:\n" << model << "\n";
 
     // Path to the model output file (all folders must exist!).
     const std::string model_save_path = "output/model.pt";
@@ -288,16 +290,12 @@ int main() {
     // Save the model
     torch::save(model, model_save_path);
 
+    std::cout << "Saved model:\n" << model << "\n";
+
     // Load the model
     torch::load(model, model_save_path);
-}
 
-void print_tensor_size(const torch::Tensor& x) {
-    std::cout << "[";
-    for (size_t i = 0; i != x.dim() - 1; ++i) {
-        std::cout << x.size(i) << " ";
-    }
-    std::cout << x.size(-1) << "]";
+    std::cout << "Loaded model:\n" << model;
 }
 
 void print_script_module(const torch::jit::script::Module& module, size_t spaces) {

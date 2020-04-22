@@ -6,20 +6,20 @@
     <br />
 <img src="https://img.shields.io/travis/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
-<img src="https://img.shields.io/badge/libtorch-1.4-ee4c2c">
+<img src="https://img.shields.io/badge/libtorch-1.5-ee4c2c">
 <img src="https://img.shields.io/badge/cmake-3.14-064f8d">
 </p>
 
 
-| OS (Compiler)\\libtorch |                                                  1.4                                                  | 1.5 | nightly |
-| :---------------------: | :---------------------------------------------------------------------------------------------------: | :-: | :-----: |
-|    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |     |         |
-|    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |     |         |
-|    macOS (clang 11.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/3) |     |         |
-|      Linux (gcc 5)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/4) |     |         |
-|      Linux (gcc 6)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/5) |     |         |
-|      Linux (gcc 7)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/6) |     |         |
-|      Linux (gcc 8)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |     |         |
+| OS (Compiler)\\libtorch |                                                  1.5                                                  |  nightly |
+| :---------------------: | :---------------------------------------------------------------------------------------------------: |  :-----: |
+|    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |          |
+|    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |          |
+|    macOS (clang 11.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/3) |          |
+|      Linux (gcc 5)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/4) |          |
+|      Linux (gcc 6)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/5) |          |
+|      Linux (gcc 7)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/6) |          |
+|      Linux (gcc 8)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |          |
 
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
@@ -30,7 +30,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
 2. [CMake](https://cmake.org/download/)
-3. [LibTorch v1.4.0](https://pytorch.org/cppdocs/installing.html)
+3. [LibTorch v1.5.0](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
 
@@ -64,7 +64,7 @@ Some useful options:
 
 | Option       | Default           | Description  |
 | :------------- |:------------|-----:|
-| `-D CUDA_V=(9.2\|10.1\|none)`     | `none` | Download libtorch for a CUDA version (`none` = download CPU version). |
+| `-D CUDA_V=(9.2\|10.1\|10.2\|none)`     | `none` | Download libtorch for a CUDA version (`none` = download CPU version). |
 | `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download all datasets used in the tutorials. |
 | `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |       |    Skip the downloading of libtorch and use your own local version instead. |
 

@@ -3,10 +3,12 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <tuple>
 #include "rnn_lm.h"
 #include "corpus.h"
 
 using data_utils::Corpus;
+using torch::indexing::Slice;
 
 int main() {
     std::cout << "Language Model\n\n";
@@ -58,18 +60,21 @@ int main() {
         double running_perplexity = 0.0;
         size_t running_num_samples = 0;
 
-        // Set initial hidden- and cell-states (stacked into one tensor)
-        auto state = torch::zeros({2, num_layers, batch_size, hidden_size}).to(device).detach();
+        // Initialize hidden- and cell-states.
+        auto h = torch::zeros({num_layers, batch_size, hidden_size}).to(device).detach();
+        auto c = torch::zeros({num_layers, batch_size, hidden_size}).to(device).detach();
 
-        for (size_t i = 0; i < ids.size(1) - sequence_length; i += sequence_length) {
+        for (int64_t i = 0; i < ids.size(1) - sequence_length; i += sequence_length) {
             // Transfer data and target labels to device
-            auto data = ids.slice(1, i, i + sequence_length).to(device);
-            auto target = ids.slice(1, i + 1, i + 1 + sequence_length).reshape(-1).to(device);
+            auto data = ids.index({Slice(), Slice(i, i + sequence_length)}).to(device);
+            auto target = ids.index({Slice(), Slice(i + 1, i + 1 + sequence_length)}).reshape(-1).to(device);
 
             // Forward pass
-            auto rnn_output = model->forward(data, state);
-            auto output = rnn_output.output;
-            state = rnn_output.state.detach();
+            torch::Tensor output;
+            std::forward_as_tuple(output, std::tie(h, c)) = model->forward(data, std::make_tuple(h, c));
+
+            h.detach_();
+            c.detach_();
 
             // Calculate loss
             auto loss = torch::nn::functional::nll_loss(output, target);
@@ -102,8 +107,9 @@ int main() {
 
     std::ofstream sample_output_file(sample_output_path);
 
-    // Set initial hidden- and cell-states (stacked into one tensor)
-    auto state = torch::zeros({2, num_layers, 1, hidden_size}).to(device);
+    // Initialize hidden- and cell-states.
+    auto h = torch::zeros({num_layers, 1, hidden_size}).to(device);
+    auto c = torch::zeros({num_layers, 1, hidden_size}).to(device);
 
     // Select one word-id at random
     auto prob = torch::ones(vocab_size);
@@ -111,12 +117,11 @@ int main() {
 
     for (size_t i = 0; i != num_samples; ++i) {
         // Forward pass
-        auto rnn_output = model->forward(data, state);
-        auto out = rnn_output.output;
-        state = rnn_output.state;
+        torch::Tensor output;
+        std::forward_as_tuple(output, std::tie(h, c)) = model->forward(data, std::make_tuple(h, c));
 
         // Sample one word id
-        prob = out.exp();
+        prob = output.exp();
         auto word_id = prob.multinomial(1).item();
 
         // Fill input data with sampled word id for the next time step
