@@ -103,7 +103,8 @@ int main() {
         // Decay learning rate
         if ((epoch + 1) % learning_rate_decay_frequency == 0) {
             current_learning_rate *= learning_rate_decay_factor;
-            optimizer.options.learning_rate(current_learning_rate);
+            static_cast<torch::optim::AdamOptions&>(optimizer.param_groups().front()
+                .options()).lr(current_learning_rate);
         }
 
         auto sample_mean_loss = running_loss / num_train_samples;

@@ -16,7 +16,7 @@ VAEImpl::VAEImpl(int64_t image_size, int64_t h_dim, int64_t z_dim)
 }
 
 std::pair<torch::Tensor, torch::Tensor> VAEImpl::encode(torch::Tensor x) {
-    auto h = torch::relu(fc1->forward(x));
+    auto h = torch::nn::functional::relu(fc1->forward(x));
     return {fc2->forward(h), fc3->forward(h)};
 }
 
@@ -33,7 +33,7 @@ torch::Tensor VAEImpl::reparameterize(torch::Tensor mu, torch::Tensor log_var) {
 }
 
 torch::Tensor VAEImpl::decode(torch::Tensor z) {
-    auto h = torch::relu(fc4->forward(z));
+    auto h = torch::nn::functional::relu(fc4->forward(z));
     return torch::sigmoid(fc5->forward(h));
 }
 

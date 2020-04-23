@@ -1,5 +1,9 @@
 // Copyright 2020-present pytorch-cpp Authors
 #include "transform.h"
+#include <torch/torch.h>
+
+using torch::indexing::Slice;
+using torch::indexing::Ellipsis;
 
 namespace transform {
 namespace {
@@ -44,7 +48,7 @@ torch::Tensor RandomCrop::operator()(torch::Tensor input) {
     auto height_offset = rand_int(height_offset_length);
     auto width_offset = rand_int(width_offset_length);
 
-    return input.slice(-2, height_offset, height_offset + size_[0])
-        .slice(-1, width_offset, width_offset + size_[1]);
+    return input.index({Ellipsis,
+        Slice(height_offset, height_offset + size_[0]), Slice(width_offset, width_offset + size_[1])});
 }
 }  // namespace transform

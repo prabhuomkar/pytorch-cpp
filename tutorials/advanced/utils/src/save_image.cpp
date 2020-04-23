@@ -65,7 +65,8 @@ namespace {
         auto width = tensor.size(3) + padding;
         auto num_channels = tensor.size(1);
 
-        auto grid = torch::full({num_channels, height * ymaps + padding, width * xmaps + padding}, pad_value);
+        auto grid = torch::full({num_channels, height * ymaps + padding, width * xmaps + padding},
+            pad_value, tensor.dtype());
 
         int64_t k = 0;
 
@@ -97,7 +98,7 @@ void save_image(torch::Tensor tensor, const std::string& file_path, int64_t nrow
         .add_(0.5)
         .clamp_(0, 255)
         .permute({1, 2, 0})
-        .to(torch::kCPU, torch::kUInt8);
+        .to(torch::kCPU, torch::kUInt8, false, false, torch::MemoryFormat::Contiguous);
 
     switch (format) {
         case ImageFormat::PNG:

@@ -96,7 +96,7 @@ int main() {
             // binary_cross_entropy(x, y) = -y * log(D(x)) - (1 - y) * log(1 - D(x))
             // Second term of the loss is always zero since real_labels == 1
             auto outputs = D->forward(images);
-            auto d_loss_real = torch::binary_cross_entropy(outputs, real_labels);
+            auto d_loss_real = torch::nn::functional::binary_cross_entropy(outputs, real_labels);
             auto real_score = outputs.mean().item<double>();
 
             // Compute binary cross entropy loss using fake images
@@ -104,7 +104,7 @@ int main() {
             auto z = torch::randn({batch_size, latent_size}).to(device);
             fake_images = G->forward(z);
             outputs = D->forward(fake_images);
-            auto d_loss_fake = torch::binary_cross_entropy(outputs, fake_labels);
+            auto d_loss_fake = torch::nn::functional::binary_cross_entropy(outputs, fake_labels);
             auto fake_score = outputs.mean().item<double>();
 
             auto d_loss = d_loss_real + d_loss_fake;
@@ -125,7 +125,7 @@ int main() {
 
             // We train G to maximize log(D(G(z)) instead of minimizing log(1 - D(G(z)))
             // For the reason, see the last paragraph of section 3. https://arxiv.org/pdf/1406.2661.pdf
-            auto g_loss = torch::binary_cross_entropy(outputs, real_labels);
+            auto g_loss = torch::nn::functional::binary_cross_entropy(outputs, real_labels);
 
             // Backward pass and optimize
             g_optimizer.zero_grad();

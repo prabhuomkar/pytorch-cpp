@@ -72,7 +72,7 @@ int main() {
 
     // Optimizer
     torch::optim::Adam optimizer(std::vector<torch::Tensor>{target.requires_grad_(true)},
-        torch::optim::AdamOptions(learning_rate).beta1(0.5).beta2(0.999));
+        torch::optim::AdamOptions(learning_rate).betas(std::make_tuple(0.5, 0.999)));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
