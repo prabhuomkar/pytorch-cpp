@@ -1,10 +1,9 @@
 language: cpp
-sudo: false
 notifications:
   email: false
 os: linux
 dist: trusty
-matrix:
+jobs:
   include:
     - name: "macOS Clang 9.1"
       os: osx
@@ -15,7 +14,7 @@ matrix:
     - name: "macOS Clang 11.0"
       os: osx
       osx_image: xcode11.2
-    # TODO: Add support for Linux Clang Compilers
+    #TODO: Add support for Linux Clang Compilers
     - name: "Linux GCC 5 C++14"
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
@@ -48,19 +47,34 @@ matrix:
           packages: g++-8
           sources:
             - ubuntu-toolchain-r-test
+    - name: "Windows MSVC 2017"
+      os: windows
 before_install:
   - eval "${MATRIX_EVAL}"
 install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then OS_NAME="Darwin"; else OS_NAME="Linux"; fi
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
-  - travis_retry wget --no-check-certificate https://www.cmake.org/files/v3.14/cmake-3.14.0-${OS_NAME}-x86_64.tar.gz
-  - tar -xvf cmake-3.14.0-${OS_NAME}-x86_64.tar.gz > /dev/null
-  - mv cmake-3.14.0-${OS_NAME}-x86_64 cmake-install
-  - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
-  - cd ${TRAVIS_BUILD_DIR}
+  - |-
+      case $TRAVIS_OS_NAME in
+        linux)
+          DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+          mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
+          travis_retry wget --no-check-certificate https://www.cmake.org/files/v3.14/cmake-3.14.0-Linux-x86_64.tar.gz
+          tar -xvf cmake-3.14.0-Linux-x86_64.tar.gz > /dev/null
+          mv cmake-3.14.0-Linux-x86_64 cmake-install
+          PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
+          cd ${TRAVIS_BUILD_DIR}
+          ;;
+      esac
 script:
   - cmake --version
   - cmake -P cmake/cpplint.cmake
-  - cmake -B build
-  - cmake --build build
+  - |-
+      case $TRAVIS_OS_NAME in
+        osx|linux)
+          cmake -B build
+          cmake --build build
+          ;;
+        windows)
+          cmake -B build -A x64
+          cmake --build build --config Release
+          ;;
+      esac
