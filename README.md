@@ -20,6 +20,7 @@
 |      Linux (gcc 6)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/5) |          |
 |      Linux (gcc 7)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/6) |          |
 |      Linux (gcc 8)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |          |
+|    Windows (msvc 2017)  | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/8) |          |
 
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
