@@ -25,9 +25,9 @@
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
 
-## Getting Started
+# Getting Started
 
-### Requirements
+## Requirements
 
 1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
 2. [CMake](https://cmake.org/download/)
@@ -35,7 +35,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
 
-### For Interactive Tutorials
+## For Interactive Tutorials
 
 **Note**: Interactive Tutorials are currently running on **LibTorch Nightly Version**.  
 So there are some tutorials which can break when working with _nightly version_.
@@ -45,8 +45,10 @@ conda create --name pytorch-cpp
 conda activate pytorch-cpp
 conda install xeus-cling notebook -c conda-forge
 ```
-
-### Fork/Clone and Build
+## Clone, build and run tutorials
+### In Google Colab
+[Run pytorch-cpp notebook in Google Colab](https://colab.research.google.com/github/prabhuomkar/pytorch-cpp/blob/master/notebooks/pytorch_cpp_colab_notebook.ipynb)
+### On Local Machine
 
 ```bash
 git clone https://github.com/prabhuomkar/pytorch-cpp.git
@@ -67,7 +69,8 @@ Some useful options:
 | :------------- |:------------|-----:|
 | `-D CUDA_V=(9.2\|10.1\|10.2\|none)`     | `none` | Download libtorch for a CUDA version (`none` = download CPU version). |
 | `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download all datasets used in the tutorials. |
-| `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |       |    Skip the downloading of libtorch and use your own local version instead. |
+| `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of libtorch and use your own local version instead. |
+| `-D CMAKE_BUILD_TYPE=(Release\|Debug)` | `<empty>` (`Release` when downloading libtorch on Windows) | Set the build type (`Release` = compile with optimizations)|
 
 #### Build
 
@@ -80,7 +83,7 @@ cmake --build build
 >**_General Note:_** <br>
 >By default all tutorials will be built. If you only want to build  one specific tutorial, specify the `target` parameter for the build command. For example to only build the language model tutorial, append `--target language-model` (target name = tutorial foldername with all underscores replaced with hyphens).
 
-### Running Tutorials
+#### Run Tutorials
 1. (**IMPORTANT!**) First change into the tutorial's directory within `build/tutorials`. For example, assuming you are in the `pytorch-cpp` directory and want to change to the pytorch basics tutorial folder:
      ```bash
      cd build/tutorials/basics/pytorch_basics
