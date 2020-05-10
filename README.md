@@ -47,7 +47,8 @@ conda install xeus-cling notebook -c conda-forge
 ```
 ## Clone, build and run tutorials
 ### In Google Colab
-[Run pytorch-cpp notebook in Google Colab](https://colab.research.google.com/github/prabhuomkar/pytorch-cpp/blob/master/notebooks/pytorch_cpp_colab_notebook.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/prabhuomkar/pytorch-cpp/blob/master/notebooks/pytorch_cpp_colab_notebook.ipynb)
+
 ### On Local Machine
 
 ```bash
