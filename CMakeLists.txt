@@ -46,6 +46,7 @@ add_subdirectory("tutorials/intermediate/bidirectional_recurrent_neural_network"
 add_subdirectory("tutorials/intermediate/language_model")
 
 # Advanced
+add_subdirectory("tutorials/advanced/utils")
 add_subdirectory("tutorials/advanced/generative_adversarial_network")
 add_subdirectory("tutorials/advanced/variational_autoencoder")
 add_subdirectory("tutorials/advanced/neural_style_transfer")
