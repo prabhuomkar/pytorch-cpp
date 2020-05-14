@@ -12,20 +12,11 @@ set(EXECUTABLE_NAME neural-style-transfer)
 add_executable(${EXECUTABLE_NAME})
 target_sources(${EXECUTABLE_NAME} PRIVATE src/main.cpp
                                           src/vggnet.cpp
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/src/save_image.cpp
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/src/load_image.cpp
                                           include/vggnet.h
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/save_image.h
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/load_image.h
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external/stb_image_write.h
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external/stb_image.h
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external/stb_image_resize.h
 )
-target_include_directories(${EXECUTABLE_NAME} PRIVATE include
-                                                      ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include
-                                                      ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external)
+target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 
-target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
+target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}" save-image load-image)
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD 14

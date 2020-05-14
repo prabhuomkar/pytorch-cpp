@@ -10,16 +10,9 @@ endif()
 set(EXECUTABLE_NAME generative-adversarial-network)
 
 add_executable(${EXECUTABLE_NAME})
-target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/src/save_image.cpp
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/save_image.h
-                                          ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external/stb_image_write.h
-)
+target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp)
 
-target_include_directories(${EXECUTABLE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include
-                                                      ${CMAKE_CURRENT_SOURCE_DIR}/../utils/include/external)
-
-target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
+target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}" save-image)
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD 14
