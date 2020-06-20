@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 include(FetchContent)
 
-set(CUDA_V "none" CACHE STRING "Determines cuda version to download (9.2 or 10.1).")
-set(PYTORCH_VERSION "1.5.0")
+set(CUDA_V "none" CACHE STRING "Determines cuda version to download (9.2, 10.1 or 10.2).")
 
 if(${CUDA_V} STREQUAL "none")
     set(LIBTORCH_DEVICE "cpu")
@@ -53,4 +52,4 @@ FetchContent_MakeAvailable(libtorch)
 
 message(STATUS "Downloading libtorch - done")
 
-find_package(Torch REQUIRED PATHS "${CMAKE_SOURCE_DIR}/libtorch")
+find_package(Torch ${PYTORCH_VERSION} EXACT REQUIRED PATHS "${CMAKE_SOURCE_DIR}/libtorch")
