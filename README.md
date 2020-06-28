@@ -6,12 +6,12 @@
     <br />
 <img src="https://img.shields.io/travis/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
-<img src="https://img.shields.io/badge/libtorch-1.5-ee4c2c">
+<img src="https://img.shields.io/badge/libtorch-1.5.1-ee4c2c">
 <img src="https://img.shields.io/badge/cmake-3.14-064f8d">
 </p>
 
 
-| OS (Compiler)\\libtorch |                                                  1.5                                                  |  nightly |
+| OS (Compiler)\\libtorch |                                                  1.5.1                                                  |  nightly |
 | :---------------------: | :---------------------------------------------------------------------------------------------------: |  :-----: |
 |    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |          |
 |    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |          |
@@ -31,7 +31,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
 2. [CMake](https://cmake.org/download/)
-3. [LibTorch v1.5.0](https://pytorch.org/cppdocs/installing.html)
+3. [LibTorch v1.5.1](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
 
@@ -70,7 +70,7 @@ Some useful options:
 | :------------- |:------------|-----:|
 | `-D CUDA_V=(9.2\|10.1\|10.2\|none)`     | `none` | Download libtorch for a CUDA version (`none` = download CPU version). |
 | `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download all datasets used in the tutorials. |
-| `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of libtorch and use your own local version instead. |
+| `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of libtorch and use your own local version (see Requirements) instead. |
 | `-D CMAKE_BUILD_TYPE=(Release\|Debug)` | `<empty>` (`Release` when downloading libtorch on Windows) | Set the build type (`Release` = compile with optimizations)|
 
 #### Build
