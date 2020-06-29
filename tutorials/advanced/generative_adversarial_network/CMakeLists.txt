@@ -12,7 +12,7 @@ set(EXECUTABLE_NAME generative-adversarial-network)
 add_executable(${EXECUTABLE_NAME})
 target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp)
 
-target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}" save-image)
+target_link_libraries(${EXECUTABLE_NAME} ${TORCH_LIBRARIES} image-io)
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD 14

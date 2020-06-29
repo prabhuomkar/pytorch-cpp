@@ -63,3 +63,7 @@ _deps
 
 # Notebooks
 .ipynb_checkpoints
+
+# extern
+extern/*
+!extern/CMakeLists.txt

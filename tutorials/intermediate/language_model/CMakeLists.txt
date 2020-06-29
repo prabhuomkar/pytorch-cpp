@@ -21,7 +21,7 @@ target_sources(${EXECUTABLE_NAME} PRIVATE src/main.cpp
 
 target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 
-target_link_libraries(${EXECUTABLE_NAME} "${TORCH_LIBRARIES}")
+target_link_libraries(${EXECUTABLE_NAME} ${TORCH_LIBRARIES})
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
   CXX_STANDARD 14

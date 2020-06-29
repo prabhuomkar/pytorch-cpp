@@ -3,9 +3,9 @@
 #include <iostream>
 #include <iomanip>
 #include "variational_autoencoder.h"
-#include "save_image.h"
+#include "image_io.h"
 
-using image_utils::save_image;
+using image_io::save_image;
 
 int main() {
     std::cout << "Variational Autoencoder\n\n";

@@ -4,11 +4,10 @@
 #include <iomanip>
 #include <fstream>
 #include "vggnet.h"
-#include "load_image.h"
-#include "save_image.h"
+#include "image_io.h"
 
-using image_utils::load_image;
-using image_utils::save_image;
+using image_io::load_image;
+using image_io::save_image;
 
 void print_sizes(torch::Tensor);
 
