@@ -22,7 +22,7 @@ execute_process(COMMAND ${CPPLINT_COMMAND}
                 "--linelength=120" 
                 "--recursive" 
                 "--filter=-build/include_subdir,-build/include_what_you_use"
-                "--exclude=tutorials/advanced/utils/include/external/*"
                 "main.cpp"
                 "tutorials"
+                "utils"
                 WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/..")

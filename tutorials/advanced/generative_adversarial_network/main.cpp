@@ -2,9 +2,9 @@
 #include <torch/torch.h>
 #include <iostream>
 #include <iomanip>
-#include "save_image.h"
+#include "image_io.h"
 
-using image_utils::save_image;
+using image_io::save_image;
 
 int main() {
     std::cout << "Generative Adversarial Network\n\n";
