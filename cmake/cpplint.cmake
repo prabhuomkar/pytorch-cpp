@@ -21,7 +21,7 @@ endif()
 execute_process(COMMAND ${CPPLINT_COMMAND}
                 "--linelength=120" 
                 "--recursive" 
-                "--filter=-build/include_subdir,-build/include_what_you_use"
+                "--filter=-build/include_subdir,-build/include_what_you_use,-build/c++11,-runtime/references"
                 "main.cpp"
                 "tutorials"
                 "utils"
