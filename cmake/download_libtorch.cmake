@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 include(FetchContent)
 
-set(CUDA_V "none" CACHE STRING "Determines libtorch CUDA version to download (9.2, 10.1 or 10.2).")
+set(CUDA_V "none" CACHE STRING "Determines libtorch CUDA version to download (9.2 [Linux only], 10.1 or 10.2).")
 
 if(${CUDA_V} STREQUAL "none")
     set(LIBTORCH_DEVICE "cpu")
@@ -13,7 +13,7 @@ elseif(${CUDA_V} STREQUAL "10.1")
 elseif(${CUDA_V} STREQUAL "10.2")
     set(LIBTORCH_DEVICE "cu102")
 else() 
-    message(FATAL_ERROR "Invalid CUDA version specified, must be 9.2, 10.1, 10.2 or none!")
+    message(FATAL_ERROR "Invalid CUDA version specified, must be 9.2 [Linux only], 10.1, 10.2 or none!")
 endif()
 
 if(NOT ${LIBTORCH_DEVICE} STREQUAL "cu102")
@@ -21,6 +21,10 @@ if(NOT ${LIBTORCH_DEVICE} STREQUAL "cu102")
 endif()
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+    if(${LIBTORCH_DEVICE} STREQUAL "cu92")
+        message(FATAL_ERROR "PyTorch ${PYTORCH_VERSION} does not support CUDA 9.2 on Windows. Please use CPU or upgrade to CUDA versions 10.1 or 10.2.")
+    endif()
+
     set(LIBTORCH_URL "https://download.pytorch.org/libtorch/${LIBTORCH_DEVICE}/libtorch-win-shared-with-deps-${PYTORCH_VERSION}${LIBTORCH_DEVICE_TAG}.zip")
     set(CMAKE_BUILD_TYPE "Release")
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")

@@ -6,7 +6,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 option(DOWNLOAD_DATASETS "Download datasets used in the tutorials." ON)
 
-set(PYTORCH_VERSION "1.5.1")
+set(PYTORCH_VERSION "1.6.0")
 
 find_package(Torch ${PYTORCH_VERSION} EXACT QUIET PATHS "${CMAKE_SOURCE_DIR}/libtorch")
 

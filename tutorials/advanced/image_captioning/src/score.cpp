@@ -1,6 +1,7 @@
 // Copyright 2020-present pytorch-cpp Authors
 #include "score.h"
 #include <vector>
+#include <cmath>
 
 namespace score {
 namespace {
@@ -9,20 +10,20 @@ torch::Tensor n_grams(const torch::Tensor &sequence, size_t n) {
            torch::empty({0}, sequence.options()) : sequence.unfold(-1, n, 1);
 }
 
-size_t closest_reference_size(size_t hypothesis_size, const std::vector<torch::Tensor> &references) {
-    std::vector<size_t> reference_sizes(references.size());
+int64_t closest_reference_size(int64_t hypothesis_size, const std::vector<torch::Tensor> &references) {
+    std::vector<int64_t> reference_sizes(references.size());
 
     std::transform(references.cbegin(), references.cend(), reference_sizes.begin(),
                    [](const auto &reference) { return reference.size(0); });
 
     return *std::min_element(reference_sizes.cbegin(), reference_sizes.cend(),
-                             [hypothesis_size](auto l, auto r) {
-                                 return std::abs<int64_t>(l - hypothesis_size) <=
-                                        std::abs<int64_t>(r - hypothesis_size);
+                             [hypothesis_size](int64_t l, int64_t r) {
+                                 return std::abs(l - hypothesis_size) <=
+                                        std::abs(r - hypothesis_size);
                              });
 }
 
-double brevity_penalty(size_t hypothesis_size, size_t closest_ref_size) {
+double brevity_penalty(int64_t hypothesis_size, int64_t closest_ref_size) {
     return (hypothesis_size > closest_ref_size) ? 1.0 :
            std::exp(1.0 - static_cast<double>(closest_ref_size) / hypothesis_size);
 }
