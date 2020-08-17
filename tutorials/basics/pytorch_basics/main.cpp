@@ -232,8 +232,8 @@ int main() {
     // Path to serialized ScriptModule of pretrained resnet18 model,
     // created in Python.
     // You can use the provided Python-script "create_resnet18_scriptmodule.py" in
-    // tutorials/basics/pytorch-basics/models to create the necessary file.
-    const std::string pretrained_model_path = "../../../../tutorials/basics/pytorch_basics/models/"
+    // tutorials/basics/pytorch-basics/model to create the necessary file.
+    const std::string pretrained_model_path = "../../../../tutorials/basics/pytorch_basics/model/"
         "resnet18_scriptmodule.pt";
 
     torch::jit::script::Module resnet;
@@ -244,7 +244,7 @@ int main() {
     catch (const torch::Error& error) {
         std::cerr << "Could not load scriptmodule from file " << pretrained_model_path << ".\n"
             << "You can create this file using the provided Python script 'create_resnet18_scriptmodule.py' "
-            "in tutorials/basics/pytorch-basics/models/.\n";
+            "in tutorials/basics/pytorch-basics/model/.\n";
         return -1;
     }
 

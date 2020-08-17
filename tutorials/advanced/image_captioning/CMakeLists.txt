@@ -41,6 +41,11 @@ set_target_properties(${EXECUTABLE_NAME} PROPERTIES
 add_custom_command(TARGET ${EXECUTABLE_NAME}
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E make_directory output)
+               
+if(CREATE_SCRIPTMODULES AND NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/model/encoder_cnn_backbone.pt")
+    execute_process(COMMAND ${Python3_EXECUTABLE} "create_encoder_cnn_backbone_scriptmodule.py" 
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/model")
+endif()
 
 if(MSVC)
     set_target_properties(${EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})

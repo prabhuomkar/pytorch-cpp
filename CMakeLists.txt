@@ -5,6 +5,7 @@ project(pytorch-cpp VERSION 1.0.0 LANGUAGES CXX)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 option(DOWNLOAD_DATASETS "Download datasets used in the tutorials." ON)
+option(CREATE_SCRIPTMODULES "Create all necessary scriptmodule files." OFF)
 
 set(PYTORCH_VERSION "1.6.0")
 
@@ -17,6 +18,10 @@ endif()
 
 if(DOWNLOAD_DATASETS)
     include(download_datasets)
+endif()
+
+if(CREATE_SCRIPTMODULES)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
 endif()
 
 set(EXECUTABLE_NAME pytorch-cpp)

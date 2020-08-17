@@ -61,6 +61,7 @@ cmake-build-*/
 # Other
 .DS_Store
 .idea/
+.clangd/
 
 # Notebooks
 .ipynb_checkpoints
