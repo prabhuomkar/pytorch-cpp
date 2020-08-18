@@ -11,7 +11,7 @@
 </p>
 
 
-| OS (Compiler)\\libtorch |                                                  1.6.0                                                  |  nightly |
+| OS (Compiler)\\LibTorch |                                                  1.6.0                                                  |  nightly |
 | :---------------------: | :---------------------------------------------------------------------------------------------------: |  :-----: |
 |    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |          |
 |    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |          |
@@ -58,7 +58,7 @@ cd pytorch-cpp
 
 #### Generate build system
 
-```cmake
+```bash
 cmake -B build #<options>
 ```
 > **_Note for Windows users:_**<br> 
@@ -68,18 +68,50 @@ Some useful options:
 
 | Option       | Default           | Description  |
 | :------------- |:------------|-----:|
-| `-D CUDA_V=(9.2 [Linux only]\|10.1\|10.2\|none)`     | `none` | Download libtorch for a CUDA version (`none` = download CPU version). |
+| `-D CUDA_V=(9.2 [Linux only]\|10.1\|10.2\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
 | `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download all datasets used in the tutorials. |
-| `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of libtorch and use your own local version (see Requirements) instead. |
-| `-D CMAKE_BUILD_TYPE=(Release\|Debug)` | `<empty>` (`Release` when downloading libtorch on Windows) | Set the build type (`Release` = compile with optimizations)|
+| `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of LibTorch and use your own local version (see [Requirements](#requirements)) instead. |
+| `-D CMAKE_BUILD_TYPE=(Release\|Debug)` | `<empty>` (`Release` when downloading LibTorch on Windows) | Set the build type (`Release` = compile with optimizations).|
+|`-D CREATE_SCRIPTMODULES=(OFF\|ON)` | `OFF` | Create all needed scriptmodule files for prelearned models / weights. Requires installed  python3 with  pytorch and torchvision. |
+
+<details>
+<summary><b>Example Linux</b></summary>
+
+##### Aim
+* Use existing Python, PyTorch (see [Requirements](#requirements)) and torchvision installation.
+* Download all datasets and create all necessary scriptmodule files.
+
+##### Command
+```bash
+cmake -B build \
+-D CMAKE_BUILD_TYPE=Release \
+-D CMAKE_PREFIX_PATH=/path/to/libtorch/share/cmake/Torch \
+-D CREATE_SCRIPTMODULES=ON 
+```
+</details>
+
+<details>
+<summary><b>Example Windows</b></summary>
+
+##### Aim
+* Automatically download LibTorch for CUDA 10.2 and all necessary datasets.
+* Do not create scriptmodule files.
+
+##### Command
+```bash
+cmake -B build \
+-A x64 \
+-D CUDA_V=10.2
+```
+</details>
 
 #### Build
 
-```cmake
+```bash
 cmake --build build
 ```
 >**_Note for Windows users:_** <br>
->The CMake script downloads the *Release* version of libtorch, so `--config Release` has to be appended to the build command.
+>The CMake script downloads the *Release* version of LibTorch, so `--config Release` has to be appended to the build command.
 >
 >**_General Note:_** <br>
 >By default all tutorials will be built. If you only want to build  one specific tutorial, specify the `target` parameter for the build command. For example to only build the language model tutorial, append `--target language-model` (target name = tutorial foldername with all underscores replaced with hyphens).
