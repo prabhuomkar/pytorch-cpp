@@ -1,0 +1,14 @@
+/data
+/build
+/images
+/LICENSE
+/AUTHORS
+/notebooks
+/README.md
+/docker-compose.yml
+/Dockerfile
+/.github
+/.gitignore
+/.dockerignore
+/.travis.yml
+/.git
