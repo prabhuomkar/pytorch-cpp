@@ -6,5 +6,4 @@ services:
     volumes:
       - .:/pytorch-cpp
     image: pytorch-cpp
-    ipc: host
     container_name: pytorch-cpp

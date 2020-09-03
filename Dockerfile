@@ -19,8 +19,8 @@ RUN apt-get update && \
 ENV PATH /opt/conda/bin:$PATH
 
 FROM dev-base AS conda
-ARG PYTHON_VERSION
 # Install conda.
+ARG PYTHON_VERSION
 ENV CONDA_AUTO_UPDATE_CONDA=false
 RUN curl --silent --show-error --location --output ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  && \
     chmod +x ~/miniconda.sh && \
@@ -30,20 +30,19 @@ RUN curl --silent --show-error --location --output ~/miniconda.sh https://repo.a
     conda clean -ya
 
 FROM conda AS conda-installs
+# Install pytorch for CPU and torchvision.
 ARG PYTORCH_VERSION=1.6.0
 ARG TORCHVISION_VERSION=0.7.0
-# Install pytorch for cpu and torchvision.
 ENV NO_CUDA=1
 RUN conda install pytorch==${PYTORCH_VERSION} torchvision==${TORCHVISION_VERSION} cpuonly -y -c pytorch && conda clean -ya
 
 FROM conda AS build
+# Build tutorials.
 ARG PYTHON_VERSION
 ARG GROUP_ID=1000
 ARG USER_ID=1000
 ENV PYTHON_VERSION=${PYTHON_VERSION}
-# Build the tutorials.
 WORKDIR /pytorch-cpp
-# INstall
 RUN pip install --upgrade --no-cache-dir cmake && \
     groupadd --gid ${GROUP_ID} user && \
     useradd --uid ${USER_ID} --gid user  --create-home --no-log-init --shell /bin/bash user && \
