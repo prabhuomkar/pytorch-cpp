@@ -133,6 +133,27 @@ cmake --build build
      .\pytorch-basics.exe
      # In general: .\{tutorial-name}.exe
      ```
+
+### Using Docker
+You can build and run the tutorials (on CPU) in a Docker container using the provided `Dockerfile` and `docker-compose.yml` files:  
+1. From the root directory of the cloned repo build the image:
+    ```bash
+    docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
+    ```
+    > **_Note_**:  
+    > When you run the Docker container, the host repo directory is mounted as a volume in the Docker container in order to cache build and downloaded dependency files so that it is not necessary to rebuild or redownload everything when a container is restarted. In order to have correct file permissions it is necessary to provide your user and group ids as build arguments when building the image on Linux.
+2. Now start the container and build the tutorials using:
+    ```bash
+    docker-compose run --rm pytorch-cpp
+    ```
+    This fetches all necessary dependencies and builds the tutorials. After the build is done, by default the container starts `bash` in interactive mode in the `build/tutorials` folder. 
+    As an alternative, you can also directly run a tutorial by instead invoking the above command with the tutorial as additional argument, for example:
+    ```bash
+    docker-compose run --rm pytorch-cpp pytorch-basics
+    # In general: docker-compose run --rm pytorch-cpp {tutorial-name} 
+    ```
+    This will - if necessary - build all tutorials and then start the provided tutorial in a container.
+
 ## Table of Contents
 
 ### 1. Basics

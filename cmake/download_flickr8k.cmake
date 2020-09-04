@@ -21,7 +21,9 @@ if(NOT EXISTS ${FLICKR8K_TEXT_SOURCE_DIR} OR NOT EXISTS ${FLICKR8K_DATA_SOURCE_D
     )
 
     FetchContent_MakeAvailable(flickr_8k_text)
+    
     set(FETCHCONTENT_QUIET OFF CACHE BOOL "" FORCE)
+
     FetchContent_Declare(
         flickr_8k_data
         DOWNLOAD_DIR ${FLICKR8K_DIR}/download
@@ -30,6 +32,8 @@ if(NOT EXISTS ${FLICKR8K_TEXT_SOURCE_DIR} OR NOT EXISTS ${FLICKR8K_DATA_SOURCE_D
     )
 
     FetchContent_MakeAvailable(flickr_8k_data)
+
+    set(FETCHCONTENT_QUIET ON CACHE BOOL "" FORCE)
 
     file(REMOVE_RECURSE "${FLICKR8K_DIR}/download")
     

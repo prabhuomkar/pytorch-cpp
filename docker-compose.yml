@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  pytorch-cpp:
+    build: .
+    volumes:
+      - .:/pytorch-cpp
+    image: pytorch-cpp
+    container_name: pytorch-cpp
