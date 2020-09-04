@@ -44,13 +44,13 @@ ARG USER_ID=1000
 ENV PYTHON_VERSION=${PYTHON_VERSION}
 WORKDIR /pytorch-cpp
 RUN pip install --upgrade --no-cache-dir cmake && \
-    groupadd --gid ${GROUP_ID} user && \
-    useradd --uid ${USER_ID} --gid user  --create-home --no-log-init --shell /bin/bash user && \
-    chown --changes --silent --no-dereference --recursive ${USER_ID}:${GROUP_ID} /home/user
-USER user
-ENV HOME=/home/user
+    groupadd --gid ${GROUP_ID} pytorch && \
+    useradd --uid ${USER_ID} --gid pytorch  --create-home --no-log-init --shell /bin/bash pytorch && \
+    chown --changes --silent --no-dereference --recursive ${USER_ID}:${GROUP_ID} /home/pytorch
+USER pytorch
+ENV HOME=/home/pytorch
 COPY --from=conda-installs /opt/conda /opt/conda
-COPY --chown=user:user ./docker/docker-entrypoint.sh /
+COPY --chown=pytorch:pytorch ./docker/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 CMD [ "bash" ]
