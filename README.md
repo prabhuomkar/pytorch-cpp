@@ -135,6 +135,9 @@ cmake --build build
      ```
 
 ### Using Docker
+
+Find the latest and previous version images on [Docker Hub](https://hub.docker.com/repository/docker/prabhuomkar/pytorch-cpp).
+
 You can build and run the tutorials (on CPU) in a Docker container using the provided `Dockerfile` and `docker-compose.yml` files:  
 1. From the root directory of the cloned repo build the image:
     ```bash
