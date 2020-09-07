@@ -10,7 +10,12 @@ endif()
 set(EXECUTABLE_NAME neural-networks)
 
 add_executable(${EXECUTABLE_NAME})
-target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp)
+target_sources(${EXECUTABLE_NAME} PRIVATE src/main.cpp
+                                          src/nnet.cpp
+                                          include/nnet.h
+)
+
+target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 
 target_link_libraries(${EXECUTABLE_NAME} ${TORCH_LIBRARIES})
 
