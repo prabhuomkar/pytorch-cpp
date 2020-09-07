@@ -181,5 +181,9 @@ You can build and run the tutorials (on CPU) in a Docker container using the pro
 ### 4. Interactive Tutorials
 * [Tensor Slicing](notebooks/tensor_slicing.ipynb)
 
+### 5. Other Popular Tutorials
+* [Deep Learning with PyTorch: A 60 Minute Blitz](tutorials/)
+
+
 ## License
 This repository is licensed under MIT as given in [LICENSE](LICENSE).
