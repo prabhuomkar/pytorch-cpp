@@ -10,7 +10,14 @@ endif()
 set(EXECUTABLE_NAME training-a-classifier)
 
 add_executable(${EXECUTABLE_NAME})
-target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp)
+target_sources(${EXECUTABLE_NAME} PRIVATE src/main.cpp
+                                          src/nnet.cpp
+                                          src/cifar10.cpp
+                                          include/nnet.h
+                                          include/cifar10.h
+)
+
+target_include_directories(${EXECUTABLE_NAME} PRIVATE include)
 
 target_link_libraries(${EXECUTABLE_NAME} ${TORCH_LIBRARIES})
 

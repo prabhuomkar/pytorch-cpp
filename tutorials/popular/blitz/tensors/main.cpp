@@ -63,5 +63,5 @@ int main() {
     // If you have a one element tensor, use .item() to get the value as a Python number
     x = torch::randn(1);
     std::cout << "x:\n" << x << '\n';
-    std::cout << "x.item():\n" << x.item().toFloat() << '\n';
+    std::cout << "x.item():\n" << x.item<float>() << '\n';
 }

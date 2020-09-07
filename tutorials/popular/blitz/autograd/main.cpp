@@ -45,7 +45,7 @@ int main() {
     // Example of vector-Jacobian product:
     x = torch::randn(3, torch::TensorOptions().requires_grad(true));
     y = x * 2;
-    while (y.data().norm().item().toInt() < 1000) {
+    while (y.data().norm().item<int>() < 1000) {
         y = y * 2;
     }
     std::cout << "y:\n" << y << '\n';
