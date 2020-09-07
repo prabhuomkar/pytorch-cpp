@@ -25,6 +25,33 @@
 This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
 **Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
 
+## Table of Contents
+
+### 1. Basics
+* [PyTorch Basics](tutorials/basics/pytorch_basics/main.cpp)
+* [Linear Regression](tutorials/basics/linear_regression/main.cpp)
+* [Logistic Regression](tutorials/basics/logistic_regression/main.cpp)
+* [Feedforward Neural Network](tutorials/basics/feedforward_neural_network/src/main.cpp)
+
+### 2. Intermediate
+* [Convolutional Neural Network](tutorials/intermediate/convolutional_neural_network/src/main.cpp)
+* [Deep Residual Network](tutorials/intermediate/deep_residual_network/src/main.cpp)
+* [Recurrent Neural Network](tutorials/intermediate/recurrent_neural_network/src/main.cpp)
+* [Bidirectional Recurrent Neural Network](tutorials/intermediate/bidirectional_recurrent_neural_network/src/main.cpp)
+* [Language Model (RNN-LM)](tutorials/intermediate/language_model/src/main.cpp)
+
+### 3. Advanced
+* [Generative Adversarial Networks](tutorials/advanced/generative_adversarial_network/main.cpp)
+* [Variational Auto-Encoder](tutorials/advanced/variational_autoencoder/src/main.cpp)
+* [Neural Style Transfer](tutorials/advanced/neural_style_transfer/src/main.cpp)
+* [Image Captioning (CNN-AttentionRNN)](tutorials/advanced/image_captioning/src/main.cpp)
+
+### 4. Interactive Tutorials
+* [Tensor Slicing](notebooks/tensor_slicing.ipynb)
+
+### 5. Other Popular Tutorials
+* [Deep Learning with PyTorch: A 60 Minute Blitz](tutorials/popular/blitz)
+
 # Getting Started
 
 ## Requirements
@@ -156,34 +183,6 @@ You can build and run the tutorials (on CPU) in a Docker container using the pro
     # In general: docker-compose run --rm pytorch-cpp {tutorial-name} 
     ```
     This will - if necessary - build all tutorials and then start the provided tutorial in a container.
-
-## Table of Contents
-
-### 1. Basics
-* [PyTorch Basics](tutorials/basics/pytorch_basics/main.cpp)
-* [Linear Regression](tutorials/basics/linear_regression/main.cpp)
-* [Logistic Regression](tutorials/basics/logistic_regression/main.cpp)
-* [Feedforward Neural Network](tutorials/basics/feedforward_neural_network/src/main.cpp)
-
-### 2. Intermediate
-* [Convolutional Neural Network](tutorials/intermediate/convolutional_neural_network/src/main.cpp)
-* [Deep Residual Network](tutorials/intermediate/deep_residual_network/src/main.cpp)
-* [Recurrent Neural Network](tutorials/intermediate/recurrent_neural_network/src/main.cpp)
-* [Bidirectional Recurrent Neural Network](tutorials/intermediate/bidirectional_recurrent_neural_network/src/main.cpp)
-* [Language Model (RNN-LM)](tutorials/intermediate/language_model/src/main.cpp)
-
-### 3. Advanced
-* [Generative Adversarial Networks](tutorials/advanced/generative_adversarial_network/main.cpp)
-* [Variational Auto-Encoder](tutorials/advanced/variational_autoencoder/src/main.cpp)
-* [Neural Style Transfer](tutorials/advanced/neural_style_transfer/src/main.cpp)
-* [Image Captioning (CNN-AttentionRNN)](tutorials/advanced/image_captioning/src/main.cpp)
-
-### 4. Interactive Tutorials
-* [Tensor Slicing](notebooks/tensor_slicing.ipynb)
-
-### 5. Other Popular Tutorials
-* [Deep Learning with PyTorch: A 60 Minute Blitz](tutorials/popular/blitz)
-
 
 ## License
 This repository is licensed under MIT as given in [LICENSE](LICENSE).
