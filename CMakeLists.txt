@@ -64,6 +64,12 @@ add_subdirectory("tutorials/advanced/variational_autoencoder")
 add_subdirectory("tutorials/advanced/neural_style_transfer")
 add_subdirectory("tutorials/advanced/image_captioning")
 
+# Popular
+add_subdirectory("tutorials/popular/blitz/tensors")
+add_subdirectory("tutorials/popular/blitz/autograd")
+add_subdirectory("tutorials/popular/blitz/neural_networks")
+add_subdirectory("tutorials/popular/blitz/training_a_classifier")
+
 if(MSVC)
     include(copy_torch_dlls)
     copy_torch_dlls(${EXECUTABLE_NAME})
