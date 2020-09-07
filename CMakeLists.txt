@@ -65,10 +65,10 @@ add_subdirectory("tutorials/advanced/neural_style_transfer")
 add_subdirectory("tutorials/advanced/image_captioning")
 
 # Popular
-add_subdirectory("tutorials/popular/deep_learning_with_pytorch_60min_blitz/what_is_pytorch")
-add_subdirectory("tutorials/popular/deep_learning_with_pytorch_60min_blitz/autograd")
-add_subdirectory("tutorials/popular/deep_learning_with_pytorch_60min_blitz/neural_networks")
-add_subdirectory("tutorials/popular/deep_learning_with_pytorch_60min_blitz/training_a_classifier")
+add_subdirectory("tutorials/popular/blitz/tensors")
+add_subdirectory("tutorials/popular/blitz/autograd")
+add_subdirectory("tutorials/popular/blitz/neural_networks")
+add_subdirectory("tutorials/popular/blitz/training_a_classifier")
 
 if(MSVC)
     include(copy_torch_dlls)
