@@ -8,11 +8,11 @@ int main() {
     std::cout << "What is PyTorch?\n\n";
 
     std::cout << "Tensors\n\n";
-    
+
     // Construct a 5x3 matrix, uninitialized:
     auto x = torch::empty({5, 3});
     std::cout << "x:\n" << x << '\n';
-    
+
     // Construct a randomly initialized matrix:
     x = torch::rand({5, 3});
     std::cout << "x:\n" << x << '\n';
@@ -57,9 +57,9 @@ int main() {
     // Resizing: If you want to resize/reshape tensor, you can use torch::view:
     x = torch::randn({4, 4});
     y = x.view(16);
-    auto z = x.view({-1, 8}); // the size -1 is inferred from other dimensions
+    auto z = x.view({-1, 8});  // the size -1 is inferred from other dimensions
     std::cout << x.element_size() << y.element_size() << z.element_size() << '\n';
-    
+
     // If you have a one element tensor, use .item() to get the value as a Python number
     x = torch::randn(1);
     std::cout << "x:\n" << x << '\n';

@@ -8,7 +8,7 @@ int main() {
     std::cout << "Autograd: Automatic Differentiation\n\n";
 
     std::cout << "Tensor\n\n";
-    
+
     // Create a tensor and set requires_grad=True to track computation with it:
     auto x = torch::ones({2, 2}, torch::TensorOptions().requires_grad(true));
     std::cout << "x:\n" << x << '\n';
@@ -38,7 +38,7 @@ int main() {
 
     // Let’s backprop now:
     out.backward();
-    
+
     // Print gradients d(out)/dx:
     std::cout << "x.grad:\n" << x.grad() << '\n';
 
