@@ -8,3 +8,6 @@
 
 3. *[neural_networks](tutorials/popular/blitz/neural_networks)*: Neural Networks  
 	https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html
+
+4. *[training_a_classifier](tutorials/popular/blitz/training_a_classifier)*: Training a Classifier  
+	https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
