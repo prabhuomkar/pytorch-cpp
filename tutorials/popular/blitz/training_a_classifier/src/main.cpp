@@ -1,4 +1,5 @@
 // Copyright 2020-present pytorch-cpp Authors
+// Original: https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
 #include <torch/torch.h>
 #include <iostream>
 #include <vector>
