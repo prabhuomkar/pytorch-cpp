@@ -2,7 +2,7 @@
     <img src="images/pytorch_cpp.png" width="50%">
 </h1>
 <p align="center">
-    C++ Implementation of PyTorch Tutorials for Deep Learning Researchers
+    C++ Implementation of PyTorch Tutorials for Everyone
     <br />
 <img src="https://img.shields.io/travis/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
@@ -22,10 +22,10 @@
 |      Linux (gcc 8)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |          |
 |    Windows (msvc 2017)  | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/8) |          |
 
-This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch.  
-**Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
-
 ## Table of Contents
+
+This repository provides tutorial code in C++ for deep learning researchers to learn PyTorch _(i.e. Section 1 to 3)_  
+**Python Tutorial**: [https://github.com/yunjey/pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
 
 ### 1. Basics
 * [PyTorch Basics](tutorials/basics/pytorch_basics/main.cpp)
