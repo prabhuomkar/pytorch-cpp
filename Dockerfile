@@ -53,6 +53,5 @@ COPY --from=conda-installs /opt/conda /opt/conda
 COPY --chown=pytorch:pytorch ./docker/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "bash" ]
 
 LABEL maintainer="prabhuomkar@pm.me,markus.fleischhacker28@gmail.com"
