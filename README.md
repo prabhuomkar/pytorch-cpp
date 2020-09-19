@@ -57,7 +57,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 ## Requirements
 
 1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
-2. [CMake](https://cmake.org/download/)
+2. [CMake](https://cmake.org/download/) (minimum version 3.14)
 3. [LibTorch v1.6.0](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
@@ -96,10 +96,10 @@ Some useful options:
 | Option       | Default           | Description  |
 | :------------- |:------------|-----:|
 | `-D CUDA_V=(9.2 [Linux only]\|10.1\|10.2\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
-| `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download all datasets used in the tutorials. |
+| `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download required datasets during build (only if they do not already exist in `pytorch-cpp/data`). |
+|`-D CREATE_SCRIPTMODULES=(OFF\|ON)` | `OFF` | Create all required scriptmodule files for prelearned models / weights during build. Requires installed  python3 with  pytorch and torchvision. |
 | `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of LibTorch and use your own local version (see [Requirements](#requirements)) instead. |
 | `-D CMAKE_BUILD_TYPE=(Release\|Debug)` | `<empty>` (`Release` when downloading LibTorch on Windows) | Set the build type (`Release` = compile with optimizations).|
-|`-D CREATE_SCRIPTMODULES=(OFF\|ON)` | `OFF` | Create all needed scriptmodule files for prelearned models / weights. Requires installed  python3 with  pytorch and torchvision. |
 
 <details>
 <summary><b>Example Linux</b></summary>
@@ -133,21 +133,45 @@ cmake -B build \
 </details>
 
 #### Build
+>**_Note for Windows (Visual Studio) users:_** <br>
+>The CMake script downloads the *Release* version of LibTorch, so `--config Release` has to be appended to the build command.
 
+**How dataset download and scriptmodule creation work:**
+* If `DOWNLOAD_DATASETS` is `ON`, the datasets required by the tutorials you choose to build will be downloaded to `pytorch-cpp/data` (if they do not already exist there).
+* If `CREATE_SCRIPTMODULES` is `ON`, the scriptmodule files for the prelearned models / weights required by the tutorials you choose to build will be created in the `model` folder of the respective tutorial's source folder (if they do not already exist).
+#### All tutorials
+To build all tutorials use
 ```bash
 cmake --build build
 ```
->**_Note for Windows users:_** <br>
->The CMake script downloads the *Release* version of LibTorch, so `--config Release` has to be appended to the build command.
->
->**_General Note:_** <br>
->By default all tutorials will be built. If you only want to build  one specific tutorial, specify the `target` parameter for the build command. For example to only build the language model tutorial, append `--target language-model` (target name = tutorial foldername with all underscores replaced with hyphens).
+
+#### All tutorials in a category
+You can choose to only build tutorials in one of the categories `basics`, `intermediate`, `advanced` or `popular`. For example, if you are only interested in the `basics` tutorials:
+```bash
+cmake --build build --target basics
+# In general: cmake --build build --target {category}
+```
+
+#### Single tutorial
+You can also choose to only build a single tutorial. For example to build the language model tutorial only: 
+```bash
+cmake --build build --target language-model
+# In general: cmake --build build --target {tutorial-name}
+```
+>**_Note_**:  
+> The target argument is the tutorial's foldername with all underscores replaced by hyphens.
+
+>**_Tip for users of CMake version >= 3.15_**:  
+> You can specify several targets separated by spaces, for example:  
+> ```bash 
+> cmake --build build --target language-model image-captioning
+> ```
 
 #### Run Tutorials
 1. (**IMPORTANT!**) First change into the tutorial's directory within `build/tutorials`. For example, assuming you are in the `pytorch-cpp` directory and want to change to the pytorch basics tutorial folder:
      ```bash
      cd build/tutorials/basics/pytorch_basics
-     # In general: cd build/tutorials/{basics|intermediate|advanced}/{tutorial_name}
+     # In general: cd build/tutorials/{basics|intermediate|advanced|popular/blitz}/{tutorial_name}
      ```
 2. Run the executable. Note that the executable's name is the tutorial's foldername with all underscores replaced with hyphens (e.g. for tutorial folder: `pytorch_basics` -> executable name: `pytorch-basics` (or `pytorch-basics.exe` on Windows)). For example, to run the pytorch basics tutorial:<br><br>
      **Linux/Mac**
@@ -176,13 +200,19 @@ You can build and run the tutorials (on CPU) in a Docker container using the pro
     ```bash
     docker-compose run --rm pytorch-cpp
     ```
-    This fetches all necessary dependencies and builds the tutorials. After the build is done, by default the container starts `bash` in interactive mode in the `build/tutorials` folder. 
-    As an alternative, you can also directly run a tutorial by instead invoking the above command with the tutorial as additional argument, for example:
+    This fetches all necessary dependencies and builds all tutorials.
+    After the build is done, by default the container starts `bash` in interactive mode in the `build/tutorials` folder.  
+    As with the local build, you can choose to only build tutorials of a category (`basics`, `intermediate`, `advanced`, `popular`):
+    ```bash
+    docker-compose run --rm pytorch-cpp {category}
+    ```
+    In this case the container is started in the chosen category's base build directory.  
+    Alternatively, you can also directly run a tutorial by instead invoking the run command with a tutorial name as additional argument, for example:
     ```bash
     docker-compose run --rm pytorch-cpp pytorch-basics
     # In general: docker-compose run --rm pytorch-cpp {tutorial-name} 
     ```
-    This will - if necessary - build all tutorials and then start the provided tutorial in a container.
+    This will - if necessary - build the pytorch-basics tutorial and then start the executable in a container.
 
 ## License
 This repository is licensed under MIT as given in [LICENSE](LICENSE).

@@ -2,11 +2,6 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(tensors VERSION 1.0.0 LANGUAGES CXX)
 
-if(NOT Torch_FOUND)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../cmake")
-    find_package(Torch REQUIRED PATHS "${CMAKE_CURRENT_SOURCE_DIR}/../../../../libtorch")
-endif()
-
 set(EXECUTABLE_NAME tensors)
 
 add_executable(${EXECUTABLE_NAME})

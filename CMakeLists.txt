@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(pytorch-cpp VERSION 1.0.0 LANGUAGES CXX)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-option(DOWNLOAD_DATASETS "Download datasets used in the tutorials." ON)
-option(CREATE_SCRIPTMODULES "Create all necessary scriptmodule files." OFF)
+option(DOWNLOAD_DATASETS "Automatically download required datasets at build-time." ON)
+option(CREATE_SCRIPTMODULES "Automatically create all required scriptmodule files at build-time (requires python3)." OFF)
 
 set(PYTORCH_VERSION "1.6.0")
 
@@ -13,11 +13,7 @@ find_package(Torch ${PYTORCH_VERSION} EXACT QUIET PATHS "${CMAKE_SOURCE_DIR}/lib
 
 if(NOT Torch_FOUND)
     unset(Torch_FOUND)
-    include(download_libtorch)
-endif()
-
-if(DOWNLOAD_DATASETS)
-    include(download_datasets)
+    include(fetch_libtorch)
 endif()
 
 if(CREATE_SCRIPTMODULES)
@@ -43,13 +39,42 @@ add_subdirectory("extern")
 # Utils
 add_subdirectory("utils/image_io")
 
+# Dataset fetching
+if(DOWNLOAD_DATASETS)
+    set(DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data CACHE PATH "Dataset download directory")
+    file(MAKE_DIRECTORY ${DATA_DIR})
+
+    add_custom_target(mnist COMMAND ${CMAKE_COMMAND}
+        -D DATA_DIR=${DATA_DIR}
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fetch_mnist.cmake)
+    add_custom_target(cifar10 COMMAND ${CMAKE_COMMAND}
+        -D DATA_DIR=${DATA_DIR}
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fetch_cifar10.cmake)
+    add_custom_target(penntreebank COMMAND ${CMAKE_COMMAND}
+        -D DATA_DIR=${DATA_DIR}
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fetch_penntreebank.cmake)
+    add_custom_target(neural_style_transfer_images COMMAND ${CMAKE_COMMAND}
+        -D DATA_DIR=${DATA_DIR}
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fetch_neural_style_transfer_images.cmake)
+    add_custom_target(flickr8k COMMAND ${CMAKE_COMMAND}
+        -D DATA_DIR=${DATA_DIR}
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fetch_flickr8k.cmake)
+endif()
+
 # Add tutorial sub-projects:
 
-# Basic
+# Basics
 add_subdirectory("tutorials/basics/feedforward_neural_network")
 add_subdirectory("tutorials/basics/linear_regression")
 add_subdirectory("tutorials/basics/logistic_regression")
 add_subdirectory("tutorials/basics/pytorch_basics")
+
+add_custom_target(basics)
+add_dependencies(basics
+    feedforward-neural-network
+    linear-regression
+    logistic-regression
+    pytorch-basics)
 
 # Intermediate
 add_subdirectory("tutorials/intermediate/convolutional_neural_network")
@@ -58,17 +83,39 @@ add_subdirectory("tutorials/intermediate/recurrent_neural_network")
 add_subdirectory("tutorials/intermediate/bidirectional_recurrent_neural_network")
 add_subdirectory("tutorials/intermediate/language_model")
 
+add_custom_target(intermediate)
+add_dependencies(intermediate
+    convolutional-neural-network
+    deep-residual-network
+    recurrent-neural-network
+    bidirectional-recurrent-neural-network
+    language-model)
+
 # Advanced
 add_subdirectory("tutorials/advanced/generative_adversarial_network")
 add_subdirectory("tutorials/advanced/variational_autoencoder")
 add_subdirectory("tutorials/advanced/neural_style_transfer")
 add_subdirectory("tutorials/advanced/image_captioning")
 
+add_custom_target(advanced)
+add_dependencies(advanced
+    generative-adversarial-network
+    variational-autoencoder
+    neural-style-transfer
+    image-captioning)
+
 # Popular
 add_subdirectory("tutorials/popular/blitz/tensors")
 add_subdirectory("tutorials/popular/blitz/autograd")
 add_subdirectory("tutorials/popular/blitz/neural_networks")
 add_subdirectory("tutorials/popular/blitz/training_a_classifier")
+
+add_custom_target(popular)
+add_dependencies(popular
+    tensors
+    autograd
+    neural-networks
+    training-a-classifier)
 
 if(MSVC)
     include(copy_torch_dlls)
