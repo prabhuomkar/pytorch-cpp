@@ -6,12 +6,12 @@
     <br />
 <img src="https://img.shields.io/travis/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
-<img src="https://img.shields.io/badge/libtorch-1.7.0-ee4c2c">
+<img src="https://img.shields.io/badge/libtorch-1.8.0-ee4c2c">
 <img src="https://img.shields.io/badge/cmake-3.14-064f8d">
 </p>
 
 
-| OS (Compiler)\\LibTorch |                                                  1.7.0                                                  |  nightly |
+| OS (Compiler)\\LibTorch |                                                  1.8.0                                                  |  nightly |
 | :---------------------: | :---------------------------------------------------------------------------------------------------: |  :-----: |
 |    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |          |
 |    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |          |
@@ -58,7 +58,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
 2. [CMake](https://cmake.org/download/) (minimum version 3.14)
-3. [LibTorch v1.7.0](https://pytorch.org/cppdocs/installing.html)
+3. [LibTorch v1.8.0](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
 
@@ -95,7 +95,7 @@ Some useful options:
 
 | Option       | Default           | Description  |
 | :------------- |:------------|-----:|
-| `-D CUDA_V=(9.2 [Linux only]\|10.1\|10.2\|11.0\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
+| `-D CUDA_V=(\|10.2\|11.1\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
 | `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download required datasets during build (only if they do not already exist in `pytorch-cpp/data`). |
 |`-D CREATE_SCRIPTMODULES=(OFF\|ON)` | `OFF` | Create all required scriptmodule files for prelearned models / weights during build. Requires installed  python3 with  pytorch and torchvision. |
 | `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of LibTorch and use your own local version (see [Requirements](#requirements)) instead. |
@@ -121,14 +121,14 @@ cmake -B build \
 <summary><b>Example Windows</b></summary>
 
 ##### Aim
-* Automatically download LibTorch for CUDA 10.2 and all necessary datasets.
+* Automatically download LibTorch for CUDA 11.1 and all necessary datasets.
 * Do not create scriptmodule files.
 
 ##### Command
 ```bash
 cmake -B build \
 -A x64 \
--D CUDA_V=10.2
+-D CUDA_V=11.1
 ```
 </details>
 
