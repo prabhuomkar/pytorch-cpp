@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 function(fetch_mnist DATA_DIR)
     set(MNIST_DOWNLOAD_DIR "${DATA_DIR}/mnist/download")
     set(MNIST_DIR "${DATA_DIR}/mnist")
-    set(MNIST_URL "http://yann.lecun.com/exdb/mnist")
+    set(MNIST_URL "https://ossci-datasets.s3.amazonaws.com/mnist")
 
     set(MNIST_EXTRACTED_FILES
         "t10k-images-idx3-ubyte" "t10k-labels-idx1-ubyte"
