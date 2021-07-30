@@ -6,12 +6,12 @@
     <br />
 <img src="https://img.shields.io/travis/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
-<img src="https://img.shields.io/badge/libtorch-1.8.0-ee4c2c">
+<img src="https://img.shields.io/badge/libtorch-1.9.0-ee4c2c">
 <img src="https://img.shields.io/badge/cmake-3.14-064f8d">
 </p>
 
 
-| OS (Compiler)\\LibTorch |                                                  1.8.0                                                  |  nightly |
+| OS (Compiler)\\LibTorch |                                                  1.9.0                                                  |  nightly |
 | :---------------------: | :---------------------------------------------------------------------------------------------------: |  :-----: |
 |    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |          |
 |    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |          |
@@ -58,7 +58,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
 2. [CMake](https://cmake.org/download/) (minimum version 3.14)
-3. [LibTorch v1.8.0](https://pytorch.org/cppdocs/installing.html)
+3. [LibTorch v1.9.0](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
 
