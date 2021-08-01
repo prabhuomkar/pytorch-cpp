@@ -34,7 +34,7 @@ jobs:
       run: cmake --build build --config Release
 
   build-ubuntu:
-    name: "Ubuntu 20.04 GCC "${{ matrix.gcc }} 
+    name: "Ubuntu 20.04 GCC"
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -58,7 +58,7 @@ jobs:
       run: cmake --build build
 
   build-mac:
-    name: "Macos 10.15 Clang "${{ matrix.clang }}
+    name: "Macos 10.15 Clang"
     runs-on: macos-10.15
     strategy:
       matrix:
