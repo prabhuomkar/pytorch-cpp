@@ -1,0 +1,82 @@
+name: pytorch-cpp-CI
+
+on:
+  push:
+    paths-ignore:
+      - .dockerignore
+      - .gitignore
+      - .gitattributes
+      - AUTHORS
+      - CONTRIBUTING.md
+      - docker-compose.yml
+      - LICENSE
+      - README.md
+      - Dockerfile
+      - images/*
+      - docker/*
+
+jobs:
+  build-windows:
+    name: "Windows MSVC 2019"
+    runs-on: windows-2019
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1.9
+      with:
+        cmake-version: '3.14.0'
+    - name: Cpplint
+      run: cmake -P cmake/cpplint.cmake
+    - name: Configure
+      run: cmake -B build -A x64 -D DOWNLOAD_DATASETS=OFF
+    - name: Build tutorials
+      run: cmake --build build --config Release
+
+  build-ubuntu:
+    name: "Ubuntu 20.04 GCC "${{ matrix.gcc }} 
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        gcc: [8, 9, 10, 11]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1.9
+      with:
+        cmake-version: '3.14.0'
+    - name: Set up GCC
+      uses: egor-tensin/setup-gcc@v1
+      with:
+        version: ${{ matrix.gcc }}
+    - name: Cpplint
+      run: cmake -P cmake/cpplint.cmake
+    - name: Configure
+      run: cmake -B build -D DOWNLOAD_DATASETS=OFF
+    - name: Build tutorials
+      run: cmake --build build
+
+  build-mac:
+    name: "Macos 10.15 Clang "${{ matrix.clang }}
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        clang: [10, 11, 12]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1.9
+      with:
+        cmake-version: '3.14.0'
+    - name: Set up Clang
+      uses: egor-tensin/setup-clang@v1
+      with:
+        version: ${{ matrix.clang }}
+    - name: Cpplint
+      run: cmake -P cmake/cpplint.cmake
+    - name: Configure
+      run: cmake -B build -D DOWNLOAD_DATASETS=OFF
+    - name: Build tutorials
+      run: cmake --build build
