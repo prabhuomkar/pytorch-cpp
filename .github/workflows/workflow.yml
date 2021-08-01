@@ -17,8 +17,19 @@ on:
 
 jobs:
   build-windows:
-    name: "Windows MSVC 2019"
-    runs-on: windows-2019
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+        - {
+            name: Windows MSVC 2017,
+            os: windows-2016
+          }
+        - {
+            name: Windows MSVC 2019,
+            os: windows-2019
+          }
     steps:
     - name: Checkout
       uses: actions/checkout@v2.0.0
