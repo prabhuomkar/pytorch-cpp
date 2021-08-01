@@ -31,7 +31,7 @@ jobs:
     - name: Configure
       run: cmake -B build -A x64 -D DOWNLOAD_DATASETS=OFF
     - name: Build tutorials
-      run: cmake --build build --config Release
+      run: cmake --build build --config Release --parallel 4
 
   build-ubuntu:
     name: "Ubuntu 20.04 GCC"
@@ -55,7 +55,7 @@ jobs:
     - name: Configure
       run: cmake -B build -D DOWNLOAD_DATASETS=OFF
     - name: Build tutorials
-      run: cmake --build build
+      run: cmake --build build --parallel 4
 
   build-mac:
     name: "Macos 10.15 Xcode (Clang)"
@@ -79,4 +79,4 @@ jobs:
     - name: Configure
       run: cmake -B build -D DOWNLOAD_DATASETS=OFF
     - name: Build tutorials
-      run: cmake --build build
+      run: cmake --build build --parallel 4
