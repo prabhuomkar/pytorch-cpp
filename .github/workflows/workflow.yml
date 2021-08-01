@@ -58,11 +58,11 @@ jobs:
       run: cmake --build build
 
   build-mac:
-    name: "Macos 10.15 Clang"
+    name: "Macos 10.15 Xcode (Clang)"
     runs-on: macos-10.15
     strategy:
       matrix:
-        clang: [10, 11, 12]
+        xcode: [10.1, 11.2, 12.4]
     steps:
     - name: Checkout
       uses: actions/checkout@v2.0.0
@@ -70,10 +70,10 @@ jobs:
       uses: jwlawson/actions-setup-cmake@v1.9
       with:
         cmake-version: '3.14.0'
-    - name: Set up llvm
-      run: |
-        brew update
-        brew install llvm@${{ matrix.clang }}
+    - name: Set up Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ matrix.xcode }}
     - name: Cpplint
       run: cmake -P cmake/cpplint.cmake
     - name: Configure
