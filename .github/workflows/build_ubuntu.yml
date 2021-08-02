@@ -14,6 +14,7 @@ on:
       - Dockerfile
       - images/*
       - docker/*
+  pull_request:
 
 jobs:
   build-ubuntu:
