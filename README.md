@@ -4,23 +4,17 @@
 <p align="center">
     C++ Implementation of PyTorch Tutorials for Everyone
     <br />
-<img src="https://img.shields.io/travis/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/badge/libtorch-1.8.0-ee4c2c">
 <img src="https://img.shields.io/badge/cmake-3.14-064f8d">
 </p>
 
 
-| OS (Compiler)\\LibTorch |                                                  1.8.0                                                  |  nightly |
-| :---------------------: | :---------------------------------------------------------------------------------------------------: |  :-----: |
-|    macOS (clang 9.1)    | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/1) |          |
-|    macOS (clang 10.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/2) |          |
-|    macOS (clang 11.0)   | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/3) |          |
-|      Linux (gcc 5)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/4) |          |
-|      Linux (gcc 6)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/5) |          |
-|      Linux (gcc 7)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/6) |          |
-|      Linux (gcc 8)      | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/7) |          |
-|    Windows (msvc 2017)  | ![Status](https://travis-matrix-badges.herokuapp.com/repos/prabhuomkar/pytorch-cpp/branches/master/8) |          |
+| OS (Compiler)\\LibTorch |                                                  1.8.0                                                |
+| :--------------------- | :--------------------------------------------------------------------------------------------------- |
+|    macOS (clang 10.0, 11.0, 12.0)    | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_macos.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-macos) |
+|      Linux (gcc 8, 9, 10, 11)      | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_ubuntu.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-ubuntu) |
+|    Windows (msvc 2017, 2019)  | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_windows.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-windows) |
 
 ## Table of Contents
 

@@ -1,0 +1,42 @@
+name: ci-build-ubuntu
+
+on:
+  push:
+    paths-ignore:
+      - .dockerignore
+      - .gitignore
+      - .gitattributes
+      - AUTHORS
+      - CONTRIBUTING.md
+      - docker-compose.yml
+      - LICENSE
+      - README.md
+      - Dockerfile
+      - images/*
+      - docker/*
+  pull_request:
+
+jobs:
+  build-ubuntu:
+    name: "Ubuntu 20.04 GCC"
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        gcc: [8, 9, 10, 11]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1.9
+      with:
+        cmake-version: '3.14.0'
+    - name: Set up GCC
+      uses: egor-tensin/setup-gcc@v1
+      with:
+        version: ${{ matrix.gcc }}
+    - name: Cpplint
+      run: cmake -P cmake/cpplint.cmake
+    - name: Configure
+      run: cmake -B build -D DOWNLOAD_DATASETS=OFF
+    - name: Build tutorials
+      run: cmake --build build --parallel 4
