@@ -10,7 +10,7 @@
 </p>
 
 
-| OS (Compiler)\\LibTorch |                                                  1.8.0                                                |
+| OS (Compiler)\\LibTorch |                                                  1.9.0                                                |
 | :--------------------- | :--------------------------------------------------------------------------------------------------- |
 |    macOS (clang 10.0, 11.0, 12.0)    | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_macos.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-macos) |
 |      Linux (gcc 8, 9, 10, 11)      | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_ubuntu.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-ubuntu) |
