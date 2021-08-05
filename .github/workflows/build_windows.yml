@@ -1,0 +1,46 @@
+name: ci-build-windows
+
+on:
+  push:
+    paths-ignore:
+      - .dockerignore
+      - .gitignore
+      - .gitattributes
+      - AUTHORS
+      - CONTRIBUTING.md
+      - docker-compose.yml
+      - LICENSE
+      - README.md
+      - Dockerfile
+      - images/*
+      - docker/*
+  pull_request:
+
+jobs:
+  build-windows:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+        - {
+            name: Windows MSVC 2017,
+            os: windows-2016
+          }
+        - {
+            name: Windows MSVC 2019,
+            os: windows-2019
+          }
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1.9
+      with:
+        cmake-version: '3.14.0'
+    - name: Cpplint
+      run: cmake -P cmake/cpplint.cmake
+    - name: Configure
+      run: cmake -B build -A x64 -D DOWNLOAD_DATASETS=OFF
+    - name: Build tutorials
+      run: cmake --build build --config Release --parallel 4
