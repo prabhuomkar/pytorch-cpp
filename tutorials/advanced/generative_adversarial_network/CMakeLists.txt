@@ -10,7 +10,7 @@ target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp)
 target_link_libraries(${EXECUTABLE_NAME} ${TORCH_LIBRARIES} image-io)
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
-  CXX_STANDARD 14
+  CXX_STANDARD 17
   CXX_STANDARD_REQUIRED YES
 )
 

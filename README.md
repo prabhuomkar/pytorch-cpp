@@ -50,7 +50,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 ## Requirements
 
-1. [C++](http://www.cplusplus.com/doc/tutorial/introduction/)
+1. [C++-17](http://www.cplusplus.com/doc/tutorial/introduction/) compatible compiler
 2. [CMake](https://cmake.org/download/) (minimum version 3.14)
 3. [LibTorch v1.9.0](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
