@@ -2,16 +2,18 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 include(FetchContent)
 
-set(CUDA_V "none" CACHE STRING "Determines libtorch CUDA version to download (10.2, 11.3 or none).")
+set(CUDA_V "none" CACHE STRING "Determines libtorch CUDA version to download (10.2, 11.1, 11.3 or none).")
 
 if(${CUDA_V} STREQUAL "none")
     set(LIBTORCH_DEVICE "cpu")
 elseif(${CUDA_V} STREQUAL "10.2")
     set(LIBTORCH_DEVICE "cu102")
+elseif(${CUDA_V} STREQUAL "11.1")
+    set(LIBTORCH_DEVICE "cu111")
 elseif(${CUDA_V} STREQUAL "11.3")
     set(LIBTORCH_DEVICE "cu113")
 else() 
-    message(FATAL_ERROR "Invalid CUDA version specified, must be 10.2, 11.3 or none!")
+    message(FATAL_ERROR "Invalid CUDA version specified, must be 10.2, 11.1, 11.3 or none!")
 endif()
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")

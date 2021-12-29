@@ -89,7 +89,7 @@ Some useful options:
 
 | Option       | Default           | Description  |
 | :------------- |:------------|-----:|
-| `-D CUDA_V=(10.2\|11.3\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
+| `-D CUDA_V=(10.2\|11.1\|11.3\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
 | `-D LIBTORCH_DOWNLOAD_BUILD_TYPE=(Release\|Debug)` | `Release` | Determines which libtorch build type version to download (only relevant on **Windows**).|
 | `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download required datasets during build (only if they do not already exist in `pytorch-cpp/data`). |
 |`-D CREATE_SCRIPTMODULES=(OFF\|ON)` | `OFF` | Create all required scriptmodule files for prelearned models / weights during build. Requires installed  python3 with  pytorch and torchvision. |
