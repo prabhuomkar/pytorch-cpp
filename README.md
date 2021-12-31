@@ -5,12 +5,12 @@
     C++ Implementation of PyTorch Tutorials for Everyone
     <br />
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
-<img src="https://img.shields.io/badge/libtorch-1.9.0-ee4c2c">
+<img src="https://img.shields.io/badge/libtorch-1.10.1-ee4c2c">
 <img src="https://img.shields.io/badge/cmake-3.14-064f8d">
 </p>
 
 
-| OS (Compiler)\\LibTorch |                                                  1.9.0                                                |
+| OS (Compiler)\\LibTorch |                                                  1.10.1                                                |
 | :--------------------- | :--------------------------------------------------------------------------------------------------- |
 |    macOS (clang 10.0, 11.0, 12.0)    | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_macos.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-macos) |
 |      Linux (gcc 8, 9, 10, 11)      | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_ubuntu.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-ubuntu) |
@@ -52,7 +52,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 1. [C++-17](http://www.cplusplus.com/doc/tutorial/introduction/) compatible compiler
 2. [CMake](https://cmake.org/download/) (minimum version 3.14)
-3. [LibTorch v1.9.0](https://pytorch.org/cppdocs/installing.html)
+3. [LibTorch v1.10.1](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
 
@@ -89,11 +89,12 @@ Some useful options:
 
 | Option       | Default           | Description  |
 | :------------- |:------------|-----:|
-| `-D CUDA_V=(\|10.2\|11.1\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
+| `-D CUDA_V=(10.2\|11.1\|11.3\|none)`     | `none` | Download LibTorch for a CUDA version (`none` = download CPU version). |
+| `-D LIBTORCH_DOWNLOAD_BUILD_TYPE=(Release\|Debug)` | `Release` | Determines which libtorch build type version to download (only relevant on **Windows**).|
 | `-D DOWNLOAD_DATASETS=(OFF\|ON)`     | `ON`      |   Download required datasets during build (only if they do not already exist in `pytorch-cpp/data`). |
 |`-D CREATE_SCRIPTMODULES=(OFF\|ON)` | `OFF` | Create all required scriptmodule files for prelearned models / weights during build. Requires installed  python3 with  pytorch and torchvision. |
 | `-D CMAKE_PREFIX_PATH=path/to/libtorch/share/cmake/Torch` |   `<empty>`    |    Skip the downloading of LibTorch and use your own local version (see [Requirements](#requirements)) instead. |
-| `-D CMAKE_BUILD_TYPE=(Release\|Debug)` | `<empty>` (`Release` when downloading LibTorch on Windows) | Set the build type (`Release` = compile with optimizations).|
+| `-D CMAKE_BUILD_TYPE=(Release\|Debug\|...)` | `<empty>` | Determines the CMake build-type for single-configuration generators (see [CMake docs](https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html)).|
 
 <details>
 <summary><b>Example Linux</b></summary>
@@ -115,14 +116,14 @@ cmake -B build \
 <summary><b>Example Windows</b></summary>
 
 ##### Aim
-* Automatically download LibTorch for CUDA 11.1 and all necessary datasets.
+* Automatically download LibTorch for CUDA 11.3 (Release version) and all necessary datasets.
 * Do not create scriptmodule files.
 
 ##### Command
 ```bash
 cmake -B build \
 -A x64 \
--D CUDA_V=11.1
+-D CUDA_V=11.3
 ```
 </details>
 
