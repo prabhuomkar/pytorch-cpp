@@ -3,6 +3,9 @@
 #include <iostream>
 #include <iomanip>
 #include "convnet.h"
+#include "imagefolder_dataset.h"
+
+using dataset::ImageFolderDataset;
 
 int main() {
     std::cout << "Convolutional Neural Network\n\n";
@@ -14,22 +17,23 @@ int main() {
 
     // Hyper parameters
     const int64_t num_classes = 10;
-    const int64_t batch_size = 100;
-    const size_t num_epochs = 5;
-    const double learning_rate = 0.001;
+    const int64_t batch_size = 8;
+    const size_t num_epochs = 10;
+    const double learning_rate = 1e-3;
+    const double weight_decay = 1e-3;
 
-    const std::string MNIST_data_path = "../../../../data/mnist/";
+    const std::string imagenette_data_path = "../../../../data/imagenette2-160";
 
-    // MNIST dataset
-    auto train_dataset = torch::data::datasets::MNIST(MNIST_data_path)
-        .map(torch::data::transforms::Normalize<>(0.1307, 0.3081))
+    // Imagenette dataset
+    auto train_dataset = ImageFolderDataset(imagenette_data_path, ImageFolderDataset::Mode::TRAIN, {160, 160})
+        .map(torch::data::transforms::Normalize<>({0.485, 0.456, 0.406}, {0.229, 0.224, 0.225}))
         .map(torch::data::transforms::Stack<>());
 
     // Number of samples in the training set
     auto num_train_samples = train_dataset.size().value();
 
-    auto test_dataset = torch::data::datasets::MNIST(MNIST_data_path, torch::data::datasets::MNIST::Mode::kTest)
-        .map(torch::data::transforms::Normalize<>(0.1307, 0.3081))
+    auto test_dataset = ImageFolderDataset(imagenette_data_path, ImageFolderDataset::Mode::VAL, {160, 160})
+        .map(torch::data::transforms::Normalize<>({0.485, 0.456, 0.406}, {0.229, 0.224, 0.225}))
         .map(torch::data::transforms::Stack<>());
 
     // Number of samples in the testset
@@ -47,7 +51,8 @@ int main() {
     model->to(device);
 
     // Optimizer
-    torch::optim::Adam optimizer(model->parameters(), torch::optim::AdamOptions(learning_rate));
+    torch::optim::Adam optimizer(
+        model->parameters(), torch::optim::AdamOptions(learning_rate).weight_decay(weight_decay));
 
     // Set floating point output precision
     std::cout << std::fixed << std::setprecision(4);
@@ -98,7 +103,7 @@ int main() {
 
     // Test the model
     model->eval();
-    torch::NoGradGuard no_grad;
+    torch::InferenceMode no_grad;
 
     double running_loss = 0.0;
     size_t num_correct = 0;

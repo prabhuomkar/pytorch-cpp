@@ -59,6 +59,9 @@ if(DOWNLOAD_DATASETS)
     add_custom_target(flickr8k COMMAND ${CMAKE_COMMAND}
         -D DATA_DIR=${DATA_DIR}
         -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fetch_flickr8k.cmake)
+    add_custom_target(imagenette COMMAND ${CMAKE_COMMAND}
+        -D DATA_DIR=${DATA_DIR}
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fetch_imagenette.cmake)
 endif()
 
 # Add tutorial sub-projects:
