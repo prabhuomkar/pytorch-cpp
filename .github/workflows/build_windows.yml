@@ -25,12 +25,12 @@ jobs:
         config:
         - {
             name: Windows MSVC 2019,
-            os: windows-2019
+            os: windows-2019,
             cmake: '3.14.0'
           }
         - {
             name: Windows MSVC 2022,
-            os: windows-2022
+            os: windows-2022,
             cmake: '3.24.2'
           }
     steps:
