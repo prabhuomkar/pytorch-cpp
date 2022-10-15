@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        gcc: [8, 9, 10, 11]
+        gcc: [9, 10, 11]
     steps:
     - name: Checkout
       uses: actions/checkout@v2.0.0

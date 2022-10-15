@@ -24,12 +24,12 @@ jobs:
       matrix:
         config:
         - {
-            name: Windows MSVC 2017,
-            os: windows-2016
-          }
-        - {
             name: Windows MSVC 2019,
             os: windows-2019
+          }
+        - {
+            name: Windows MSVC 2022,
+            os: windows-2022
           }
     steps:
     - name: Checkout
