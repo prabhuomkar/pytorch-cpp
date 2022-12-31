@@ -14,8 +14,8 @@ int main() {
     const double learning_rate = 0.001;
 
     // Sample dataset
-    auto x_train = torch::randint(0, 10, {15, 1});
-    auto y_train = torch::randint(0, 10, {15, 1});
+    auto x_train = torch::randint(0, 10, {15, 1}, torch::kFloat);
+    auto y_train = torch::randint(0, 10, {15, 1}, torch::kFloat);
 
     // Linear regression model
     torch::nn::Linear model(input_size, output_size);

@@ -7,14 +7,19 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 option(DOWNLOAD_DATASETS "Automatically download required datasets at build-time." ON)
 option(CREATE_SCRIPTMODULES "Automatically create all required scriptmodule files at build-time (requires python3)." OFF)
 
-set(PYTORCH_VERSION "1.12.0")
+set(PYTORCH_VERSION "1.13.1")
+set(PYTORCH_MIN_VERSION "1.12.0")
 
-find_package(Torch ${PYTORCH_VERSION} EXACT QUIET PATHS "${CMAKE_SOURCE_DIR}/libtorch")
+find_package(Torch QUIET PATHS "${CMAKE_SOURCE_DIR}/libtorch")
 
-if(NOT Torch_FOUND)
+if((NOT Torch_FOUND) OR (("${Torch_VERSION}" VERSION_LESS "${PYTORCH_MIN_VERSION}") OR
+                         ("${Torch_VERSION}" VERSION_GREATER "${PYTORCH_VERSION}")))
     unset(Torch_FOUND)
+    message(STATUS "Could not find compatible Torch version (>= ${PYTORCH_MIN_VERSION}, <= ${PYTORCH_VERSION})")
     include(fetch_libtorch)
 endif()
+
+message(STATUS "Torch version ${Torch_VERSION}")
 
 if(CREATE_SCRIPTMODULES)
     find_package(Python3 COMPONENTS Interpreter REQUIRED)
