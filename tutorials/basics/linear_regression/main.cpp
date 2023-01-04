@@ -5,7 +5,11 @@
 
 int main() {
     std::cout << "Linear Regression\n\n";
-    std::cout << "Training on CPU.\n";
+
+    // Device
+    auto cuda_available = torch::cuda::is_available();
+    torch::Device device(cuda_available ? torch::kCUDA : torch::kCPU);
+    std::cout << (cuda_available ? "CUDA available. Training on GPU." : "Training on CPU.") << '\n';
 
     // Hyper parameters
     const int64_t input_size = 1;
@@ -14,11 +18,15 @@ int main() {
     const double learning_rate = 0.001;
 
     // Sample dataset
-    auto x_train = torch::randint(0, 10, {15, 1});
-    auto y_train = torch::randint(0, 10, {15, 1});
+    auto x_train = torch::randint(0, 10, {15, 1},
+                                  torch::TensorOptions(torch::kFloat).device(device));
+
+    auto y_train = torch::randint(0, 10, {15, 1},
+                                  torch::TensorOptions(torch::kFloat).device(device));
 
     // Linear regression model
     torch::nn::Linear model(input_size, output_size);
+    model->to(device);
 
     // Optimizer
     torch::optim::SGD optimizer(model->parameters(), torch::optim::SGDOptions(learning_rate));
@@ -31,7 +39,7 @@ int main() {
     // Train the model
     for (size_t epoch = 0; epoch != num_epochs; ++epoch) {
         // Forward pass
-        auto output = model(x_train);
+        auto output = model->forward(x_train);
         auto loss = torch::nn::functional::mse_loss(output, y_train);
 
         // Backward pass and optimize
