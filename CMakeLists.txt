@@ -22,6 +22,10 @@ endif()
 message(STATUS "Torch version ${Torch_VERSION}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+endif()
+
 if(CREATE_SCRIPTMODULES)
     find_package(Python3 COMPONENTS Interpreter REQUIRED)
 endif()
