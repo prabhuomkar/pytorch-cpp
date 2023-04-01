@@ -20,6 +20,7 @@ if((NOT Torch_FOUND) OR (("${Torch_VERSION}" VERSION_LESS "${PYTORCH_MIN_VERSION
 endif()
 
 message(STATUS "Torch version ${Torch_VERSION}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
 if(CREATE_SCRIPTMODULES)
     find_package(Python3 COMPONENTS Interpreter REQUIRED)
