@@ -18,10 +18,10 @@ set(CXXOPTS_ENABLE_INSTALL OFF CACHE BOOL "Generate the install target" FORCE)
 
 FetchContent_MakeAvailable(extern_cxxopts)
 
-foreach(STB_IMAGE_LIB "stb_image" "stb_image_write" "stb_image_resize")
+foreach(STB_IMAGE_LIB "stb_image" "stb_image_write" "stb_image_resize2")
     FetchContent_Declare(
         extern_${STB_IMAGE_LIB}
-        URL https://raw.githubusercontent.com/nothings/obbg/master/stb/${STB_IMAGE_LIB}.h
+        URL https://raw.githubusercontent.com/nothings/stb/master/${STB_IMAGE_LIB}.h
         DOWNLOAD_NO_EXTRACT ON  
         DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${STB_IMAGE_LIB}
     )
