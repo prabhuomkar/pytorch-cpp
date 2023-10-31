@@ -9,7 +9,7 @@
 #include "stb_image_write.h"
 
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include "stb_image_resize.h"
+#include "stb_image_resize2.h"
 
 namespace image_io {
 namespace {
@@ -165,8 +165,8 @@ torch::Tensor load_image(const std::string& file_path,
 
     std::vector<unsigned char> image_resized_buffer(buffer_size);
 
-    stbir_resize_uint8(image_raw.get(), width, height, 0,
-        image_resized_buffer.data(), new_width, new_height, 0, depth);
+    stbir_resize_uint8_linear(image_raw.get(), width, height, 0,
+        image_resized_buffer.data(), new_width, new_height, 0, static_cast<stbir_pixel_layout>(depth));
 
     return transform(torch::from_blob(image_resized_buffer.data(),
         {new_height, new_width, depth}, torch::kUInt8).clone().to(torch::kFloat32).permute({2, 0, 1}).div_(255));
