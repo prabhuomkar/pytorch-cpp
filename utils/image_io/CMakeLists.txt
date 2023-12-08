@@ -16,6 +16,6 @@ target_include_directories(image-io PUBLIC include)
 target_link_libraries(image-io ${TORCH_LIBRARIES} stb-image stb-image-write stb-image-resize2)
                           
 set_target_properties(image-io PROPERTIES
-  CXX_STANDARD 14
+  CXX_STANDARD 17
   CXX_STANDARD_REQUIRED YES
 )
