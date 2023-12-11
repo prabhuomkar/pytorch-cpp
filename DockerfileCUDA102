@@ -1,0 +1,47 @@
+FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
+LABEL maintainer="pyun@cse.ust.hk"
+
+# Fix the apt-get error from nvidia-docker
+RUN rm /etc/apt/sources.list.d/cuda.list \
+    && rm /etc/apt/sources.list.d/nvidia-ml.list \
+    && apt-key del 7fa2af80 \
+    && apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub \
+    && apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/7fa2af80.pub
+
+# Install basics
+RUN apt-get update -y \
+    && apt-get install -y apt-utils git curl ca-certificates tree htop wget libssl-dev unzip \
+    && rm -rf /var/lib/apt/lists/*
+# Install g++-8 gcc-8
+RUN apt-get update && apt-get install -y gcc-8 g++-8 \
+  && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
+  && update-alternatives --config gcc \
+  && rm -rf /var/lib/apt/lists/*
+# Install cmake
+RUN apt-get purge -y cmake \
+    && mkdir /root/temp \
+    && cd /root/temp \
+    && wget https://github.com/Kitware/CMake/releases/download/v3.23.4/cmake-3.23.4.tar.gz \
+    && tar -xzvf cmake-3.23.4.tar.gz \
+    && cd cmake-3.23.4 \
+    && bash ./bootstrap \
+    && make \
+    && make install \
+    && cmake --version \
+    && rm -rf /root/temp \
+    && rm -rf /var/lib/apt/lists/*
+# Install libtorch
+RUN cd /root/ \
+    && wget https://download.pytorch.org/libtorch/cu102/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcu102.zip -O libtorch.zip \
+    && unzip libtorch.zip
+# Install pytorch-cpp
+RUN cd /root \
+    && wget https://github.com/prabhuomkar/pytorch-cpp/archive/refs/tags/v1.12.tar.gz \
+    && tar -xzvf v1.12.tar.gz
+RUN cd /root/pytorch-cpp-1.12 \
+    && cmake -B build \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_PREFIX_PATH=/root/libtorch/share/cmake/Torch \
+    -D CREATE_SCRIPTMODULES=ON \
+    && cmake --build build
+WORKDIR /root
