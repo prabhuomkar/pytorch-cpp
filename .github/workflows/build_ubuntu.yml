@@ -18,16 +18,16 @@ on:
 
 jobs:
   build-ubuntu:
-    name: "Ubuntu 20.04 GCC"
-    runs-on: ubuntu-20.04
+    name: "Ubuntu 22.04 GCC"
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        gcc: [9, 10, 11]
+        gcc: [11, 12, 13]
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up CMake
-      uses: jwlawson/actions-setup-cmake@v1.13
+      uses: jwlawson/actions-setup-cmake@v2
       with:
         cmake-version: '3.14.0'
     - name: Set up GCC

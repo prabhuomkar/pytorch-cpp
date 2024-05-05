@@ -18,16 +18,16 @@ on:
 
 jobs:
   build-mac:
-    name: "Macos 11.7 Xcode (Clang)"
-    runs-on: macos-11
+    name: "Macos 13.6.6 Xcode (Clang)"
+    runs-on: macos-13
     strategy:
       matrix:
-        xcode: [11.7, 12.4, 13.2.1]
+        xcode: [14.1, 15.2]
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set up CMake
-      uses: jwlawson/actions-setup-cmake@v1.13
+      uses: jwlawson/actions-setup-cmake@v2
       with:
         cmake-version: '3.14.0'
     - name: Set up Xcode
