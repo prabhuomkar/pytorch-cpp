@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="images/pytorch_cpp.png" width="50%">
+    <img src="images/pytorch_cpp.jpg" width="50%">
 </h1>
 <p align="center">
     C++ Implementation of PyTorch Tutorials for Everyone
