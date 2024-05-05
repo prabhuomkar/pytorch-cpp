@@ -5,12 +5,12 @@
     C++ Implementation of PyTorch Tutorials for Everyone
     <br />
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
-<img src="https://img.shields.io/badge/libtorch-2.1.1-ee4c2c">
+<img src="https://img.shields.io/badge/libtorch-2.3.0-ee4c2c">
 <img src="https://img.shields.io/badge/cmake-3.14-064f8d">
 </p>
 
 
-| OS (Compiler)\\LibTorch |                                                  2.1.1                                                |
+| OS (Compiler)\\LibTorch |                                                  2.3.0                                                |
 | :--------------------- | :--------------------------------------------------------------------------------------------------- |
 |    macOS (clang 11, 12, 13)    | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_macos.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-macos) |
 |      Linux (gcc 9, 10, 11)      | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_ubuntu.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-ubuntu) |
@@ -52,7 +52,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 
 1. [C++-17](http://www.cplusplus.com/doc/tutorial/introduction/) compatible compiler
 2. [CMake](https://cmake.org/download/) (minimum version 3.14)
-3. [LibTorch version >= 1.12.0 and <= 2.1.1](https://pytorch.org/cppdocs/installing.html)
+3. [LibTorch version >= 1.12.0 and <= 2.3.0](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
 
