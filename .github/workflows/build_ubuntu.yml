@@ -29,7 +29,7 @@ jobs:
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v2
       with:
-        cmake-version: '3.14.0'
+        cmake-version: '3.19.0'
     - name: Set up GCC
       uses: egor-tensin/setup-gcc@v1
       with:

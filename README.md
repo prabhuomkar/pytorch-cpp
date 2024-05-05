@@ -6,7 +6,7 @@
     <br />
 <img src="https://img.shields.io/github/license/prabhuomkar/pytorch-cpp">
 <img src="https://img.shields.io/badge/libtorch-2.3.0-ee4c2c">
-<img src="https://img.shields.io/badge/cmake-3.14-064f8d">
+<img src="https://img.shields.io/badge/cmake-3.19-064f8d">
 </p>
 
 
@@ -51,7 +51,7 @@ This repository provides tutorial code in C++ for deep learning researchers to l
 ## Requirements
 
 1. [C++-17](http://www.cplusplus.com/doc/tutorial/introduction/) compatible compiler
-2. [CMake](https://cmake.org/download/) (minimum version 3.14)
+2. [CMake](https://cmake.org/download/) (minimum version 3.19)
 3. [LibTorch version >= 1.12.0 and <= 2.3.0](https://pytorch.org/cppdocs/installing.html)
 4. [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html)
 
