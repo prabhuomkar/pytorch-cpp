@@ -37,6 +37,6 @@ jobs:
     - name: Cpplint
       run: cmake -P cmake/cpplint.cmake
     - name: Configure
-      run: cmake -B build -A arm64 -D DOWNLOAD_DATASETS=OFF
+      run: cmake -B build -D DOWNLOAD_DATASETS=OFF
     - name: Build tutorials
       run: cmake --build build --parallel 4
