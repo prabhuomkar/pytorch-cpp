@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 
 project(pytorch-cpp VERSION 1.0.0 LANGUAGES CXX)
 
@@ -7,7 +7,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 option(DOWNLOAD_DATASETS "Automatically download required datasets at build-time." ON)
 option(CREATE_SCRIPTMODULES "Automatically create all required scriptmodule files at build-time (requires python3)." OFF)
 
-set(PYTORCH_VERSION "2.1.1")
+set(PYTORCH_VERSION "2.3.0")
 set(PYTORCH_MIN_VERSION "1.12.0")
 
 find_package(Torch QUIET PATHS "${CMAKE_SOURCE_DIR}/libtorch")

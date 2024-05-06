@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 
 include(FetchContent)
 
@@ -33,7 +33,7 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
         message(WARNING "MacOS binaries do not support CUDA, will download CPU version instead.")
         set(LIBTORCH_DEVICE "cpu")
     endif()
-    set(LIBTORCH_URL "https://download.pytorch.org/libtorch/cpu/libtorch-macos-${PYTORCH_VERSION}.zip")
+    set(LIBTORCH_URL "https://download.pytorch.org/libtorch/cpu/libtorch-macos-arm64-${PYTORCH_VERSION}.zip")
 else()
     message(FATAL_ERROR "Unsupported CMake System Name '${CMAKE_SYSTEM_NAME}' (expected 'Windows', 'Linux' or 'Darwin')")
 endif()

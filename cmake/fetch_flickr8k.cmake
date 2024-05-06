@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 
 function(fetch_flickr8k DATA_DIR)
     set(FLICKR8K_DIR "${DATA_DIR}/flickr_8k")

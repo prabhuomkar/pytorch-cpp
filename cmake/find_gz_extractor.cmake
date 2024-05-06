@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 
 # Find program that can extract .gz files.
 # Based on: https://github.com/Amber-MD/cmake-buildscripts/blob/master/gzip.cmake

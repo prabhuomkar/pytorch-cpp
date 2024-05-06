@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 
 function(copy_torch_dlls TARGET_NAME)
     # According to https://github.com/pytorch/pytorch/issues/25457
