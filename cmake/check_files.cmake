@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.28.6 FATAL_ERROR)
 
 function(check_files BASE_DIR FILES_TO_CHECK FILE_MD5S MISSING_FILES)
     foreach(FILE_TO_CHECK ${${FILES_TO_CHECK}})

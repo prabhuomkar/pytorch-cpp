@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.28.6 FATAL_ERROR)
 
 function(fetch_imagenette DATA_DIR)
     set(IMAGENETTE_DIR "${DATA_DIR}/imagenette2-160")

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.28.6 FATAL_ERROR)
 
 function(fetch_neural_style_transfer_imagers DATA_DIR)
     set(NEURAL_STYLE_TRANSFER_IMAGES_DIR
