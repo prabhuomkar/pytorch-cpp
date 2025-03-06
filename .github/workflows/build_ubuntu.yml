@@ -18,18 +18,18 @@ on:
 
 jobs:
   build-ubuntu:
-    name: "Ubuntu 22.04 GCC"
-    runs-on: ubuntu-22.04
+    name: "Ubuntu 24.04 GCC"
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        gcc: [11, 12, 13]
+        gcc: [13, 14]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v2
       with:
-        cmake-version: '3.19.0'
+        cmake-version: '3.28.6'
     - name: Set up GCC
       uses: egor-tensin/setup-gcc@v1
       with:

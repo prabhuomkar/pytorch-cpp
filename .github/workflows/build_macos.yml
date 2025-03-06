@@ -18,18 +18,18 @@ on:
 
 jobs:
   build-mac:
-    name: "macOS 14.4.1 arm64 Xcode (Clang)"
+    name: "macOS 14 arm64 Xcode (Clang)"
     runs-on: macos-14
     strategy:
       matrix:
-        xcode: [14.3.1, 15.3]
+        xcode: [15.3, 16.1]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v2
       with:
-        cmake-version: '3.19.0'
+        cmake-version: '3.28.6'
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:

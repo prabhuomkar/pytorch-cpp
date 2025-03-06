@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.28.6 FATAL_ERROR)
 
 function(fetch_penntreebank DATA_DIR)
     set(PENNTREEBANK_DIR "${DATA_DIR}/penntreebank")

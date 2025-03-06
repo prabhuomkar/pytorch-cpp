@@ -24,14 +24,14 @@ jobs:
       matrix:
         config:
         - {
-            name: Windows MSVC 2019,
-            os: windows-2019,
-            cmake: '3.19.0'
-          }
-        - {
             name: Windows MSVC 2022,
             os: windows-2022,
-            cmake: '3.24.2'
+            cmake: '3.28.6'
+          }
+        - {
+            name: Windows MSVC 2025,
+            os: windows-2025,
+            cmake: '3.28.6'
           }
     steps:
     - name: Checkout
