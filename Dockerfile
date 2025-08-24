@@ -31,8 +31,8 @@ RUN curl --silent --show-error --location --output ~/miniconda.sh https://repo.a
 
 FROM conda AS conda-installs
 # Install pytorch for CPU and torchvision.
-ARG PYTORCH_VERSION=2.6.0
-ARG TORCHVISION_VERSION=0.18.0
+ARG PYTORCH_VERSION=2.8.0
+ARG TORCHVISION_VERSION=0.23.0
 ENV NO_CUDA=1
 RUN conda install pytorch==${PYTORCH_VERSION} torchvision==${TORCHVISION_VERSION} cpuonly -y -c pytorch && conda clean -ya
 

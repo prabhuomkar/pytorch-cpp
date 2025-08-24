@@ -69,7 +69,7 @@ int main() {
     std::cout << "Finished Training\n\n";
 
     std::string PATH = "./cifar_net.pth";
-    // torch::save(net, PATH);
+    torch::save(net, PATH);
 
     // Test the network on the test data
     net = Net();
