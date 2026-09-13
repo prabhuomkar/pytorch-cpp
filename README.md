@@ -12,9 +12,9 @@
 
 | OS (Compiler)\\LibTorch |                                                  2.14.0                                                |
 | :--------------------- | :--------------------------------------------------------------------------------------------------- |
-|    macOS (clang 15, 16)    | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_macos.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-macos) |
-|      Linux (gcc 13, 14)      | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_ubuntu.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-ubuntu) |
-|    Windows (msvc 2022, 2025)  | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_windows.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-windows) |
+|    macOS (clang 16)    | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_macos.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-macos) |
+|      Linux (gcc 14, 16)      | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_ubuntu.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-ubuntu) |
+|    Windows (msvc 2025)  | [![Status](https://github.com/prabhuomkar/pytorch-cpp/actions/workflows/build_windows.yml/badge.svg?branch=master)](https://github.com/prabhuomkar/pytorch-cpp/actions?query=workflow%3Aci-build-windows) |
 
 ## Table of Contents
 

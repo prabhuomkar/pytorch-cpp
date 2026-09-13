@@ -20,8 +20,8 @@ on:
 
 jobs:
   build-windows:
-    name: "Windows MSVC 2025"
-    runs-on: windows-2025
+    name: "Windows MSVC 2022"
+    runs-on: windows-2022
     steps:
     - name: Checkout
       uses: actions/checkout@v7
@@ -32,6 +32,7 @@ jobs:
     - name: Cpplint
       run: cmake -P cmake/cpplint.cmake
     - name: Configure
-      run: cmake -B build -A x64 -D DOWNLOAD_DATASETS=OFF
+      run: cmake -B build -G "Visual Studio 17 2022" -D DOWNLOAD_DATASETS=OFF
     - name: Build tutorials
       run: cmake --build build --config Release --parallel 4
+        
