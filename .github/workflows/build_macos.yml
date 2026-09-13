@@ -25,7 +25,7 @@ jobs:
         xcode: [15.3, 16.1]
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v2
       with:
