@@ -20,11 +20,11 @@ on:
 
 jobs:
   build-mac:
-    name: "macOS 14 arm64 Xcode (Clang)"
-    runs-on: macos-14
+    name: "macOS 15 arm64 Xcode (Clang)"
+    runs-on: macos-15
     strategy:
       matrix:
-        xcode: [15.3, 16.1]
+        xcode: [16.2, 16.4]
     steps:
     - name: Checkout
       uses: actions/checkout@v7

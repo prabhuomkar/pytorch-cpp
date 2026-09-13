@@ -20,28 +20,15 @@ on:
 
 jobs:
   build-windows:
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      matrix:
-        config:
-        - {
-            name: Windows MSVC 2022,
-            os: windows-2022,
-            cmake: '3.28.6'
-          }
-        - {
-            name: Windows MSVC 2025,
-            os: windows-2025,
-            cmake: '3.28.6'
-          }
+    name: "Windows MSVC 2025"
+    runs-on: windows-2025
     steps:
     - name: Checkout
       uses: actions/checkout@v7
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v2
       with:
-        cmake-version: ${{ matrix.config.cmake }}
+        cmake-version: '3.28.6'
     - name: Cpplint
       run: cmake -P cmake/cpplint.cmake
     - name: Configure
