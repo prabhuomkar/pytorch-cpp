@@ -7,7 +7,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 option(DOWNLOAD_DATASETS "Automatically download required datasets at build-time." ON)
 option(CREATE_SCRIPTMODULES "Automatically create all required scriptmodule files at build-time (requires python3)." OFF)
 
-set(PYTORCH_VERSION "2.8.0")
+set(PYTORCH_VERSION "2.14.0")
 set(PYTORCH_MIN_VERSION "1.12.0")
 
 find_package(Torch QUIET PATHS "${CMAKE_SOURCE_DIR}/libtorch")
@@ -37,7 +37,7 @@ add_executable(${EXECUTABLE_NAME})
 target_sources(${EXECUTABLE_NAME} PRIVATE main.cpp)
 
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES
-  CXX_STANDARD 17
+  CXX_STANDARD 20
   CXX_STANDARD_REQUIRED YES
 )
 
