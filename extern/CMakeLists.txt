@@ -7,7 +7,7 @@ include(FetchContent)
 FetchContent_Declare(
     extern_cxxopts
     GIT_REPOSITORY https://github.com/jarro2783/cxxopts.git
-    GIT_TAG v2.2.0
+    GIT_TAG v3.3.1
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cxxopts
 )
 
