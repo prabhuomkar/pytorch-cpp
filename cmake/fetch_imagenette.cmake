@@ -17,13 +17,17 @@ function(fetch_imagenette DATA_DIR)
             EXPECTED_MD5 "e793b78cc4c9e9a4ccc0c1155377a412"
             SHOW_PROGRESS)
 
+        # Extract next to the archive and move into place only on success,
+        # so an interrupted extraction is retried on the next build.
         execute_process(
-            COMMAND ${CMAKE_COMMAND} -E tar xf  
+            COMMAND ${CMAKE_COMMAND} -E tar xf
                     "${IMAGENETTE_DOWNLOAD_DIR}/imagenette2-160.tgz"
                     "imagenette2-160/train"
                     "imagenette2-160/val"
-            WORKING_DIRECTORY ${DATA_DIR})
+            WORKING_DIRECTORY ${IMAGENETTE_DOWNLOAD_DIR}
+            COMMAND_ERROR_IS_FATAL ANY)
 
+        file(RENAME "${IMAGENETTE_DOWNLOAD_DIR}/imagenette2-160" ${IMAGENETTE_DIR})
         file(REMOVE_RECURSE ${IMAGENETTE_DOWNLOAD_DIR})
 
         message(STATUS "Fetching Imagenette dataset - done")
