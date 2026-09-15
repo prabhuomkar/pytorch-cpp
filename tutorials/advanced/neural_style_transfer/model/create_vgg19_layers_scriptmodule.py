@@ -4,7 +4,7 @@ import torchvision
 
 def main():
     # Download and load the pretrained VGG19 layers.
-    vgg_19_layers = torchvision.models.vgg19(pretrained=True).features
+    vgg_19_layers = torchvision.models.vgg19(weights=torchvision.models.VGG19_Weights.IMAGENET1K_V1).features
 
     for param in vgg_19_layers.parameters():
         param.requires_grad = False

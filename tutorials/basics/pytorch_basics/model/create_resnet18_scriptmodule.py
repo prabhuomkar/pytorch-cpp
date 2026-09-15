@@ -5,7 +5,7 @@ import torchvision
 def main():
     # Source: https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/01-basics/pytorch_basics/main.py
     # Download and load the pretrained ResNet-18.
-    model = torchvision.models.resnet18(pretrained=True)
+    model = torchvision.models.resnet18(weights=torchvision.models.ResNet18_Weights.IMAGENET1K_V1)
 
     # If you want to finetune only the top layer of the model, set as below
     for param in model.parameters():
